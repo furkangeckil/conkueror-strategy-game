@@ -7,6 +7,50 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class User {
+	// This part is added	
+	private int numOfWins;
+    private int numOfLoses;
+    private float averagePlacement;
+
+    public User() {
+        this.numOfWins = 0;
+        this.numOfLoses = 0;
+        this.averagePlacement = 0;
+    }
+
+    public int getNumOfWins() {
+        return numOfWins;
+    }
+
+    public void incrementNumOfWins() {
+        this.numOfWins += 1;
+    }
+
+    public int getNumOfLoses() {
+        return numOfLoses;
+    }
+
+    public void incrementNumOfLoses() {
+        this.numOfLoses += 1;
+    }
+
+    public float getAveragePlacement() {
+        return averagePlacement;
+    }
+
+    public void updateAveragePlacement(float newPlacement) {
+        float totalPlacements = numOfWins + numOfLoses;
+        float currentTotalPlacementValue = averagePlacement * totalPlacements;
+        float newTotalPlacementValue = currentTotalPlacementValue + newPlacement;
+        this.averagePlacement = newTotalPlacementValue / (totalPlacements + 1);
+    }
+	
+	
+	// This part is added
+	
+	
+	
+	
     private String username;
     private String password;
 
