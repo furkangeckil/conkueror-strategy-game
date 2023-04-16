@@ -1,14 +1,14 @@
 package domain;
 
+import java.util.List;
+
 public class GameSetup {
-	public void createAndSetupNewGame() {
-		GameState gameState = new GameState();
-		gameState.setupGame();
+	/*public void createAndSetupNewGame() {
 		
-		GameBoard gameBoard = new GameBoard(gameState);
-		gameBoard.renderGame();
-		
-		PlayerController playerController = new PlayerController(gameState, gameBoard);
-		playerController.assignTurns();
+	}*/
+	public GameState setupNewGame(int numPlayers, int numComputerPlayers, int numContinents, List<String> nicknameList) {
+		GameState gameState = new GameState(numPlayers, numComputerPlayers, numContinents, nicknameList);
+
+		return gameState;
 	}
 }

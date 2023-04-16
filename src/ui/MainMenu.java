@@ -9,12 +9,12 @@ import domain.GameSetup;
 public class MainMenu {
 	public static void startNewGame() {
 		GameSetup gameSetup = new GameSetup();
-		gameSetup.createAndSetupNewGame();
-		showMainMenu();
+		//gameSetup.createAndSetupNewGame();
+		showMainMenu(gameSetup);
 		
 	}
 
-	public static void showMainMenu() {
+	public static void showMainMenu(GameSetup gameSetup) {
         JFrame mainMenuFrame = new JFrame("CONKUEROR");
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenuFrame.setSize(800, 600);
@@ -30,7 +30,7 @@ public class MainMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainMenuFrame.dispose();
-				GameSetupUI.showGameOptions();
+				GameSetupUI.showGameOptions(gameSetup);
             }
         });
         mainMenuFrame.add(startGameButton, BorderLayout.CENTER);

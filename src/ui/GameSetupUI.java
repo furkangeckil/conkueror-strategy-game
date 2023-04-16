@@ -1,11 +1,16 @@
 package ui;
 import javax.swing.*;
+
+import domain.GameSetup;
+import domain.GameState;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class GameSetupUI {
-    public static void showGameOptions() {
+    public static void showGameOptions(GameSetup gameSetup) {
         JFrame optionsFrame = new JFrame("Game Options & Map Settings");
         optionsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         optionsFrame.setSize(800, 600);
@@ -34,10 +39,9 @@ public class GameSetupUI {
                 int numPlayers = (int) numPlayersComboBox.getSelectedItem();
                 int numComputerPlayers = (int) numComputerPlayersComboBox.getSelectedItem();
                 int numContinents = (int) numContinentsComboBox.getSelectedItem();
-
+                GameState gameState = gameSetup.setupNewGame(numPlayers, numComputerPlayers, numContinents, new ArrayList<>());
                 // Do something with the selected options, like creating a new game
-                LoginUI.showLogin(numPlayers, numContinents);
-
+                LoginUI.showLogin(gameState);
                 optionsFrame.dispose();
             }
         });
