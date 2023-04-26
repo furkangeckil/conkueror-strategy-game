@@ -1,5 +1,11 @@
 package domain;
 
-public class TerritoryCard {
-    //Impelement Territory Cards
+public class TerritoryCard extends Card{
+	//Impelement Territory Cards
+	
+	@Override
+	public void applyEffect() {
+		// Implement applyEffect logic
+	}
+    
 }
