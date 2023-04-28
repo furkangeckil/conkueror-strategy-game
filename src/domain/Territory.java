@@ -47,6 +47,6 @@ public class Territory {
     public List<Territory> getNeighbours() {
         return neighbours;
     }
-
+    // TODO: implement isconneccted method
 
 }
