@@ -31,5 +31,9 @@ public class GameState {
 	public int getNumContinents() {
         return gameBoard.getNumContinents();
     }
+	
+	public void useCard(Player player, Card card ) {
+		card.applyEffect(player);
+	}
 
 }

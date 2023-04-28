@@ -6,9 +6,10 @@ public abstract class Card {
 	protected String type;
 	
 	public void addToPlayer(Player player) {
-		// Implement addToPlayer logic
+		this.owner=player;
+		player.addCardToList(this);
 	}
 	
-	public abstract void applyEffect();
-	
+	public abstract void applyEffect(Player player);
+	public abstract void applyEffect(int option);
 }

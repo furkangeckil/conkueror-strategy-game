@@ -24,7 +24,26 @@ public class Player extends User {
         // Implement drawCard logic
     }
 
-    public void useCard() {
-        // Implement useCard logic
+    public void useCard(Card card) {
+    	//GameState.useCard(Player this, Card card );
     }
+    
+    //adds the given car to the card list of the player 
+    public void addCardToList(Card card) {
+        this.cards.add(card);
+    }
+    
+    public void addTerritory(Territory territory) {
+		territories.add(territory);
+	} 
+    
+    public void removeTerritory(Territory territory) {
+		territories.remove(territory);
+	}
+
+	public List<Card> getCards() {
+		return cards;
+	}
+    
+    
 }
