@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class GameSetupUI {
     public static void showGameOptions(GameSetup gameSetup) {
-        JFrame optionsFrame = new JFrame("Game Options & Map Settings");
-        optionsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            JFrame optionsFrame = new JFrame("Game Options & Map Settings");
+            optionsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         optionsFrame.setSize(800, 600);
         optionsFrame.setLayout(new BorderLayout());
 
@@ -49,4 +49,41 @@ public class GameSetupUI {
 
         optionsFrame.setVisible(true);
     }
+
+    public static void showHelpScreen(GameSetup gameSetup) {
+        JFrame helpFrame = new JFrame("Help Screen");
+        helpFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        helpFrame.setSize(800, 600);
+        helpFrame.setLayout(new BorderLayout());
+
+        JTextArea instructionsArea = new JTextArea();
+        instructionsArea.setText("Welcome to the game!\n\n" +
+                "Instructions:\n" +
+                "    Initial Sharing of Territories and Army Placement\n" +
+                "      - Each player receives X amount of infantry (X depends on # of players)\n" +
+                "      - All players roll a die, highest result places one infantry piece onto a territory to claim it\n" +
+                        "      - All players roll a die, highest result places one infantry piece onto a territory to claim it\n" +
+                "Press 'Start' to begin the game.");
+        instructionsArea.setEditable(false);
+
+        JPanel helpPanel = new JPanel(new GridLayout(4, 2));
+        helpPanel.add(instructionsArea);
+
+        helpFrame.add(helpPanel, BorderLayout.CENTER);
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                ui.MainMenu.showMainMenu(gameSetup);
+                helpFrame.dispose();
+            }
+        });
+        helpFrame.add(backButton, BorderLayout.SOUTH);
+
+        helpFrame.setVisible(true);
+    }
+
+
 }

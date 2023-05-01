@@ -1,6 +1,13 @@
 package domain;
 
 public class Territory {
-    //Implement Territory
-    private 
+    private Continent continent;
+
+    public Territory(Continent continent) {
+        this.continent = continent;
+    }
+
+    public Continent getContinent() {
+        return continent;
+    }
 }
