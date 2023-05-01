@@ -14,6 +14,7 @@ public class ArmyCard extends Card{
 	@Override
 	public void applyEffect() {
 		// Implement applyEffect logic
+
 	}
 
     
