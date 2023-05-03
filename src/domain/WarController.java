@@ -29,27 +29,35 @@ public class WarController {
         }
     }
 
-    private void compareDiceResults() {
+    private void compareDiceResults(Territory attackerTerritory, Territory defenderTerritory) {
         int[] attackerResults = attackerDice.getDieResults();
         int[] defenderResults = defenderDice.getDieResults();
-
+    
         sortDescending(attackerResults);
         sortDescending(defenderResults);
-
+    
         int numberOfComparisons = Math.min(attackerResults.length, defenderResults.length);
-
+    
         for (int i = 0; i < numberOfComparisons; i++) {
             if (attackerResults[i] > defenderResults[i]) {
-                // Handle the case when the attacker wins the comparison
+                // Attacker wins the comparison
+                defenderTerritory.removeArmies(1);
             } else {
-                // Handle the case when the defender wins or the result is a tie
+                // Defender wins or the result is a tie
+                attackerTerritory.removeArmies(1);
             }
         }
     }
+    
 
-    public void resolveBattle() {
-        attackerRollDice();
-        defenderRollDice();
-        compareDiceResults();
+    public void resolveBattle(Territory attackerTerritory, Territory defenderTerritory) {
+        int attackingArmies = Math.min(attackerTerritory.getArmies() - 1, 3);
+        int defendingArmies = Math.min(defenderTerritory.getArmies(), 2);
+
+        if (attackingArmies > 0 && defendingArmies > 0) {
+            attackerRollDice(attackingArmies);
+            defenderRollDice(defendingArmies);
+            compareDiceResults(attackerTerritory, defenderTerritory);
+        }
     }
 }
