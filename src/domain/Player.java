@@ -8,8 +8,10 @@ public class Player extends User {
     private List<Territory> territories;
     private List<Card> cards;
 
-    public void placeArmies() {
-        // Implement placeArmies logic
+    public void placeArmies(Territory territory, Army army) {
+        if(territories.contains(territory) && armies.contains(army)) {
+        	territory.addArmy(army);
+        }
     }
 
     public void attack() {
