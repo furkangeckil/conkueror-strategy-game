@@ -12,7 +12,7 @@ public class GameState {
 	private boolean buildingMode;
 	private List<Territory> territories
     
-    public GameState(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList, boolean buildingMode) {
+    public GameState(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList) {
 		// Set up game board, assign players
 		this.players = players;
         this.numComputerPlayers = numComputerPlayers;
@@ -20,18 +20,17 @@ public class GameState {
         this.territories = territories;
         gameBoard = new GameBoard(numContinents);
         
-        if(buildingMode == False) {
-        	Random random = new Random();
-        	for(int i = 0; i<territories.length; i++) {
-        		while(true) {
-        			Territory territory = territory[random.nextInt(territories.length)];
-        			if(territory.getOwner() == null)
-        				break; 
-        		}
-        		Player player = players[i%(players.length)];
-        		territory.setOwner(player);
+        Random random = new Random();
+        for(int i = 0; i<territories.length; i++) {
+        	while(true) {
+        		Territory territory = territory[random.nextInt(territories.length)];
+        		if(territory.getOwner() == null)
+        			break; 
         	}
+        	Player player = players[i%(players.length)];
+        	territory.setOwner(player);
         }
+        
         
 	}
 
