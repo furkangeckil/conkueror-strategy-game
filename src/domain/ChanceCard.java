@@ -1,10 +1,6 @@
 package domain;
 
-public class ChanceCard extends Card {
+public class ChanceCard {
 	//Implement Chance Cards
 	
-	@Override
-	public void applyEffect() {
-		// Implement applyEffect logic
-	}
 }
