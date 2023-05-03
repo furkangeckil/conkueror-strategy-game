@@ -30,8 +30,6 @@ public class GameState {
         	Player player = players[i%(players.length)];
         	territory.setOwner(player);
         }
-        
-        
 	}
 
 	public int getNumPlayers() {
