@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.List;
-import java.util.Random;
-
+import java.util.*;
 public class GameState {
 	private Player currentPlayer;
     private GameBoard gameBoard;
@@ -10,7 +8,8 @@ public class GameState {
     private int numComputerPlayers;
     private List<String> nicknameList;
 	private boolean buildingMode;
-	private List<Territory> territories
+	private List<Territory> territories;
+	private int numContinents;
     
     public GameState(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList) {
 		// Set up game board, assign players
@@ -21,19 +20,24 @@ public class GameState {
         gameBoard = new GameBoard(numContinents);
         
         Random random = new Random();
-        for(int i = 0; i<territories.length; i++) {
+        for(int i = 0; i<territories.size(); i++) {
         	while(true) {
-        		Territory territory = territory[random.nextInt(territories.length)];
-        		if(territory.getOwner() == null)
-        			break; 
+        		int x = random.nextInt(territories.size());
+        		if(territories.get(x).getOwner() != null)
+        			continue;
+        		else {
+        			Territory territory = territories.get(x);
+            		Player player = players.get(i%(players.size()));
+            		territory.setOwner(player);
+            		break;
+        		}
         	}
-        	Player player = players[i%(players.length)];
-        	territory.setOwner(player);
+        	
         }
 	}
 
 	public int getNumPlayers() {
-        return numPlayers;
+        return players.size();
     }
 
     public int getNumComputerPlayers() {
