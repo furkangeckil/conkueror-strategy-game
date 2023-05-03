@@ -22,9 +22,13 @@ public class GameState {
         
         if(buildingMode == False) {
         	Random random = new Random();
-        	for(int i = 0; i<players.length; i++) {
-        		Territory territory = territory[random.nextInt(territories.length)];
-        		Player player = players[i];
+        	for(int i = 0; i<territories.length; i++) {
+        		while(true) {
+        			Territory territory = territory[random.nextInt(territories.length)];
+        			if(territory.getOwner() == null)
+        				break; 
+        		}
+        		Player player = players[i%(players.length)];
         		territory.setOwner(player);
         	}
         }
