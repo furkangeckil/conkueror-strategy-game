@@ -1,17 +1,21 @@
 package ui;
 
 import javax.swing.*;
+
+import domain.GameEnum;
+import domain.GameSetup;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class BoardUI {
-    private static final Color[] CONTINENT_COLORS = {
+    private static final Color[] PLAYER_COLORS = {
             Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN
     };
 
-    public static void showBoard(int numContinents, List<String> nicknameList) {
+    public static void showBoard(int numContinents, List<String> nicknameList, GameSetup gameSetup) {
         JFrame boardFrame = new JFrame("World Map");
         boardFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         boardFrame.setSize(1000, 600);
@@ -35,7 +39,8 @@ public class BoardUI {
 
             for (int territoryIndex = 0; territoryIndex < numTerritories; territoryIndex++) {
                 JPanel territoryPanel = new JPanel();
-                territoryPanel.setBackground(CONTINENT_COLORS[continentIndex]);
+                territoryPanel.setLayout(new GridBagLayout()); // To center the label
+                territoryPanel.setBackground(Color.LIGHT_GRAY);
                 territoryPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
                 int territoryWidth = 40;
@@ -44,6 +49,11 @@ public class BoardUI {
                 int territoryY = continentY + (territoryIndex / 4) * territoryHeight;
 
                 territoryPanel.setBounds(territoryX, territoryY, territoryWidth, territoryHeight);
+
+                // Add army count label to the territory panel
+                int armyCount = 1;
+                JLabel armyCountLabel = new JLabel(Integer.toString(armyCount));
+                territoryPanel.add(armyCountLabel, new GridBagConstraints());
 
                 boardPanel.add(territoryPanel);
 
@@ -60,17 +70,35 @@ public class BoardUI {
             JLabel userNameLabel = new JLabel(nicknameList.get(i));
             userNameLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             userNameLabel.setOpaque(true);
-            //userNameLabel.setBackground(CONTINENT_COLORS[i]);
+            userNameLabel.setBackground(PLAYER_COLORS[i % PLAYER_COLORS.length]);
             userNamesPanel.add(userNameLabel);
             userNamesPanel.add(Box.createHorizontalStrut(10)); // Add spacing between labels
         }
 
         boardFrame.add(userNamesPanel, BorderLayout.NORTH);
 
+        JButton pauseResumeButton = new JButton("Pause");
+        pauseResumeButton.addActionListener(e -> {
+        if (gameSetup.getGame().getGameEnum() == GameEnum.RUNNING) {
+            gameSetup.getGame().pauseGame();
+            pauseResumeButton.setText("Resume");
+            System.out.println("The Game is Paused");
+        } else if (gameSetup.getGame().getGameEnum() == GameEnum.PAUSED) {
+            gameSetup.getGame().resumeGame();
+            pauseResumeButton.setText("Pause");
+            System.out.println("The Game is Resumed");
+        }
+    });
+
         JButton exitButton = new JButton("Exit");
+        if (exitButton.getModel().isPressed()){
+            gameSetup.getGame().endGame();
+        }
         exitButton.addActionListener(e -> System.exit(0));
+        
 
         JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(pauseResumeButton, BorderLayout.WEST);
         bottomPanel.add(exitButton, BorderLayout.EAST);
         boardFrame.add(bottomPanel, BorderLayout.SOUTH);
 
