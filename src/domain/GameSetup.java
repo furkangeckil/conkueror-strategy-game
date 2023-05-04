@@ -9,9 +9,10 @@ public class GameSetup {
     	gameThread.start(); 
 	}
 
-	public GameState setupNewGame(int numPlayers, int numComputerPlayers, int numContinents, List<String> nicknameList) {
+	public GameState setupNewGame(int numPlayers, int numComputerPlayers, int numContinents, List <String> nicknameList) {
+		
 		GameState gameState = new GameState(numPlayers, numComputerPlayers, numContinents, nicknameList);
-
+		
 		return gameState;
 	}
 
