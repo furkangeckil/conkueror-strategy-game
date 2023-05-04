@@ -1,34 +1,52 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Territory {
+    private User owner;
+    private Continent belongTo;
+    private List<Army> armies;
+    private List<Territory> neighbours;
 
-
-    // We need Neighbour list for each territory so that we can check if attack and moving armies available
-
-    private Continent continent;
-    private int armies;
-
-    public Territory(Continent continent) {
-        this.continent = continent;
-        this.armies = 0;
+    public Territory(User owner, Continent belongTo) {
+        this.owner = owner;
+        this.belongTo = belongTo;
+        this.armies = new ArrayList<>();
+        this.neighbours = new ArrayList<>();
     }
 
-    public Continent getContinent() {
-        return continent;
+    public User getOwner() {
+        return owner;
     }
 
-    public int getArmies() {
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Continent getBelongTo() {
+        return belongTo;
+    }
+
+    public void setBelongTo(Continent belongTo) {
+        this.belongTo = belongTo;
+    }
+
+    public List<Army> getArmies() {
         return armies;
     }
 
-    public void addArmies(int armies) {
-        this.armies += armies;
+    public void addArmy(Army army) {
+        this.armies.add(army);
     }
 
-    public void removeArmies(int armies) {
-        this.armies -= armies;
-        if (this.armies < 0) {
-            this.armies = 0;
-        }
+    public void removeArmy(Army army) {
+        this.armies.remove(army);
     }
+
+    public List<Territory> getNeighbours() {
+        return neighbours;
+    }
+    // TODO: implement isconneccted method
+
 }
