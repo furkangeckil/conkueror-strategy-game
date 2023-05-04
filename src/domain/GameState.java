@@ -10,6 +10,7 @@ public class GameState {
 	private boolean buildingMode;
 	private List<Territory> territories;
 	private int numContinents;
+	private static GameState instance;
     
     public GameState(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList) {
 		// Set up game board, assign players
