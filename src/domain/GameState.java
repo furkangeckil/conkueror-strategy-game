@@ -58,10 +58,15 @@ public class GameState {
 		this.numComputerPlayers = numComputerPlayers;
 		this.numContinents = numContinents;
 		this.nicknameList = nicknameList;
+		gameBoard = new GameBoard(numContinents);
 	}
     
-	public int getNumPlayers() {
+	/*public int getNumPlayers() {
         return players.size();
+    }*/
+
+	public int getNumPlayers() {
+        return numPlayers;
     }
 
     public int getNumComputerPlayers() {
@@ -73,7 +78,7 @@ public class GameState {
     }
 
 	public int getNumContinents() {
-        return gameBoard.getNumContinents();
+        return numContinents;
     }
 	
 	//calls applyEffect function of card class to use effect of territory card (P.S: this can be used for chance card also)
