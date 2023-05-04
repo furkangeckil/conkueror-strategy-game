@@ -36,7 +36,10 @@ public class GameState {
         }
 	}
 
-	public int getNumPlayers() {
+	public GameState(int numPlayers, int numComputerPlayers2, int numContinents2, List<String> nicknameList2) {
+    }
+
+    public int getNumPlayers() {
         return players.size();
     }
 

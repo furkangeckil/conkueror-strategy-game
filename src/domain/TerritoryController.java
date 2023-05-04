@@ -1,6 +1,14 @@
 package domain;
 
 public class TerritoryController {
+    
+    private static TerritoryController instance;
+    public static TerritoryController getInstance() {
+        if (instance == null) {
+            instance = new TerritoryController();
+        }
+        return instance;
+    }
 
 
 
