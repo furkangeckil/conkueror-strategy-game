@@ -3,7 +3,8 @@ package ui;
 public class Main {
 
 	public static void main(String[] args) {
-		MainMenu.startNewGame();
+		LoginUI loginUI = new LoginUI();
+		loginUI.showLoginScreen();		
 	}
 
 }

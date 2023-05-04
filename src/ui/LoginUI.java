@@ -1,67 +1,66 @@
 package ui;
 import javax.swing.*;
 
-import domain.GameSetup;
-import domain.GameState;
-import domain.Territory;
-import domain.TerritoryController;
+import domain.UserManager;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoginUI {
-    public static List<String> showLogin(GameState gameState, GameSetup gameSetup) {
-        JFrame loginFrame = new JFrame("Enter Nicknames");
-        loginFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        loginFrame.setSize(400, 300);
-        loginFrame.setLayout(new BorderLayout());
-        List<String> nicknameList = new ArrayList<>();
+    public UserManager userManager = new UserManager();
 
-        JPanel loginPanel = new JPanel(new GridLayout(gameState.getNumPlayers(), 2));
-        List<JTextField> nicknameFields = new ArrayList<>();
+    public void showLoginScreen() {
+        JFrame loginFrame = new JFrame("Login");
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.setSize(300, 200);
 
-        for (int i = 1; i <= gameState.getNumPlayers(); i++) {
-            loginPanel.add(new JLabel("Player " + i + " nickname:"));
-            JTextField nicknameField = new JTextField();
-            nicknameFields.add(nicknameField);
-            loginPanel.add(nicknameField);
-        }
+        JPanel loginPanel = new JPanel(new GridLayout(3, 2));
 
-        loginFrame.add(loginPanel, BorderLayout.CENTER);
+        JLabel usernameLabel = new JLabel("Username:");
+        JTextField usernameField = new JTextField();
+        JLabel passwordLabel = new JLabel("Password:");
+        JPasswordField passwordField = new JPasswordField();
 
-        JButton continueButton = new JButton("Continue");
-        continueButton.addActionListener(new ActionListener() {
+        JButton loginButton = new JButton("Login");
+        loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = new File("nicknames.txt");
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
 
-                try (FileWriter writer = new FileWriter(file)) {
-                    for (JTextField nicknameField : nicknameFields) {
-                        String nickname = nicknameField.getText();
-                        nicknameList.add(nickname);
-                        writer.write(nickname + "\n");
-                    }
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                if (userManager.authenticateUser(username, password)) {
+                    JOptionPane.showMessageDialog(loginFrame, "Login successful");
+                    MainMenu.startNewGame();
+                    loginFrame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(loginFrame, "Login failed");
                 }
-                TerritoryController territoryController = new TerritoryController();
-                Territory[] allTerritories = territoryController.getAllTerritories();
-                BoardUI.showBoard(gameState.getNumContinents(), nicknameList, gameSetup, allTerritories);
-
-                loginFrame.dispose();
-                // Continue with the game setup or game creation, using the entered nicknames
             }
         });
 
-        loginFrame.add(continueButton, BorderLayout.SOUTH);
+        JButton registerButton = new JButton("Register");
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                userManager.registerUser(username, password);
+                JOptionPane.showMessageDialog(loginFrame, "Registration successful");
+                MainMenu.startNewGame();
+                loginFrame.dispose();
+            }
+        });
+
+        loginPanel.add(usernameLabel);
+        loginPanel.add(usernameField);
+        loginPanel.add(passwordLabel);
+        loginPanel.add(passwordField);
+        loginPanel.add(loginButton);
+        loginPanel.add(registerButton);
+
+        loginFrame.add(loginPanel);
         loginFrame.setVisible(true);
-        
-        return nicknameList;
     }
 }
