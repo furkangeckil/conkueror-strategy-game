@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Territory {
-    private User owner;
+    private Player owner;
     private Continent continent;
     private List<Army> armies;
     private List<Territory> neighbours;
@@ -14,20 +14,20 @@ public class Territory {
         this.neighbours = new ArrayList<>();
     }
 
-    public User getOwner() {
+    public Player getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(Player owner) {
         this.owner = owner;
     }
 
-    public Continent getBelongTo() {
-        return belongTo;
+    public Continent getContinent() {
+        return continent;
     }
 
-    public void setBelongTo(Continent belongTo) {
-        this.belongTo = belongTo;
+    public void setContinent(Continent belongTo) {
+        this.continent = belongTo;
     }
 
     public List<Army> getArmies() {
