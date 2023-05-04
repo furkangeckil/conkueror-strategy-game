@@ -51,5 +51,15 @@ public class GameState {
 	public int getNumContinents() {
         return gameBoard.getNumContinents();
     }
+	
+	//calls applyEffect function of card class to use effect of territory card (P.S: this can be used for chance card also)
+	public void useCard(Player player, Card card ) {
+		card.applyEffect(player);
+	}
+	
+	//calls tradeArmyCards function of ArmyCard class to change army cards with army
+	public void tradeArmyCards(Player player, int option) {
+		ArmyCard.tradeArmyCards(player, option);
+	}
 
 }
