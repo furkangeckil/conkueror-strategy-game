@@ -11,6 +11,7 @@ public class Army {
 	}
 
 	public boolean moveValidator(Territory to) {
+		// Return true if Territory to is a neighbour of placedIn
 		return true;
 	}
 

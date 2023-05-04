@@ -1,6 +1,10 @@
 package domain;
 
 public class Territory {
+
+
+    // We need Neighbour list for each territory so that we can check if attack and moving armies available
+
     private Continent continent;
     private int armies;
 

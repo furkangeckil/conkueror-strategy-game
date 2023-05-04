@@ -1,12 +1,21 @@
 package domain;
 
 public class WarController {
+    private static WarController instance;
     private AttackerDice attackerDice;
     private DefenderDice defenderDice;
+    
 
     public WarController() {
         attackerDice = new AttackerDice();
         defenderDice = new DefenderDice();
+    }
+
+    public static WarController getInstance() {
+        if (instance == null) {
+            instance = new WarController();
+        }
+        return instance;
     }
 
     public void attackerRollDice() {
