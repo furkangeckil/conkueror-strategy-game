@@ -2,7 +2,6 @@ package domain;
 
 public class Army {
     
-	// TODO implement army crowd mechanics
     private Player owner;
 	private Territory placedIn;
     
@@ -10,13 +9,9 @@ public class Army {
 		this.owner = owner;
 		this.placedIn = placedIn;
 	}
-    
-    public void addToPlayer (Player player ) {
-    	owner = player;
-    }
 
 	public boolean moveValidator(Territory to) {
-		for ()
+		return true;
 	}
 
 	public void moveArmy(Territory destination) {

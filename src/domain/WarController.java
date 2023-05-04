@@ -55,8 +55,8 @@ public class WarController {
         int defendingArmies = Math.min(defenderTerritory.getArmies(), 2);
 
         if (attackingArmies > 0 && defendingArmies > 0) {
-            attackerRollDice(attackingArmies);
-            defenderRollDice(defendingArmies);
+            attackerRollDice();
+            defenderRollDice();
             compareDiceResults(attackerTerritory, defenderTerritory);
         }
     }
