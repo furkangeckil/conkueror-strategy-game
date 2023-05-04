@@ -1,52 +1,29 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Territory {
-    private User owner;
-    private Continent belongTo;
-    private List<Army> armies;
-    private List<Territory> neighbours;
+    private Continent continent;
+    private Player owner;
+    private String name;
 
-    public Territory(User owner, Continent belongTo) {
+    public Territory(String name, Player owner, Continent continent) {
         this.owner = owner;
-        this.belongTo = belongTo;
-        this.armies = new ArrayList<>();
-        this.neighbours = new ArrayList<>();
+        this.continent = continent;
+        this.name = name;
     }
 
-    public User getOwner() {
-        return owner;
+    public void chnageOwner(Player newOwner) {
+        this.owner = newOwner;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public Player getOwner() {
+        return this.owner;
     }
 
-    public Continent getBelongTo() {
-        return belongTo;
+    public Continent getContinent() {
+        return continent;
     }
 
-    public void setBelongTo(Continent belongTo) {
-        this.belongTo = belongTo;
+    public String getName() {
+        return name;
     }
-
-    public List<Army> getArmies() {
-        return armies;
-    }
-
-    public void addArmy(Army army) {
-        this.armies.add(army);
-    }
-
-    public void removeArmy(Army army) {
-        this.armies.remove(army);
-    }
-
-    public List<Territory> getNeighbours() {
-        return neighbours;
-    }
-    // TODO: implement isconneccted method
-
 }
