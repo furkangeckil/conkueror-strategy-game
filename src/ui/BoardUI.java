@@ -9,6 +9,8 @@ import java.util.Random;
 public class BoardUI {
     private static final Color[] CONTINENT_COLORS = {
             Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN
+            // Actually we do not need to color continents, we need to assign colors to players so that they can place armies
+            // and make territories their colors.
     };
 
     public static void showBoard(int numContinents, List<String> nicknameList) {
