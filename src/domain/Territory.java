@@ -40,8 +40,8 @@ public class Territory {
         this.armies.add(army);
     }
 
-    public void removeArmy(Army army) {
-        this.armies.remove(army);
+    public void removeArmy(int i) {
+        this.armies.remove(i);
     }
 
     public List<Territory> getNeighbours() {

@@ -50,18 +50,18 @@ public class WarController {
         for (int i = 0; i < numberOfComparisons; i++) {
             if (attackerResults[i] > defenderResults[i]) {
                 // Attacker wins the comparison
-                defenderTerritory.removeArmies(1);
+                defenderTerritory.removeArmy(1);
             } else {
                 // Defender wins or the result is a tie
-                attackerTerritory.removeArmies(1);
+                attackerTerritory.removeArmy(1);
             }
         }
     }
     
 
     public void resolveBattle(Territory attackerTerritory, Territory defenderTerritory) {
-        int attackingArmies = Math.min(attackerTerritory.getArmies() - 1, 3);
-        int defendingArmies = Math.min(defenderTerritory.getArmies(), 2);
+        int attackingArmies = Math.min(attackerTerritory.getArmies().size() - 1, 3);
+        int defendingArmies = Math.min(defenderTerritory.getArmies().size(), 2);
 
         if (attackingArmies > 0 && defendingArmies > 0) {
             attackerRollDice();
