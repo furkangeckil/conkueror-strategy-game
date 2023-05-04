@@ -10,6 +10,7 @@ public class GameState {
 	private boolean buildingMode;
 	private List<Territory> territories;
 	private int numContinents;
+	private static GameState instance;
     
     public GameState(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList) {
 		// Set up game board, assign players
@@ -36,6 +37,20 @@ public class GameState {
         }
 	}
 
+    public static GameState getInstance(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList) {
+    	if (instance == null) {
+    		instance = new GameState(players, numComputerPlayers,territories,nicknameList);
+    	}
+    	return instance;
+    }
+    
+    public static GameState getInstance() {
+    	if (instance == null) {
+    		return null;
+    	}
+    	return instance;
+    }
+    
 	public int getNumPlayers() {
         return players.size();
     }
