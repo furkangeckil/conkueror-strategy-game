@@ -1,7 +1,10 @@
 package ui;
 import javax.swing.*;
 
+import domain.GameSetup;
 import domain.GameState;
+import domain.Territory;
+import domain.TerritoryController;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginUI {
-    public static void showLogin(GameState gameState) {
+    public static List<String> showLogin(GameState gameState, GameSetup gameSetup) {
         JFrame loginFrame = new JFrame("Enter Nicknames");
         loginFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         loginFrame.setSize(400, 300);
@@ -47,8 +50,9 @@ public class LoginUI {
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
-
-                BoardUI.showBoard(gameState.getNumContinents(), nicknameList);
+                TerritoryController territoryController = new TerritoryController();
+                Territory[] allTerritories = territoryController.getAllTerritories();
+                BoardUI.showBoard(gameState.getNumContinents(), nicknameList, gameSetup, allTerritories);
 
                 loginFrame.dispose();
                 // Continue with the game setup or game creation, using the entered nicknames
@@ -57,5 +61,7 @@ public class LoginUI {
 
         loginFrame.add(continueButton, BorderLayout.SOUTH);
         loginFrame.setVisible(true);
+        
+        return nicknameList;
     }
 }

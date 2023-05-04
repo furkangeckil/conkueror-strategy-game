@@ -41,7 +41,7 @@ public class GameSetupUI {
                 int numContinents = (int) numContinentsComboBox.getSelectedItem();
                 GameState gameState = gameSetup.setupNewGame(numPlayers, numComputerPlayers, numContinents, new ArrayList<>());
                 // Do something with the selected options, like creating a new game
-                LoginUI.showLogin(gameState);
+                LoginUI.showLogin(gameState, gameSetup);
                 optionsFrame.dispose();
             }
         });
