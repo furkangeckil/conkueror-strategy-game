@@ -1,23 +1,43 @@
 package domain;
 
-import java.util.List;
-
+import java.util.*;
 public class GameState {
 	private Player currentPlayer;
     private GameBoard gameBoard;
-    private int numPlayers;
+    private List<Player> players;
     private int numComputerPlayers;
     private List<String> nicknameList;
-	public GameState(int numPlayers, int numComputerPlayers, int numContinents, List<String> nicknameList) {
+	private boolean buildingMode;
+	private List<Territory> territories;
+	private int numContinents;
+    
+    public GameState(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList) {
 		// Set up game board, assign players
-		this.numPlayers = numPlayers;
+		this.players = players;
         this.numComputerPlayers = numComputerPlayers;
         this.nicknameList = nicknameList;
+        this.territories = territories;
         gameBoard = new GameBoard(numContinents);
+        
+        Random random = new Random();
+        for(int i = 0; i<territories.size(); i++) {
+        	while(true) {
+        		int x = random.nextInt(territories.size());
+        		if(territories.get(x).getOwner() != null)
+        			continue;
+        		else {
+        			Territory territory = territories.get(x);
+            		Player player = players.get(i%(players.size()));
+            		territory.setOwner(player);
+            		break;
+        		}
+        	}
+        	
+        }
 	}
 
 	public int getNumPlayers() {
-        return numPlayers;
+        return players.size();
     }
 
     public int getNumComputerPlayers() {

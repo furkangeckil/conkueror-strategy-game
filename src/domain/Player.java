@@ -20,12 +20,11 @@ public class Player extends User {
 		this.cards = new ArrayList();
 	}
 
-	public void addState(GameState gameState) {
-        this.gameState = gameState;
-    }
-    
-    public void placeArmies() {
-        // Implement placeArmies logic
+   public void placeArmies(Territory territory, Army army) {
+        if(territories.contains(territory) && armies.contains(army)) {
+        	territory.addArmy(army);
+        }
+
     }
 
     public void attack() {
