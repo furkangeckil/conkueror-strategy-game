@@ -34,13 +34,16 @@ public class Army {
     
     //gives armyTypes for the given army type string 
     public static armyTypes transformType(String type) {
-    	switch (type) {
-        case "Artillery", "ARTILLERY":
-            return armyTypes.ARTILLERY;
-        case "Cavalry", "CAVALRY":
-            return armyTypes.CAVALRY;
-        case "Infantry", "INFANTRY":
-            return armyTypes.INFANTRY;
+    	switch (type){
+			case "Artillery":
+			case "ARTILLERY":
+            	return armyTypes.ARTILLERY;
+			case "Cavalry":
+			case "CAVALRY":
+            	return armyTypes.CAVALRY;
+			case "Infantry":
+			case "INFANTRY":
+            	return armyTypes.INFANTRY;
         }
 		return null;
     	
