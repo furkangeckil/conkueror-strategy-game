@@ -47,12 +47,42 @@ public class Player extends User {
     }
 
 
-	public List<Player> getTerritories() {
-		return null;
+	public List<Territory> getTerritories() {
+		return territories;
 	}
 
 
     public void decreaseUnassignedArmies(int i) {
+    }
+
+
+    public void removeTerritoryFromPlayer(Territory territory) {
+        territories.remove(territory);
+    }
+
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+
+    public void addTerritoryToPlayer(Territory territory) {
+        territories.add(territory);
+    }
+
+
+    public void addArmyToPlayer(Army army) {
+        // imlement
+    }
+
+
+    public void removeCardFromPlayer(armyTypes infantry, int i) {
+        // imlement
+    }
+
+
+    public void addCardToPlayer(Card card) {
+        // imlement
     }
     
 }
