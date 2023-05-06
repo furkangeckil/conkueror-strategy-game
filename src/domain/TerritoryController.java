@@ -1,8 +1,13 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public class TerritoryController {
 
-
+    private static TerritoryController instance;
 
     Territory westEurope = new Territory("WE", null, null);
     Territory eastEurope = new Territory("EE",null, null);
@@ -62,5 +67,72 @@ public class TerritoryController {
 
         return territories;
     }
+
+    public static TerritoryController getInstance() {
+        if (instance == null) {
+            instance = new TerritoryController();
+        }
+        return instance;
+    }
+
+
+    public void distributeInitialArmies(List<Player> players) {
+        Territory[] territories = getAllTerritories();
+        int numberOfPlayers = players.size();
+        int initialArmiesPerPlayer;
+
+        switch (numberOfPlayers) {
+            case 3:
+                initialArmiesPerPlayer = 35;
+                break;
+            case 4:
+                initialArmiesPerPlayer = 30;
+                break;
+            case 5:
+                initialArmiesPerPlayer = 25;
+                break;
+            case 6:
+                initialArmiesPerPlayer = 20;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid number of players: " + numberOfPlayers);
+        }
+
+        assignPlayersToTerritories(players, territories);
+        distributeArmies(players, territories, initialArmiesPerPlayer);
+    }
+
+    private void assignPlayersToTerritories(List<Player> players, Territory[] territories) {
+        List<Player> playerAssignmentOrder = new ArrayList<>(players);
+        Collections.shuffle(playerAssignmentOrder);
+        int numberOfPlayers = players.size();
+
+        for (int i = 0; i < territories.length; i++) {
+            Player currentPlayer = playerAssignmentOrder.get(i % numberOfPlayers);
+            territories[i].setOwner(currentPlayer);
+            territories[i].setArmyNum(1);
+            currentPlayer.decreaseUnassignedArmies(1);
+        }
+    }
+
+    private void distributeArmies(List<Player> players, Territory[] territories, int initialArmiesPerPlayer) {
+        Random random = new Random();
+
+        for (Player player : players) {
+            int remainingArmies = initialArmiesPerPlayer - player.getTerritories().size();
+            while (remainingArmies > 0) {
+                Territory randomTerritory = territories[random.nextInt(territories.length)];
+                if (randomTerritory.getOwner().equals(player)) {
+                    randomTerritory.addArmy(1);
+                    remainingArmies--;
+                }
+            }
+        }
+    }
+
+
+
+
+    
 
 }
