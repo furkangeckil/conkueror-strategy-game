@@ -60,6 +60,8 @@ public class WarController {
     
 
     public void resolveBattle(Territory attackerTerritory, Territory defenderTerritory) {
+        int attackingArmies = Math.min(attackerTerritory.getArmies() - 1, 3);
+        int defendingArmies = Math.min(defenderTerritory.getArmies(), 2);
         int attackingArmies = Math.min(attackerTerritory.getArmyNum() - 1, 3);
         int defendingArmies = Math.min(defenderTerritory.getArmyNum(), 2);
 
