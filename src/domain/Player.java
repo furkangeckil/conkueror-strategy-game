@@ -4,9 +4,17 @@ import java.util.List;
 
 public class Player extends User {
     private List<Army> armies;
+    private int unassignedArmies;
     private String ID;
     private List<Territory> territories;
     private List<Card> cards;
+
+    
+
+    public Player(String iD) {
+        ID = iD;
+    }
+
 
     public void placeArmies() {
         // Implement placeArmies logic
@@ -34,4 +42,49 @@ public class Player extends User {
     public void useCard() {
         // Implement useCard logic
     }
+
+
+    public List<Army> getArmies() {
+        return armies;
+    }
+
+
+    public void setArmies(List<Army> armies) {
+        this.armies = armies;
+    }
+
+
+    public String getID() {
+        return ID;
+    }
+
+
+    public void setID(String iD) {
+        ID = iD;
+    }
+
+
+    public List<Territory> getTerritories() {
+        return territories;
+    }
+
+
+    public void setTerritories(List<Territory> territories) {
+        this.territories = territories;
+    }
+
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public void decreaseUnassignedArmies(int num) {
+        unassignedArmies -= num;
+    }
+    
 }

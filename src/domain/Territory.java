@@ -6,13 +6,13 @@ import java.util.List;
 public class Territory {
     private User owner;
     private Continent belongTo;
-    private List<Army> armies;
+    private int armies;
     private List<Territory> neighbours;
 
     public Territory(User owner, Continent belongTo) {
         this.owner = owner;
         this.belongTo = belongTo;
-        this.armies = new ArrayList<>();
+        this.armies = 0;
         this.neighbours = new ArrayList<>();
     }
 
@@ -32,21 +32,25 @@ public class Territory {
         this.belongTo = belongTo;
     }
 
-    public List<Army> getArmies() {
+    public int getArmies() {
         return armies;
     }
 
-    public void addArmy(Army army) {
-        this.armies.add(army);
+    public void setArmies(int armies) {
+        this.armies = armies;
+    }
+
+    public void addArmy(int i) {
+        armies += i;
     }
 
     public void removeArmy(int i) {
-        this.armies.remove(i);
+        armies -= i;
     }
 
     public List<Territory> getNeighbours() {
         return neighbours;
     }
-    // TODO: implement isconneccted method
+
 
 }
