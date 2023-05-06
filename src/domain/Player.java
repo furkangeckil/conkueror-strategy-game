@@ -109,5 +109,8 @@ public class Player extends User {
 	public List<Territory> getTerritories() {
 		return territories;
 	}
+
+    public void decreaseUnassignedArmies(int i) {
+    }
     
 }

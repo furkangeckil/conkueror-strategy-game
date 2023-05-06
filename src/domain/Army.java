@@ -7,18 +7,21 @@ public class Army {
     private Territory territory;
     
     //constructor
-	public Army(String type, Player owner) {
+	public Army(armyTypes type, Player owner) {
 		this.type = transformType(type);
 		this.owner = owner;
 	}
 	
 	//constructor
-	public Army(String type, Player owner, Territory territory) {
+	public Army(armyTypes type, Player owner, Territory territory) {
 		this.type = transformType(type);
 		this.owner = owner;
 		this.territory = territory;
 	}
     
+	public Army(Territory placedIn, Player owner2) {
+	}
+
 	//sets the owner of the card as given player
     public void addToPlayer(Player player) {
 		this.owner=player;
@@ -32,8 +35,8 @@ public class Army {
 		}
 	}
     
-    //gives armyTypes for the given army type string 
-    public static armyTypes transformType(String type) {
+    // gives armyTypes for the given army type string 
+    public static armyTypes transformType(armyTypes type) {
     	switch (type) {
         case "Artillery", "ARTILLERY":
             return armyTypes.ARTILLERY;
@@ -45,6 +48,7 @@ public class Army {
 		return null;
     	
     }
+	 
     
     //army types
     public static enum armyTypes {

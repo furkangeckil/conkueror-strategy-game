@@ -115,7 +115,7 @@ public class TerritoryController {
         for (int i = 0; i < territories.length; i++) {
             Player currentPlayer = playerAssignmentOrder.get(i % numberOfPlayers);
             territories[i].setOwner(currentPlayer);
-            territories[i].setArmies(1);
+            territories[i].setArmyNum(1);
             currentPlayer.decreaseUnassignedArmies(1);
         }
     }
