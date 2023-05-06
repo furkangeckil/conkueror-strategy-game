@@ -7,13 +7,13 @@ public class Army {
     private Territory territory;
     
     //constructor
-	public Army(armyTypes type, Player owner) {
+	public Army(String type, Player owner) {
 		this.type = transformType(type);
 		this.owner = owner;
 	}
 	
 	//constructor
-	public Army(armyTypes type, Player owner, Territory territory) {
+	public Army(String type, Player owner, Territory territory) {
 		this.type = transformType(type);
 		this.owner = owner;
 		this.territory = territory;
@@ -35,15 +35,18 @@ public class Army {
 		}
 	}
     
-    // gives armyTypes for the given army type string 
-    public static armyTypes transformType(armyTypes type) {
-    	switch (type) {
-        case "Artillery", "ARTILLERY":
-            return armyTypes.ARTILLERY;
-        case "Cavalry", "CAVALRY":
-            return armyTypes.CAVALRY;
-        case "Infantry", "INFANTRY":
-            return armyTypes.INFANTRY;
+    //gives armyTypes for the given army type string 
+    public static armyTypes transformType(String type) {
+    	switch (type){
+			case "Artillery":
+			case "ARTILLERY":
+            	return armyTypes.ARTILLERY;
+			case "Cavalry":
+			case "CAVALRY":
+            	return armyTypes.CAVALRY;
+			case "Infantry":
+			case "INFANTRY":
+            	return armyTypes.INFANTRY;
         }
 		return null;
     	

@@ -9,7 +9,7 @@ import domain.GameSetup;
 public class MainMenu {
     public static void startNewGame() {
         GameSetup gameSetup = new GameSetup();
-        //gameSetup.createAndSetupNewGame();
+        gameSetup.createAndSetupNewGame();
         showMainMenu(gameSetup);
 
     }

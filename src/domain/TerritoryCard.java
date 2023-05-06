@@ -16,8 +16,8 @@ public class TerritoryCard extends Card{
 	@Override
 	public void applyEffect(Player player) {
 		if(checkNumOfTerritoryCard(player.getCards())>neededCard) {
-			// this.territory.getOwner().removeTerritoryFromPlayer(territory);
-			// this.territory.changeOwner(player);
+			this.territory.getOwner().removeTerritoryFromPlayer(territory);
+			this.territory.setOwner(player);
 			player.addTerritoryToPlayer(territory);
 		}
 	}

@@ -10,8 +10,10 @@ public class GameState {
 	private boolean buildingMode;
 	private List<Territory> territories;
 	private int numContinents;
+	private int numPlayers;
+	//private static GameState instance;
     
-    public GameState(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList) {
+    /*public GameState(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList) {
 		// Set up game board, assign players
 		this.players = players;
         this.numComputerPlayers = numComputerPlayers;
@@ -34,12 +36,36 @@ public class GameState {
         	}
         }
 	}
+	
 
-	public GameState(int numPlayers, int numComputerPlayers2, int numContinents2, List<String> nicknameList2) {
+    public static GameState getInstance(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList) {
+    	if (instance == null) {
+    		instance = new GameState(players, numComputerPlayers,territories,nicknameList);
+    	}
+    	return instance;
     }
-
-    public int getNumPlayers() {
+    
+    public static GameState getInstance() {
+    	if (instance == null) {
+    		instance = new GameState(null,null,null,null);
+    	}
+    	return instance;
+    }*/
+	
+	public GameState(int numPlayers, int numComputerPlayers, int numContinents, List <String> nicknameList){
+		this.numPlayers = numPlayers;
+		this.numComputerPlayers = numComputerPlayers;
+		this.numContinents = numContinents;
+		this.nicknameList = nicknameList;
+		gameBoard = new GameBoard(numContinents);
+	}
+    
+	/*public int getNumPlayers() {
         return players.size();
+    }*/
+
+	public int getNumPlayers() {
+        return numPlayers;
     }
 
     public int getNumComputerPlayers() {
@@ -51,7 +77,7 @@ public class GameState {
     }
 
 	public int getNumContinents() {
-        return gameBoard.getNumContinents();
+        return numContinents;
     }
 	
 	//calls applyEffect function of card class to use effect of territory card (P.S: this can be used for chance card also)
