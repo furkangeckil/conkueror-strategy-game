@@ -2,24 +2,59 @@ package domain;
 
 public class Army {
     
+	private armyTypes type;
     private Player owner;
-	private Territory placedIn;
+    private Territory territory;
     
-	public Army(Territory placedIn, Player owner) {
+    //constructor
+	public Army(String type, Player owner) {
+		this.type = transformType(type);
 		this.owner = owner;
-		this.placedIn = placedIn;
 	}
-
-	public boolean moveValidator(Territory to) {
-		// Return true if Territory to is a neighbour of placedIn
-		return true;
+	
+	//constructor
+	public Army(String type, Player owner, Territory territory) {
+		this.type = transformType(type);
+		this.owner = owner;
+		this.territory = territory;
 	}
-
-	public void moveArmy(Territory destination) {
-		if (moveValidator(destination)) {
-			placedIn = destination;
+    
+	//sets the owner of the card as given player
+    public void addToPlayer(Player player) {
+		this.owner=player;
+		player.addArmyToPlayer(this);
+	}
+    
+    //sets the territory of the card as given territory
+    public void placeToTerritory(Territory territory) {
+		if(this.owner.getTerritories().contains(territory)) {
+			this.territory = territory;
 		}
 	}
+    
+    //gives armyTypes for the given army type string 
+    public static armyTypes transformType(String type) {
+    	switch (type) {
+        case "Artillery", "ARTILLERY":
+            return armyTypes.ARTILLERY;
+        case "Cavalry", "CAVALRY":
+            return armyTypes.CAVALRY;
+        case "Infantry", "INFANTRY":
+            return armyTypes.INFANTRY;
+        }
+		return null;
+    	
+    }
+    
+    //army types
+    public static enum armyTypes {
+    	ARTILLERY, CAVALRY, INFANTRY
+	}
 
-
+	@Override
+	public String toString() {
+		return "Army [type=" + type + ", owner=" + owner + ", territory=" + territory + "]";
+	}
+    
+    
 }
