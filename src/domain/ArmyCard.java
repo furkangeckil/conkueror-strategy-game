@@ -27,42 +27,62 @@ public class ArmyCard extends Card{
     	switch (option) {
   	  	case 1:
   	  		if (checkNumOfArmyCard(player.getCards(), armyTypes.INFANTRY) >=3) {
-  	  			player.addArmyToPlayer(new Army("Cavalry", player));
-  	  			player.removeCardFromPlayer(armyTypes.INFANTRY, 3);
+  	  		/*	player.addArmyToPlayer(new Army("Cavalry", player));
+  	  			player.removeCardFromPlayer(armyTypes.INFANTRY, 3); */
+  	  			player.setTotalArmy(2);
+	  			player.removeCardFromPlayer(armyTypes.INFANTRY,3);
   	  		}
+  	  		
+  	  		
   	  		break;
   	  	case 2:
   	  		if (checkNumOfArmyCard(player.getCards(), armyTypes.INFANTRY) >=2 & checkNumOfArmyCard(player.getCards(), armyTypes.CAVALRY) >=1) { 
-  	  			player.addArmyToPlayer(new Army("Cavalry", player));
-  	  			player.addArmyToPlayer(new Army("Cavalry", player));
+  	  		
+  	  		/*	player.addArmyToPlayer(new Army("Cavalry", player));
+  	  			player.addArmyToPlayer(new Army("Cavalry", player)); */
   	  			player.removeCardFromPlayer(armyTypes.INFANTRY, 2);
   	  			player.removeCardFromPlayer(armyTypes.CAVALRY, 1);
+  	  			player.setTotalArmy(3);
+  	  			
   	  		}
+  	  		
   	  		break;
   	  	case 3:
   	  		if (checkNumOfArmyCard(player.getCards(), armyTypes.INFANTRY) >=2 & checkNumOfArmyCard(player.getCards(), armyTypes.ARTILLERY) >=1) { 
-  	  			player.addArmyToPlayer(new Army("Artillery", player));
-  	  			player.addArmyToPlayer(new Army("Artillery", player));
+  	  			
+  	  		/*	player.addArmyToPlayer(new Army("Artillery", player));
+  	  			player.addArmyToPlayer(new Army("Artillery", player)); */
   	  			player.removeCardFromPlayer(armyTypes.INFANTRY, 2);
   	  			player.removeCardFromPlayer(armyTypes.ARTILLERY, 1);
+  	  			player.setTotalArmy(8);
+  	  			
   	  		}
+  	  		
   	  		break;
   	  	case 4:
   	  		if (checkNumOfArmyCard(player.getCards(), armyTypes.INFANTRY) >=1 & checkNumOfArmyCard(player.getCards(), armyTypes.CAVALRY) >=2) { 
-  	  			player.addArmyToPlayer(new Army("Cavalry", player));
-  	  			player.addArmyToPlayer(new Army("Artillery", player));
+  	  			
+  	  		/*	player.addArmyToPlayer(new Army("Cavalry", player));
+  	  			player.addArmyToPlayer(new Army("Artillery", player)); */
   	  			player.removeCardFromPlayer(armyTypes.INFANTRY, 1);
   	  			player.removeCardFromPlayer(armyTypes.CAVALRY, 2);
+  	  			player.setTotalArmy(4);
+  	  			
   	  		} 
+  	  		
   	  		break;
   	  	case 5:
   	  		if (checkNumOfArmyCard(player.getCards(), armyTypes.ARTILLERY) >=1 & checkNumOfArmyCard(player.getCards(), armyTypes.CAVALRY) >=2) { 
-  	  			player.addArmyToPlayer(new Army("Artillery", player));
-  	  			player.addArmyToPlayer(new Army("Artillery", player));
+  	  			
+  	  		/*	player.addArmyToPlayer(new Army("Artillery", player));
+  	  			player.addArmyToPlayer(new Army("Artillery", player));	*/
   	  			player.addArmyToPlayer(new Army("Artillery", player));
   	  			player.removeCardFromPlayer(armyTypes.ARTILLERY, 1);
   	  			player.removeCardFromPlayer(armyTypes.CAVALRY, 2);
+  	  			player.setTotalArmy(10);
+  	  			
   	  		} 
+  	  		
   	  		break;
     	}
     }
@@ -77,7 +97,7 @@ public class ArmyCard extends Card{
 				}
 			}
 		}
-		return num;	
+		return num;	 
 	}
     
     public armyTypes getType() {

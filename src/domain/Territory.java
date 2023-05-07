@@ -12,7 +12,7 @@ public class Territory extends Observable {
     private String name;
     
     
-    public Territory(String name, Player owner, Continent continent) {
+    public Territory(String name, Player owner, Continent continent, int armyNum) {
         this.owner = owner;
         this.continent = continent;
         this.name = name;
