@@ -3,20 +3,21 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Territory extends Observable{
+public class Territory {
     private List<Army> armies;
     private List<Territory> neighbours;
     private Player owner;
     private Continent continent;
     private String name;
-    private static Observer observer;
     
     public Territory(String name, Player owner, Continent continent) {
         this.owner = owner;
         this.continent = continent;
         this.name = name;
-        observer = new Controller();
-   
+    }
+
+    public void chnageOwner(Player newOwner) {
+        this.owner = newOwner;
     }
 
     public Player getOwner() {
@@ -26,7 +27,6 @@ public class Territory extends Observable{
     
     public void setOwner(Player owner) {
         this.owner = owner;
-        notifyObservers();
     }
 
     public Continent getContinent() {
@@ -47,18 +47,16 @@ public class Territory extends Observable{
 
     public void addArmy(Army army) {
         this.armies.add(army);
-        notifyObservers();
     }
 
     public void removeArmy(Army army) {
         this.armies.remove(army);
-        notifyObservers();
     }
 
     public List<Territory> getNeighbours() {
         return neighbours;
     }
-    
+
     // TODO: implement isconneccted method
 
 }

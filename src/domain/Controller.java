@@ -1,13 +1,5 @@
 package domain;
 
-public class Controller extends Observer{
+public class Controller {
 
-	public Controller() {
-		
-	}
-
-	@Override
-	public void update(Observable territory) {
-		
-	}
 }
