@@ -6,7 +6,7 @@ import java.util.List;
 public class Territory extends Observable {
     private List<Army> armies;
     private int armyNum;
-    private List<Territory> neighbours;
+    private List<Territory> neighbors;
     private Player owner;
     private Continent continent;
     private String name;
@@ -59,8 +59,12 @@ public class Territory extends Observable {
         notifyObservers();
     }
 
-    public List<Territory> getNeighbours() {
-        return neighbours;
+    public List<Territory> getNeighbors() {
+        return neighbors;
+    }
+    
+    public void addNeighbor(Territory territory) {
+    	neighbors.add(territory);
     }
 
     // TODO: implement isconneccted method
