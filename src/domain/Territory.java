@@ -6,7 +6,7 @@ import java.util.List;
 public class Territory extends Observable {
     private List<Army> armies;
     private int armyNum;
-    private List<Territory> neighbors;
+    private List<Territory> neighbors = new ArrayList<Territory>();
     private Player owner;
     private Continent continent;
     private String name;
@@ -65,7 +65,7 @@ public class Territory extends Observable {
     }
     
     public void addNeighbor(Territory territory) {
-    	neighbors.add(territory);
+    	this.neighbors.add(territory);
     }
 
     public boolean isConnected(Territory territory) {
