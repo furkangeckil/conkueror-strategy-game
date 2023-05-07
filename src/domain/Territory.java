@@ -12,10 +12,11 @@ public class Territory extends Observable {
     private String name;
     
     
-    public Territory(String name, Player owner, Continent continent) {
+    public Territory(String name, Player owner, Continent continent, int armyNum) {
         this.owner = owner;
         this.continent = continent;
         this.name = name;
+        this.armyNum = armyNum;
         this.attach(UpdateController.getInstance());
     }
 
@@ -67,6 +68,19 @@ public class Territory extends Observable {
     	neighbors.add(territory);
     }
 
-    // TODO: implement isconneccted method
+    public boolean isConnected(Territory territory) {
+    	
+    	boolean connected = false;
+    	
+    	for(Territory trtry : neighbors) {
+    		if(trtry.getName() == territory.getName()) {
+    			connected = true;
+    		}
+    	}
+    	
+    	return connected;
+    }
+    
+    
 
 }

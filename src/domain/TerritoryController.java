@@ -9,49 +9,49 @@ public class TerritoryController {
 
     private static TerritoryController instance;
 
-    static  Territory westEurope = new Territory("WE", null, null);
-    static  Territory eastEurope = new Territory("EE",null, null);
-    static  Territory midEurope = new Territory("ME",null, null);
-    static	Territory turkey = new Territory("T",null, null);
-    static	Territory scandinavia = new Territory("S",null, null);
-    static	Territory russia = new Territory("R",null, null);
-    static	Territory britain = new Territory("B",null, null);
+    static  Territory westEurope = new Territory("WE", null, null,0);
+    static  Territory eastEurope = new Territory("EE",null, null,0);
+    static  Territory midEurope = new Territory("ME",null, null,0);
+    static	Territory turkey = new Territory("T",null, null,0);
+    static	Territory scandinavia = new Territory("S",null, null,0);
+    static	Territory russia = new Territory("R",null, null,0);
+    static	Territory britain = new Territory("B",null, null,0);
 
-    static	Territory india = new Territory("I",null, null);
-    static	Territory china = new Territory("C",null, null);
-    static	Territory japan = new Territory("J",null, null);
-    static	Territory mongolia = new Territory("M",null, null);
-    static	Territory singapore  = new Territory("Si",null, null);
-    static	Territory iran = new Territory("Ir",null, null);
-    static	Territory afghanistan = new Territory("A",null, null);
-
-
-
-    static	Territory egypt = new Territory("E",null, null);
-    static	Territory morocco = new Territory("M",null, null);
-    static	Territory southAfrica = new Territory("SA",null, null);
-    static	Territory madagascar = new Territory("Ma",null, null);
+    static	Territory india = new Territory("I",null, null,0);
+    static	Territory china = new Territory("C",null, null,0);
+    static	Territory japan = new Territory("J",null, null,0);
+    static	Territory mongolia = new Territory("M",null, null,0);
+    static	Territory singapore  = new Territory("Si",null, null,0);
+    static	Territory iran = new Territory("Ir",null, null,0);
+    static	Territory afghanistan = new Territory("A",null, null,0);
 
 
 
-    static	Territory brasil = new Territory("Br",null, null);
-    static	Territory peru = new Territory("P",null, null);
-    static	Territory argentina = new Territory("Ar",null, null);
-    static  Territory venesuela = new Territory("V",null, null);
+    static	Territory egypt = new Territory("E",null, null,0);
+    static	Territory morocco = new Territory("M",null, null,0);
+    static	Territory southAfrica = new Territory("SA",null, null,0);
+    static	Territory madagascar = new Territory("Ma",null, null,0);
 
 
 
-    static	Territory eastCanada = new Territory("EC",null, null);
-    static	Territory westCanada = new Territory("WC",null, null);
-    static	Territory eastUSA = new Territory("EU",null, null);
-    static	Territory westUSA = new Territory("WU",null, null);
-    static	Territory mexico = new Territory("Me",null, null);
+    static	Territory brasil = new Territory("Br",null, null,0);
+    static	Territory peru = new Territory("P",null, null,0);
+    static	Territory argentina = new Territory("Ar",null, null,0);
+    static  Territory venesuela = new Territory("V",null, null,0);
 
 
 
-    static	Territory eastAustralia = new Territory("EA",null, null);
-    static	Territory westAustralia = new Territory("WA",null, null);
-    static	Territory newZealand = new Territory("NZ",null, null);
+    static	Territory eastCanada = new Territory("EC",null, null,0);
+    static	Territory westCanada = new Territory("WC",null, null,0);
+    static	Territory eastUSA = new Territory("EU",null, null,0);
+    static	Territory westUSA = new Territory("WU",null, null,0);
+    static	Territory mexico = new Territory("Me",null, null,0);
+
+
+
+    static	Territory eastAustralia = new Territory("EA",null, null,0);
+    static	Territory westAustralia = new Territory("WA",null, null,0);
+    static	Territory newZealand = new Territory("NZ",null, null,0);
 
     
     
