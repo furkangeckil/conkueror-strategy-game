@@ -2,15 +2,15 @@ package domain;
 
 import java.util.*;
 public class GameState {
-	private Player currentPlayer;
-    private GameBoard gameBoard;
-    private List<Player> players;
-    private int numComputerPlayers;
-    private List<String> nicknameList;
-	private boolean buildingMode;
-	private List<Territory> territories;
-	private int numContinents;
-	private int numPlayers;
+	private static Player currentPlayer;
+    private static GameBoard gameBoard;
+    private static List<Player> players;
+    private static int numComputerPlayers;
+    private static List<String> nicknameList;
+	private static List<Territory> territories;
+	private static int numContinents;
+	private static int numPlayers;
+	
 	//private static GameState instance;
     
     /*public GameState(List<Player> players, int numComputerPlayers, List<Territory> territories, List<String> nicknameList) {
@@ -52,31 +52,43 @@ public class GameState {
     	return instance;
     }*/
 	
+	/*public int getNumPlayers() {
+    return players.size();
+	}*/
+
+	
 	public GameState(int numPlayers, int numComputerPlayers, int numContinents, List <String> nicknameList){
-		this.numPlayers = numPlayers;
-		this.numComputerPlayers = numComputerPlayers;
-		this.numContinents = numContinents;
-		this.nicknameList = nicknameList;
+		GameState.numPlayers = numPlayers;
+		GameState.numComputerPlayers = numComputerPlayers;
+		GameState.numContinents = numContinents;
+		GameState.nicknameList = nicknameList;
 		gameBoard = new GameBoard(numContinents);
 	}
     
-	/*public int getNumPlayers() {
-        return players.size();
-    }*/
-
-	public int getNumPlayers() {
+	public Territory findTerritory(String name) {
+		
+		for(Territory territory :  territories) {
+			if(territory.getName() == name) {
+				return territory;
+			}
+		}
+		return null;
+	}
+	
+	
+	public static int getNumPlayers() {
         return numPlayers;
     }
 
-    public int getNumComputerPlayers() {
+    public static int getNumComputerPlayers() {
         return numComputerPlayers;
     }
 
-    public List<String> getNicknameList() {
+    public static List<String> getNicknameList() {
         return nicknameList;
     }
 
-	public int getNumContinents() {
+	public static int getNumContinents() {
         return numContinents;
     }
 	
