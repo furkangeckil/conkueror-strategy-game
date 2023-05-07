@@ -81,6 +81,6 @@ public class Territory extends Observable {
     	return connected;
     }
     
-    // TODO: implement isconneccted method
+    
 
 }
