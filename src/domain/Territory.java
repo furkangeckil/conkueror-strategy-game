@@ -16,6 +16,7 @@ public class Territory extends Observable {
         this.owner = owner;
         this.continent = continent;
         this.name = name;
+        this.armyNum = armyNum;
         this.attach(UpdateController.getInstance());
     }
 
