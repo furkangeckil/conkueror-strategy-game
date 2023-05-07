@@ -84,7 +84,7 @@ public class WarController {
         }
         // IF THE WAR IS ENDED BY ATTACKER WIN, OCCUPY TERRITORY
         if (defenderTerritory.getArmyNum() == 0) {
-            defenderTerritory.chnageOwner(attackerTerritory.getOwner());
+            defenderTerritory.setOwner(attackerTerritory.getOwner());
         }
     }
 }
