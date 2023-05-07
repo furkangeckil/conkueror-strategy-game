@@ -10,11 +10,23 @@ import ui.UserNameUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import java.awt.event.MouseListener;
+import java.util.HashMap;
 //import java.util.ArrayList;
 import java.util.List;
 //import java.util.Random;
 
 public class BoardUI {
+	private static HashMap<JPanel, String> territoryMap = new HashMap<>(); //added 
+	private Mode currentMode =  Mode.RECRUITMENT_MODE;
+	private JButton attackButton;
+	private JButton fortifyButton;
+	private JButton nextButton;
+	private JButton endTurnButton;
+	
     private static final Color[] PLAYER_COLORS = {
             Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN
             // Actually we do not need to color continents, we need to assign colors to players so that they can place armies
@@ -101,6 +113,7 @@ public class BoardUI {
                     int armyCount = 1;
                     JLabel armyCountLabel = new JLabel(Integer.toString(armyCount));
                     territoryPanel.add(armyCountLabel, new GridBagConstraints());
+                    territoryMap.put(territoryPanel, territoryName);//added
                     boardPanel.add(territoryPanel);
                 }
             }
@@ -150,5 +163,55 @@ public class BoardUI {
         boardFrame.add(bottomPanel, BorderLayout.SOUTH);
 
         boardFrame.setVisible(true);
+    }
+    
+    public static String getTerritoryName(JPanel panel) {
+    	return territoryMap.get(panel);
+    }
+    
+    public Mode getCurrentMode() {
+    	return this.currentMode;
+    }
+    
+    public JButton getAttackButton() {
+    	return this.attackButton;
+    }
+    
+    public JButton getFortifyButton() {
+    	return this.fortifyButton;
+    }
+    
+    public JButton getNextButton() {
+    	return this.nextButton;
+    }
+    
+    public JButton getEndTernButton() {
+    	return this.endTurnButton;
+    }
+    
+    public static enum Mode {
+		RECRUITMENT_MODE, ATTACK_MODE, FORTIFY_MODE
+	}
+    
+    public void nextMode() {
+    	switch (this.currentMode) {
+		case RECRUITMENT_MODE:
+			this.currentMode=Mode.ATTACK_MODE;		
+		case ATTACK_MODE:
+			this.currentMode=Mode.FORTIFY_MODE;
+		case FORTIFY_MODE:
+			this.currentMode=Mode.RECRUITMENT_MODE;
+    	}
+    }
+    
+    public void addListeners(ActionListener actionListener, MouseListener mouseListener ) {
+    	this.attackButton.addActionListener(actionListener);
+    	this.nextButton.addActionListener(actionListener);
+    	this.fortifyButton.addActionListener(actionListener);
+    	this.endTurnButton.addActionListener(actionListener);
+    	
+    	for (JPanel territoryPanel : territoryMap.keySet()) {
+    		territoryPanel.addMouseListener(mouseListener);
+    	}
     }
 }
