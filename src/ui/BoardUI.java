@@ -5,6 +5,7 @@ import javax.swing.*;
 import domain.GameEnum;
 import domain.GameSetup;
 import domain.Territory;
+import ui.UserNameUI;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -67,6 +68,8 @@ public class BoardUI {
         };
     }
 
+    private static List<String> nicknameList;
+    
 
     public static void showBoard(int numContinents, List<String> nicknameList, GameSetup gameSetup, Territory[] territories) {
         JFrame boardFrame = new JFrame("World Map");
@@ -128,7 +131,11 @@ public class BoardUI {
             pauseResumeButton.setText("Pause");
             System.out.println("The Game is Resumed");
         }
+
+        
     });
+
+
 
         JButton exitButton = new JButton("Exit");
         if (exitButton.getModel().isPressed()){

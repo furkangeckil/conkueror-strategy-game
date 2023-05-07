@@ -57,6 +57,20 @@ public class WarController {
             }
         }
     }
+
+    public void rollSimpleDice(Territory attackerTerritory, Territory defenderTerritory) {
+        int[] attackerResults = attackerDice.getDieResults();
+        int[] defenderResults = defenderDice.getDieResults();
+
+        int attackerDice = attackerResults[0];
+        int defenderDice = defenderResults[0];
+
+        if (attackerDice > defenderDice ) {
+            attackerTerritory.removeArmy(2);
+        } else {
+            defenderTerritory.removeArmy(1);
+        }
+    }
     
 
     public void resolveBattle(Territory attackerTerritory, Territory defenderTerritory) {
@@ -66,7 +80,11 @@ public class WarController {
         if (attackingArmies > 0 && defendingArmies > 0) {
             attackerRollDice();
             defenderRollDice();
-            compareDiceResults(attackerTerritory, defenderTerritory);
+            rollSimpleDice(attackerTerritory, defenderTerritory);
+        }
+        // IF THE WAR IS ENDED BY ATTACKER WIN, OCCUPY TERRITORY
+        if (defenderTerritory.getArmyNum() == 0) {
+            defenderTerritory.chnageOwner(attackerTerritory.getOwner());
         }
     }
 }
