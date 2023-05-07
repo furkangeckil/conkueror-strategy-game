@@ -68,6 +68,19 @@ public class Territory extends Observable {
     	neighbors.add(territory);
     }
 
+    public boolean isConnected(Territory territory) {
+    	
+    	boolean connected = false;
+    	
+    	for(Territory trtry : neighbors) {
+    		if(trtry.getName() == territory.getName()) {
+    			connected = true;
+    		}
+    	}
+    	
+    	return connected;
+    }
+    
     // TODO: implement isconneccted method
 
 }
