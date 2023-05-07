@@ -55,12 +55,14 @@ public class BoardUI {
         return matrix;
     }
 
-    private static MouseAdapter territoryClickListener() {
+    private static MouseAdapter territoryClickListener(GameSetup gameSetup) {
         return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JPanel territoryPanel = (JPanel) e.getSource();
-                territoryPanel.setBackground(Color.RED);
+                if (gameSetup.getGame().getGameEnum() == GameEnum.RUNNING) {
+                    JPanel territoryPanel = (JPanel) e.getSource();
+                    territoryPanel.setBackground(Color.RED);
+                }
             }
         };
     }
@@ -75,7 +77,7 @@ public class BoardUI {
         boardFrame.add(boardPanel, BorderLayout.CENTER);
 
         String[][] territoryMatrix = createTerritoryMatrix(territories);
-        MouseAdapter territoryClickListener = territoryClickListener();
+        MouseAdapter territoryClickListener = territoryClickListener(gameSetup);
         int territoryWidth = 40;
         int territoryHeight = 40;
 
