@@ -10,11 +10,15 @@ import ui.UserNameUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
 //import java.util.ArrayList;
 import java.util.List;
 //import java.util.Random;
 
 public class BoardUI {
+	private static HashMap<JPanel, String> territoryMap = new HashMap<>(); //added 
+	private Mode currentMode =  Mode.RECRUITMENT_MODE;
+	
     private static final Color[] PLAYER_COLORS = {
             Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN
             // Actually we do not need to color continents, we need to assign colors to players so that they can place armies
@@ -101,6 +105,7 @@ public class BoardUI {
                     int armyCount = 1;
                     JLabel armyCountLabel = new JLabel(Integer.toString(armyCount));
                     territoryPanel.add(armyCountLabel, new GridBagConstraints());
+                    territoryMap.put(territoryPanel, territoryName);//added
                     boardPanel.add(territoryPanel);
                 }
             }
@@ -151,4 +156,16 @@ public class BoardUI {
 
         boardFrame.setVisible(true);
     }
+    
+    public static String getTerritoryName(JPanel panel) {
+    	return territoryMap.get(panel);
+    }
+    
+    public Mode getCurrentMode() {
+    	return this.currentMode;
+    }
+    
+    public static enum Mode {
+		RECRUITMENT_MODE, ATTACK_MODE, FORTIFY_MODE
+	}
 }
