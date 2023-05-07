@@ -20,7 +20,10 @@ public class UpdateController extends Observer {
 	
 	@Override
 	public void update(Observable subject) {
-		
-		
+		if(subject instanceof Territory) {
+			Territory territory = (Territory) subject;
+			
+		}
+	
 	}
 }

@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Territory extends Observable {
-    private List<Army> armies;
+    private List<Army> armies = new ArrayList<Army>();
     private int armyNum;
-    private List<Territory> neighbours;
+    private List<Territory> neighbors = new ArrayList<Territory>();
     private Player owner;
     private Continent continent;
     private String name;
     
     
-    public Territory(String name, Player owner, Continent continent) {
+    public Territory(String name, Player owner, Continent continent, int armyNum) {
         this.owner = owner;
         this.continent = continent;
         this.name = name;
+        this.armyNum = armyNum;
         this.attach(UpdateController.getInstance());
     }
 
@@ -59,10 +60,27 @@ public class Territory extends Observable {
         notifyObservers();
     }
 
-    public List<Territory> getNeighbours() {
-        return neighbours;
+    public List<Territory> getNeighbors() {
+        return neighbors;
+    }
+    
+    public void addNeighbor(Territory territory) {
+    	this.neighbors.add(territory);
     }
 
-    // TODO: implement isconneccted method
+    public boolean isConnected(Territory territory) {
+    	
+    	boolean connected = false;
+    	
+    	for(Territory trtry : neighbors) {
+    		if(trtry.getName() == territory.getName()) {
+    			connected = true;
+    		}
+    	}
+    	
+    	return connected;
+    }
+    
+    
 
 }

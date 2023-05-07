@@ -6,11 +6,12 @@ import java.util.List;
 import domain.Army.armyTypes;
 
 public class Player extends User {
-    private List<Army> armies;
+    private List<Army> armies = new ArrayList<Army>();
     private int unassignedArmies;
     private String ID;
-    private List<Territory> territories;
-    private List<Card> cards;
+    private List<Territory> territories = new ArrayList<Territory>();
+    private List<Card> cards = new ArrayList<Card>();
+    private int totalArmy;
 
     
 
@@ -19,10 +20,10 @@ public class Player extends User {
     }
 
 
-    public void placeArmies() {
-        // Implement placeArmies logic
-        // Here, there will be references to Territory classes addArmies() method. There also need to be a variable that keeps the 
-        // number of armies that can be recruited in this turn of player, and it need to be decreased when army is recruited. 
+    public void placeArmies(Territory territory) {
+    	territory.addArmy(1);
+    	unassignedArmies--;
+    	
     }
     
 
@@ -34,8 +35,9 @@ public class Player extends User {
         WarController.getInstance().resolveBattle( attackerTerritory, defenderTerritory  );
     }
 
-    public void fortify() {
-        // Implement fortify logic
+    public void fortify(Territory from, Territory to) {
+        from.removeArmy(1);
+        to.addArmy(1);
     }
 
     public void drawCard() {
@@ -46,7 +48,14 @@ public class Player extends User {
         // Implement useCard logic
     }
 
-
+    public int getTotalArmy() {
+    	return this.totalArmy;
+    }
+    
+    public void setTotalArmy(int i) {
+    	this.totalArmy += i;
+    }
+    
 	public List<Territory> getTerritories() {
 		return territories;
 	}
@@ -70,19 +79,25 @@ public class Player extends User {
         territories.add(territory);
     }
 
-
+    
     public void addArmyToPlayer(Army army) {
-        // imlement
+        // implement
     }
-
-
-    public void removeCardFromPlayer(armyTypes infantry, int i) {
-        // imlement
+	
+    
+    public void removeCardFromPlayer(armyTypes type, int num) {
+    	for (int i=0; i<this.cards.size() & num>0; i++) {
+    		if(((ArmyCard)this.cards.get(i)).getType() == type) {
+    			this.cards.remove(i);
+    			i--;
+    			num--;
+    		}
+    	}   
     }
 
 
     public void addCardToPlayer(Card card) {
-        // imlement
+        // implement
     }
     
 }

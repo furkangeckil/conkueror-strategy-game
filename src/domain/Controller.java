@@ -1,5 +1,6 @@
 package domain;
 
+
 import ui.BoardUI;
 import ui.GameSetupUI;
 import java.awt.event.ActionEvent;
@@ -80,6 +81,7 @@ public class Controller {
 			}
 			
 		}
+
 
 //		@Override
 //		public void mouseClicked(MouseEvent e) {
