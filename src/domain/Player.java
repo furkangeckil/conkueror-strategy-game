@@ -6,11 +6,11 @@ import java.util.List;
 import domain.Army.armyTypes;
 
 public class Player extends User {
-    private List<Army> armies;
+    private List<Army> armies = new ArrayList<Army>();
     private int unassignedArmies;
     private String ID;
-    private List<Territory> territories;
-    private List<Card> cards;
+    private List<Territory> territories = new ArrayList<Territory>();
+    private List<Card> cards = new ArrayList<Card>();
     private int totalArmy;
 
     

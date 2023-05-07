@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Territory extends Observable {
-    private List<Army> armies;
+    private List<Army> armies = new ArrayList<Army>();
     private int armyNum;
     private List<Territory> neighbors = new ArrayList<Territory>();
     private Player owner;
