@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Territory {
     private List<Army> armies;
+    private int armyNum;
     private List<Territory> neighbours;
     private Player owner;
     private Continent continent;
@@ -41,16 +42,20 @@ public class Territory {
         this.continent = belongTo;
     }
 
-    public List<Army> getArmies() {
-        return armies;
+    public int getArmyNum() {
+        return armyNum;
     }
 
-    public void addArmy(Army army) {
-        this.armies.add(army);
+    public void setArmyNum(int armyNum) {
+        this.armyNum = armyNum;
     }
 
-    public void removeArmy(Army army) {
-        this.armies.remove(army);
+    public void addArmy(int i) {
+        armyNum += i;
+    }
+
+    public void removeArmy(int i) {
+        armyNum -= i;
     }
 
     public List<Territory> getNeighbours() {

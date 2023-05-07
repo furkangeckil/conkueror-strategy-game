@@ -33,6 +33,9 @@ public class UserNameUI {
             loginPanel.add(nicknameField);
         }
 
+        BoardUI.showBoard(gameState.getNumContinents(), nicknameList, gameSetup, TerritoryController.getInstance().getAllTerritories());
+
+
         loginFrame.add(loginPanel, BorderLayout.CENTER);
 
         JButton continueButton = new JButton("Continue");

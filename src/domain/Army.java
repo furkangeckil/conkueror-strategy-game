@@ -19,6 +19,9 @@ public class Army {
 		this.territory = territory;
 	}
     
+	public Army(Territory placedIn, Player owner2) {
+	}
+
 	//sets the owner of the card as given player
     public void addToPlayer(Player player) {
 		this.owner=player;
@@ -48,6 +51,7 @@ public class Army {
 		return null;
     	
     }
+	 
     
     //army types
     public static enum armyTypes {
