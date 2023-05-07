@@ -3,12 +3,14 @@ package domain;
 
 public class Validator {
 
-    public static boolean validateAttack(GameState gameState, Territory attacker, Territory defender, int attackUnits) {
+    public static boolean validateAttack(GameState gameState, Territory attacker, Territory defender) {
         if (attacker.getOwner() == defender.getOwner()) {
             System.out.println("You cannot attack your own territory.");
             return false;
         }
-
+        
+        int attackUnits = attacker.getArmyNum();
+        
         if (attackUnits < 1 || attackUnits >= attacker.getArmyNum()) {
             System.out.println("Invalid number of attack units.");
             return false;
@@ -51,5 +53,9 @@ public class Validator {
     public static boolean canPlaceArmies(Territory territory, Player player) {
         // Check if the territory is unoccupied or belongs to the player
         return territory.getOwner() == null || territory.getOwner().equals(player);
+    }
+    
+    public static boolean isBelongPlayer(Territory territory, Player player) {
+    	return territory.getOwner().equals(player);
     }
 }

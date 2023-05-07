@@ -16,6 +16,8 @@ public class Controller {
 	private GameSetupUI gameSetupUI;
 	private PlayerController playerController;
 	private Validator validator;
+	private Territory fromTerritory;
+	private Territory toTerritory;
 	
 	public Controller(BoardUI boardUI, GameState gameState, GameSetupUI gameSetupUI, PlayerController playerController, Validator validator) {
 		this.boardUI = boardUI;
@@ -23,13 +25,13 @@ public class Controller {
 		this.gameSetupUI = gameSetupUI;
 		this.playerController = playerController;
 		this.validator = validator;
+		
+		this.boardUI.addListeners(new BoardActionListener(), new BoardMouseListener());
 	}
 
 
 
-	class BoardListener implements MouseListener{
-		private Territory attackerTer;
-		private Territory defenderTer;
+	class BoardMouseListener implements MouseListener{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -41,25 +43,34 @@ public class Controller {
 			
 			try{
 				switch (currentMode) {
-					case RECRUITMENT_MODE:					
+					case RECRUITMENT_MODE:	
 						if(validator.canPlaceArmies(territory, currentPlayer)) {
-							currentPlayer.placeArmies(territory,1);//should be modified
+							currentPlayer.placeArmies(territory);//should be modified
 						}
 						
 					case ATTACK_MODE:
-						if(attackerTer == null) {
-							if(validator.isBelongAttacker) {
-								attackerTer = territory;
+						if(fromTerritory == null) {
+							if(validator.isBelongPlayer(territory, currentPlayer)) {
+								fromTerritory = territory;
 							}	
 						}
-						else if(defenderTer == null) {
-							if(validator.validateAttack()) {
-								currentPlayer.attack();
+						else if(toTerritory == null) {
+							if(!validator.isBelongPlayer(territory, currentPlayer)) {
+								toTerritory = territory;
 							}
 						}
 						
 					case FORTIFY_MODE:
-						
+						if(fromTerritory == null) {
+							if(validator.isBelongPlayer(territory, currentPlayer)) {
+								fromTerritory = territory;
+							}	
+						}
+						else if(toTerritory == null) {
+							if(!validator.isBelongPlayer(territory, currentPlayer)) {
+								toTerritory = territory;
+							}
+						}
 				}
 			}
 
@@ -100,6 +111,68 @@ public class Controller {
 			
 		}
 		
+	}
+	
+	class BoardActionListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			
+			Mode currentMode = boardUI.getCurrentMode();
+			Player currentPlayer = playerController.getCurrentPlayer();
+			
+			try{
+				
+				if(boardUI.getNextButton().getModel().isPressed()) {
+					boardUI.nextMode();
+					refreshSelectedTerritories();
+				}
+				
+				else if(boardUI.getEndTernButton().getModel().isPressed()){
+					playerController.assignTurn();
+					refreshSelectedTerritories();
+				}
+				else {
+				
+					switch (currentMode) {
+					case RECRUITMENT_MODE:	
+					
+					case ATTACK_MODE:
+						if (boardUI.getAttackButton().getModel().isPressed()) {
+							if(fromTerritory != null && toTerritory != null) {
+								if(validator.validateAttack(gameState, fromTerritory, toTerritory)) {
+									currentPlayer.attack();
+								}
+							}
+						}								
+									
+					
+					case FORTIFY_MODE:
+						if (boardUI.getFortifyButton().getModel().isPressed()) {
+							if(fromTerritory != null && toTerritory != null) {
+								if(validator.validateFortify(gameState, fromTerritory, toTerritory, 1)) { //1 should be changed
+									currentPlayer.fortify();
+								}
+							}
+						}
+					}
+				}
+			
+			}
+
+			catch(NumberFormatException ex){
+				
+				System.out.println(ex);
+				
+				
+			}
+			
+		}
+		
+	}
+	
+	public void refreshSelectedTerritories() {
+		this.fromTerritory=null;
+		this.toTerritory=null;
 	}
 	
 	
