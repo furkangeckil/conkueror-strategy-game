@@ -10,6 +10,10 @@ import ui.UserNameUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 //import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +22,10 @@ import java.util.List;
 public class BoardUI {
 	private static HashMap<JPanel, String> territoryMap = new HashMap<>(); //added 
 	private Mode currentMode =  Mode.RECRUITMENT_MODE;
+	private JButton attackButton;
+	private JButton fortifyButton;
+	private JButton nextButton;
+	private JButton endTurnButton;
 	
     private static final Color[] PLAYER_COLORS = {
             Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN
@@ -165,7 +173,45 @@ public class BoardUI {
     	return this.currentMode;
     }
     
+    public JButton getAttackButton() {
+    	return this.attackButton;
+    }
+    
+    public JButton getFortifyButton() {
+    	return this.fortifyButton;
+    }
+    
+    public JButton getNextButton() {
+    	return this.nextButton;
+    }
+    
+    public JButton getEndTernButton() {
+    	return this.endTurnButton;
+    }
+    
     public static enum Mode {
 		RECRUITMENT_MODE, ATTACK_MODE, FORTIFY_MODE
 	}
+    
+    public void nextMode() {
+    	switch (this.currentMode) {
+		case RECRUITMENT_MODE:
+			this.currentMode=Mode.ATTACK_MODE;		
+		case ATTACK_MODE:
+			this.currentMode=Mode.FORTIFY_MODE;
+		case FORTIFY_MODE:
+			this.currentMode=Mode.RECRUITMENT_MODE;
+    	}
+    }
+    
+    public void addListeners(ActionListener actionListener, MouseListener mouseListener ) {
+    	this.attackButton.addActionListener(actionListener);
+    	this.nextButton.addActionListener(actionListener);
+    	this.fortifyButton.addActionListener(actionListener);
+    	this.endTurnButton.addActionListener(actionListener);
+    	
+    	for (JPanel territoryPanel : territoryMap.keySet()) {
+    		territoryPanel.addMouseListener(mouseListener);
+    	}
+    }
 }
