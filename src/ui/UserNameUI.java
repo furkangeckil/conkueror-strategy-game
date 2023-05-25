@@ -19,7 +19,7 @@ public class UserNameUI {
 	
 	private JButton continueButton = new JButton("Continue");
 	private JFrame loginFrame;
-	private List<String> nicknameList = new ArrayList<>();
+	private ArrayList<String> nicknameList = new ArrayList<>();
 	
     public List<String> showLogin(ArrayList<Integer> gameOptions) {
     	int numPlayers = gameOptions.get(0);
@@ -89,7 +89,7 @@ public class UserNameUI {
 		return loginFrame;
 	}
 
-	public List<String> getNicknameList() {
+	public ArrayList<String> getNicknameList() {
 		return nicknameList;
 	}
     
