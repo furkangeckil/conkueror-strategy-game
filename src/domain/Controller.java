@@ -19,17 +19,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Controller {
-	private LoginUI loginUI;
+	private LoginUI loginUI = new LoginUI();
 	private MainMenu mainMenuUI = new MainMenu();
 	private BoardUI boardUI= new BoardUI();
 	private GameState gameState;
 	private GameSetupUI gameSetupUI = new GameSetupUI();
 	private UserNameUI userNameUI = new UserNameUI();
 	private GameSetup gameSetup;
-	private PlayerController playerController;
 	private Validator validator;
 	private Territory fromTerritory;
 	private Territory toTerritory;
+	private static Controller instance;
 	
 //	public Controller(PlayerController playerController, Validator validator) {
 //		//this.boardUI = boardUI;
@@ -42,17 +42,25 @@ public class Controller {
 //		GameSetupUI.addListeners(new GameSetupActionListener());
 //	}
 	
-	public Controller(BoardUI boardUI, GameState gameState, GameSetupUI gameSetupUI, PlayerController playerController, Validator validator,LoginUI loginUI) {
+	private Controller() {
 		//this.boardUI = boardUI;
-		this.gameState = gameState;
-		this.gameSetupUI = gameSetupUI;
-		this.playerController = playerController;
-		this.validator = validator;
-		this.loginUI = loginUI;
-		LoginActionListener loginActionListener = new LoginActionListener();
 		
+		LoginActionListener loginActionListener = new LoginActionListener();
+		loginUI.showLoginScreen();
 	}
 
+	public static Controller getInstance(){
+		if(instance == null) {
+			instance = new Controller();
+			return instance;
+			
+		}
+		else {
+			return instance;
+		}
+		
+	}
+	
 	class LoginActionListener implements ActionListener{
 		
 		public LoginActionListener() {
@@ -186,7 +194,9 @@ class UserNameActionListener implements ActionListener{
 				if(e.getSource() == userNameUI.getContinueButton()) {
 					System.out.println("continue Butoon");
 					boardUI.showBoard(GameState.getNumContinents(), GameState.getNicknameList(), TerritoryController.getInstance().createTerritoryMatrix());
-					
+					boardUI.addListeners(new BoardActionListener(), new BoardMouseListener());
+					ArrayList<String> nickNames = userNameUI.getNicknameList();
+					PlayerController.getInstance().createPlayers(nickNames);
 					userNameUI.getLoginFrame().dispose();
 				} 
 				
@@ -205,20 +215,22 @@ class UserNameActionListener implements ActionListener{
 	}
 
 	class BoardMouseListener implements MouseListener{
+		
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			Mode currentMode = boardUI.getCurrentMode();
-			Player currentPlayer = playerController.getCurrentPlayer();
+			Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
 			JPanel territoryPanel = (JPanel) e.getSource();
 			String territoryName = boardUI.getTerritoryName(territoryPanel);
 			Territory territory = gameState.findTerritory(territoryName);
 			
 			try{
 				switch (currentMode) {
-					case RECRUITMENT_MODE:	
+					case RECRUITMENT_MODE:
 						if(validator.canPlaceArmies(territory, currentPlayer)) {
 							currentPlayer.placeArmies(territory);//should be modified
+							System.out.println("asdasaddas");
 						}
 						
 					case ATTACK_MODE:
@@ -292,17 +304,17 @@ class UserNameActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			
 			Mode currentMode = boardUI.getCurrentMode();
-			Player currentPlayer = playerController.getCurrentPlayer();
+			Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
 			
 			try{
 				
-				if(boardUI.getNextButton().getModel().isPressed()) {
+				if(boardUI.getNextModeButton().getModel().isPressed()) {
 					boardUI.nextMode();
 					refreshSelectedTerritories();
 				}
 				
 				else if(boardUI.getEndTernButton().getModel().isPressed()){
-					playerController.assignTurn();
+					PlayerController.getInstance().assignTurn();
 					refreshSelectedTerritories();
 				}
 				else {
@@ -344,15 +356,14 @@ class UserNameActionListener implements ActionListener{
 		
 	}
 	
-	
-	
-	
-	
 	public void refreshSelectedTerritories() {
 		this.fromTerritory=null;
 		this.toTerritory=null;
 	}
 	
+	public void updateTerritoryOnMap(Territory territory) {
+		BoardUI.updateTerritory (PlayerController.getInstance().getCurrentPlayerIndex(), territory.getName(), territory.getArmyNum());
+	}
 	
 }
 

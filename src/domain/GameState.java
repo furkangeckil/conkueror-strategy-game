@@ -92,6 +92,10 @@ public class GameState {
         return numContinents;
     }
 	
+	public static void addPlayerToList(Player player) {
+		players.add(player);
+	}
+	
 	//calls applyEffect function of card class to use effect of territory card (P.S: this can be used for chance card also)
 	public void useCard(Player player, Card card ) {
 		card.applyEffect(player);
