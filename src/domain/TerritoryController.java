@@ -67,6 +67,42 @@ public class TerritoryController {
 
         return territories;
     }
+    
+    public String[][] createTerritoryMatrix() {
+    	Territory[] territories = getAllTerritories();
+        String[][] matrix = new String[7][12];
+        matrix[0][1] = territories[0].getName();
+        matrix[0][2] = territories[1].getName(); 
+        matrix[0][3] = territories[2].getName();
+        matrix[0][4] = territories[3].getName();
+        matrix[0][5] = territories[4].getName();
+        matrix[1][2] = territories[5].getName();
+        matrix[1][3] = territories[6].getName();
+        matrix[1][4] = territories[7].getName();
+        matrix[1][5] = territories[8].getName();
+        matrix[1][6] = territories[9].getName();
+        matrix[2][3] = territories[10].getName();
+        matrix[2][4] = territories[11].getName();
+        matrix[2][5] = territories[12].getName();
+        matrix[2][6] = territories[13].getName();
+        matrix[2][7] = territories[14].getName();
+        matrix[3][4] = territories[15].getName();
+        matrix[3][5] = territories[16].getName();
+        matrix[3][6] = territories[17].getName();
+        matrix[3][7] = territories[18].getName();
+        matrix[3][8] = territories[19].getName();
+        matrix[4][5] = territories[20].getName();
+        matrix[4][6] = territories[21].getName();
+        matrix[4][7] = territories[22].getName();
+        matrix[4][8] = territories[23].getName();
+        matrix[4][9] = territories[24].getName();
+        matrix[5][6] = territories[25].getName();
+        matrix[5][7] = territories[26].getName();
+        matrix[5][8] = territories[27].getName();
+        matrix[5][9] = territories[28].getName();
+        matrix[5][10] = territories[29].getName();
+        return matrix;
+    }
 
     public static TerritoryController getInstance() {
         if (instance == null) {
