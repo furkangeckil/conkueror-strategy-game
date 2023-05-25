@@ -25,11 +25,11 @@ public class BoardUI {
 	private static HashMap<String, JPanel> territoryMap = new HashMap<>(); //added 
 	private static HashMap<JPanel, String> reverseTerritoryMap = new HashMap<>();
 	private Mode currentMode =  Mode.RECRUITMENT_MODE;
-	private JButton attackButton;
-	private JButton fortifyButton;
-	private JButton endTurnButton;
-	private JButton placeArmiesButton;
-	private JButton nextModeButton;
+	private JButton attackButton = new JButton("Attack");
+	private JButton fortifyButton = new JButton("Fortify");
+	private JButton endTurnButton = new JButton("End Turn");
+	private JButton placeArmiesButton = new JButton("Recruit");
+	private JButton nextModeButton = new JButton("Next Mode");
 	private JButton exitButton = new JButton("Exit");
 	
     private static final Color[] PLAYER_COLORS = {
@@ -79,7 +79,7 @@ public class BoardUI {
             public void mouseClicked(MouseEvent e) {
             //    if (gameSetup.getGame().getGameEnum() == GameEnum.RUNNING) {
                     JPanel territoryPanel = (JPanel) e.getSource();
-                    territoryPanel.setBackground(PLAYER_COLORS[2]);
+                    //territoryPanel.setBackground(PLAYER_COLORS[2]);
              //   }
             }
         };
@@ -157,19 +157,14 @@ public class BoardUI {
         
         actionPanel.setLayout(new BoxLayout(actionPanel, BoxLayout.Y_AXIS));
 
-        this.attackButton = new JButton("Attack");
         actionPanel.add(attackButton);
 
-        this.fortifyButton = new JButton("Fortify");
         actionPanel.add(fortifyButton);
-        
-        this.placeArmiesButton = new JButton("Place Armies");
+
         actionPanel.add(placeArmiesButton);
         
-        this.nextModeButton = new JButton("Next Mode");
         actionPanel.add(nextModeButton);
         
-        this.endTurnButton = new JButton("End Turn");
         actionPanel.add(endTurnButton);
 
         // Set alignment for all buttons

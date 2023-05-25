@@ -64,9 +64,19 @@ public class TerritoryController {
             eastCanada, westCanada, eastUSA, westUSA, mexico,
             eastAustralia, westAustralia, newZealand
         };
-
+        
         return territories;
     }
+    
+    public Territory findTerritory(String name) {
+		
+		for(Territory territory :  getAllTerritories()) {
+			if(territory.getName() == name) {
+				return territory;
+			}
+		}
+		return null;
+	}
     
     public String[][] createTerritoryMatrix() {
     	Territory[] territories = getAllTerritories();

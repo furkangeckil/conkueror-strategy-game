@@ -50,8 +50,8 @@ public class GameSetupUI {
         gameOptions.add(numPlayers);
         gameOptions.add(numComputerPlayers);
       	gameOptions.add(numContinents);
-      	
-      	
+      	System.out.println("num players:"+numPlayers);
+      	System.out.println("deneme:"+gameOptions.get(0));
       	
 //        nextButton.addActionListener(new ActionListener() {
 //            @Override

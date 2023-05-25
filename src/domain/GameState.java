@@ -4,10 +4,10 @@ import java.util.*;
 public class GameState {
 	private static Player currentPlayer;
     private static GameBoard gameBoard;
-    private static List<Player> players;
+    private static ArrayList<Player> players = new ArrayList<Player>();
     private static int numComputerPlayers;
-    private static List<String> nicknameList;
-	private static List<Territory> territories;
+    private static ArrayList<String> nicknameList = new ArrayList<String>();
+	private static ArrayList<Territory> territories = new ArrayList<Territory>();
 	private static int numContinents;
 	private static int numPlayers;
 	
@@ -57,7 +57,7 @@ public class GameState {
 	}*/
 
 	
-	public GameState(int numPlayers, int numComputerPlayers, int numContinents, List <String> nicknameList){
+	public GameState(int numPlayers, int numComputerPlayers, int numContinents, ArrayList <String> nicknameList){
 		GameState.numPlayers = numPlayers;
 		GameState.numComputerPlayers = numComputerPlayers;
 		GameState.numContinents = numContinents;
@@ -96,6 +96,14 @@ public class GameState {
 		players.add(player);
 	}
 	
+	
+	
+	public static List<Territory> getTerritories() {
+		return territories;
+	}
+
+
+
 	//calls applyEffect function of card class to use effect of territory card (P.S: this can be used for chance card also)
 	public void useCard(Player player, Card card ) {
 		card.applyEffect(player);

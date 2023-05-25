@@ -17,6 +17,7 @@ import ui.BoardUI.Mode;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Controller {
 	private LoginUI loginUI = new LoginUI();
@@ -26,10 +27,12 @@ public class Controller {
 	private GameSetupUI gameSetupUI = new GameSetupUI();
 	private UserNameUI userNameUI = new UserNameUI();
 	private GameSetup gameSetup;
+	private TerritoryController territoryController= TerritoryController.getInstance();
 	private Validator validator;
 	private Territory fromTerritory;
 	private Territory toTerritory;
 	private static Controller instance;
+	private ArrayList<String> nickNameList = new ArrayList<String>();
 	
 //	public Controller(PlayerController playerController, Validator validator) {
 //		//this.boardUI = boardUI;
@@ -193,10 +196,18 @@ class UserNameActionListener implements ActionListener{
 				
 				if(e.getSource() == userNameUI.getContinueButton()) {
 					System.out.println("continue Butoon");
+					for (JTextField nicknameField : userNameUI.getNicknameFields()) {
+						String nickname = nicknameField.getText();
+						nickNameList.add(nickname);					
+                    }
+					
+					
+					
 					boardUI.showBoard(GameState.getNumContinents(), GameState.getNicknameList(), TerritoryController.getInstance().createTerritoryMatrix());
 					boardUI.addListeners(new BoardActionListener(), new BoardMouseListener());
 					ArrayList<String> nickNames = userNameUI.getNicknameList();
-					PlayerController.getInstance().createPlayers(nickNames);
+					System.out.println("Nicknames: "+ nickNameList);
+					PlayerController.getInstance().createPlayers(nickNameList);
 					userNameUI.getLoginFrame().dispose();
 				} 
 				
@@ -223,14 +234,15 @@ class UserNameActionListener implements ActionListener{
 			Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
 			JPanel territoryPanel = (JPanel) e.getSource();
 			String territoryName = boardUI.getTerritoryName(territoryPanel);
-			Territory territory = gameState.findTerritory(territoryName);
+			Territory territory = TerritoryController.getInstance().findTerritory(territoryName);
+			
 			
 			try{
 				switch (currentMode) {
 					case RECRUITMENT_MODE:
 						if(validator.canPlaceArmies(territory, currentPlayer)) {
 							currentPlayer.placeArmies(territory);//should be modified
-							System.out.println("asdasaddas");
+							System.out.println("Territory Name: "+territoryName);
 						}
 						
 					case ATTACK_MODE:
@@ -308,14 +320,15 @@ class UserNameActionListener implements ActionListener{
 			
 			try{
 				
-				if(boardUI.getNextModeButton().getModel().isPressed()) {
+				if(boardUI.getNextModeButton() == e.getSource()) {
 					boardUI.nextMode();
 					refreshSelectedTerritories();
 				}
 				
-				else if(boardUI.getEndTernButton().getModel().isPressed()){
+				else if(boardUI.getEndTernButton()==e.getSource()){
 					PlayerController.getInstance().assignTurn();
 					refreshSelectedTerritories();
+					System.out.println("end turn button, currentplayer: "+PlayerController.getInstance().getCurrentPlayerIndex());
 				}
 				else {
 				
@@ -323,7 +336,7 @@ class UserNameActionListener implements ActionListener{
 					case RECRUITMENT_MODE:	
 					
 					case ATTACK_MODE:
-						if (boardUI.getAttackButton().getModel().isPressed()) {
+						if (boardUI.getAttackButton()==e.getSource()) {
 							if(fromTerritory != null && toTerritory != null) {
 								if(validator.validateAttack(gameState, fromTerritory, toTerritory)) {
 									currentPlayer.attack();
@@ -333,7 +346,7 @@ class UserNameActionListener implements ActionListener{
 									
 					
 					case FORTIFY_MODE:
-						if (boardUI.getFortifyButton().getModel().isPressed()) {
+						if (boardUI.getFortifyButton()==e.getSource()) {
 							if(fromTerritory != null && toTerritory != null) {
 								if(validator.validateFortify(gameState, fromTerritory, toTerritory, 1)) { //1 should be changed
 									currentPlayer.fortify(fromTerritory, toTerritory);
