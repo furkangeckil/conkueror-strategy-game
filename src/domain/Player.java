@@ -86,7 +86,10 @@ public class Player extends User {
 	
     
     public void removeCardFromPlayer(armyTypes type, int num) {
-    	for (int i=0; i<this.cards.size() & num>0; i++) {
+        //@effects: removes num amount of type 'type' cards from the Player's cards
+        //@requirements: num >= 0, type is either  'ARTILLERY', 'CAVALRY', or 'INFANTRY'
+        //@modifies: this.cards
+        for (int i=0; i<this.cards.size() & num>0; i++) {
     		if(((ArmyCard)this.cards.get(i)).getType() == type) {
     			this.cards.remove(i);
     			i--;
