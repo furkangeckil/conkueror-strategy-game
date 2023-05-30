@@ -3,7 +3,7 @@ package domain;
 
 public class Validator {
 
-    public static boolean validateAttack(GameState gameState, Territory attacker, Territory defender) {
+    public static boolean validateAttack(Territory attacker, Territory defender) {
         if (attacker.getOwner() == defender.getOwner()) {
             System.out.println("You cannot attack your own territory.");
             return false;
@@ -21,7 +21,7 @@ public class Validator {
         return true;
     }
 
-    public static boolean validateRecruit(GameState gameState, Territory territory, int recruitUnits) {
+    public static boolean validateRecruit(Territory territory, int recruitUnits) {
         if (recruitUnits < 1) {
             System.out.println("Invalid number of recruit units.");
             return false;
@@ -32,7 +32,7 @@ public class Validator {
         return true;
     }
 
-    public static boolean validateFortify(GameState gameState, Territory source, Territory destination, int fortifyUnits) {
+    public static boolean validateFortify( Territory source, Territory destination, int fortifyUnits) {
         if (source.getOwner() != destination.getOwner()) {
             System.out.println("You can only fortify your own territories.");
             return false;

@@ -215,10 +215,6 @@ public class Controller {
 	
 
 	
-	public void refreshSelectedTerritories() {
-		this.fromTerritory=null;
-		this.toTerritory=null;
-	}
 	
 	public void updateTerritoryOnMap(Territory territory) {
 		BoardUI.updateTerritory (PlayerController.getInstance().getCurrentPlayerIndex(), territory.getName(), territory.getArmyNum());
@@ -259,19 +255,22 @@ public class Controller {
 	
 	public void endTurn() {
 		PlayerController.getInstance().assignTurn();
-		refreshSelectedTerritories();
-		System.out.println("end turn button, currentplayer: "+PlayerController.getInstance().getCurrentPlayer() + "\n");
+		System.out.println("end turn button, currentplayer: " + PlayerController.getInstance().getCurrentPlayer() + "\n");
 	}
 
 	public void attack(Territory fromTerritory, Territory toTerritory) {
-		if(validator.validateAttack(gameState, fromTerritory, toTerritory)) {
-			PlayerController.getInstance().getCurrentPlayer().attack();
-		}
+		//if(Validator.validateAttack(fromTerritory, toTerritory)) {
+			//PlayerController.getInstance().getCurrentPlayer().attack();
+			//System.out.println(fromTerritory.getName() + "   " + toTerritory.getName());
+	//	}
+		PlayerController.getInstance().getCurrentPlayer().attack(fromTerritory, toTerritory);
+		System.out.println(fromTerritory.getName() + "   " + toTerritory.getName());
 	}
 	
 	public void fortify(Territory fromTerritory, Territory toTerritory) {
-		if(validator.validateFortify(gameState, fromTerritory, toTerritory, 1)) { //1 should be changed
+		if(true) {
 			PlayerController.getInstance().getCurrentPlayer().fortify(fromTerritory, toTerritory);
+			System.out.println(fromTerritory.getName() + "   " + toTerritory.getName());
 		}
 	}
 		

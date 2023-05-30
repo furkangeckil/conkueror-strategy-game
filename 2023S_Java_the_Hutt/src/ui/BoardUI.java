@@ -36,8 +36,9 @@ public class BoardUI {
 	private JButton nextModeButton = new JButton("Next Mode");
 	private JButton exitButton = new JButton("Exit");
 	private static List<String> nicknameList;
-	private Territory fromTerritory;
-	private Territory toTerritory;
+	private Territory fromTerritory = null;
+	private Territory toTerritory = null;
+
 	
     private static final Color[] PLAYER_COLORS = {
             Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN
@@ -186,37 +187,58 @@ public class BoardUI {
 			
 			
 			try{
-				switch (mode) {
-					case "recruit":
-						Controller.getInstance().recruit(territory,currentPlayer);
-						
-					case "attack":
-						if(fromTerritory == null) {
-							fromTerritory = territory;
-							System.out.println(fromTerritory.getName());
-						}
-						else if(toTerritory == null) {
-							toTerritory = territory;
-							System.out.println(toTerritory.getName());
-						}
-						
-					case "fortify":
-						if(fromTerritory == null) {
-							fromTerritory = territory;
-						}
-						else if(toTerritory == null) {
-							toTerritory = territory;
-						}
+				if(mode == "recruit") {
+					Controller.getInstance().recruit(territory,currentPlayer);
 				}
+				else if(mode == "attack") {
+					if(fromTerritory == null) {
+						fromTerritory = territory;
+						System.out.println(fromTerritory.getName());
+					}
+					else if(toTerritory == null) {
+						toTerritory = territory;
+						System.out.println(toTerritory.getName());
+					}
+				}
+				else if(mode == "fortify") {
+					if(fromTerritory == null) {
+						fromTerritory = territory;
+					}
+					else if(toTerritory == null) {
+						toTerritory = territory;
+					}
+				}
+				
+//				switch (mode) {
+//					case "recruit":
+//						Controller.getInstance().recruit(territory,currentPlayer);
+//						
+//					case "attack":
+//						if(fromTerritory == null) {
+//							fromTerritory = territory;
+//							System.out.println(fromTerritory.getName());
+//						}
+//						else if(toTerritory == null) {
+//							toTerritory = territory;
+//							System.out.println(toTerritory.getName());
+//						}
+//						
+//					case "fortify":
+//						if(fromTerritory == null) {
+//							fromTerritory = territory;
+//						}
+//						else if(toTerritory == null) {
+//							toTerritory = territory;
+//						}
+//				}
 			}
 			catch(NumberFormatException ex){
 				
-			}	
+			}				
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 
@@ -250,30 +272,42 @@ public class BoardUI {
 				if(getNextModeButton() == e.getSource()) {
 					nextMode();
 					System.out.println(mode);
-					Controller.getInstance().refreshSelectedTerritories();
+					refreshSelectedTerritories();
 				}
 				
 				else if(getEndTurnButton()==e.getSource()){
 					Controller.getInstance().endTurn();
-					Controller.getInstance().refreshSelectedTerritories();
+					refreshSelectedTerritories();
 					System.out.println("end turn button, currentplayer: "+Controller.getInstance().getCurrentPlayer());
 				}
 				else {
 				
-					switch (mode) {
-					case "recruit":	
-						
-					case "attack":
+					if(mode == "attack") {
 						if (getAttackButton()==e.getSource()) {
 							Controller.getInstance().attack(fromTerritory, toTerritory);
 						}								
-									
-					
-					case "fortify":
+					}
+					else if(mode == "fortify"){
 						if (getFortifyButton()==e.getSource()) {
 							Controller.getInstance().fortify(fromTerritory, toTerritory);
 						}
 					}
+					
+					
+//					switch (mode) {
+//					case "recruit":	
+//						
+//					case "attack":
+//						if (getAttackButton()==e.getSource()) {
+//							Controller.getInstance().attack(beep, boop);
+//						}								
+//									
+//					
+//					case "fortify":
+//						if (getFortifyButton()==e.getSource()) {
+//							Controller.getInstance().fortify(fromTerritory, toTerritory);
+//						}
+//					}
 				}
 			
 			}
@@ -349,6 +383,11 @@ public class BoardUI {
     		territoryPanel.addMouseListener(mouseListener);
     	}
     }
+    
+	public void refreshSelectedTerritories() {
+		this.fromTerritory=null;
+		this.toTerritory=null;
+	}
     
     public static void updateTerritory (int playerIndex, String territoryName, int armyNum) {
     	JPanel territoryPanel = territoryMap.get(territoryName);

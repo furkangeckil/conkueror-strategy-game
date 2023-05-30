@@ -41,11 +41,7 @@ public class Player extends User {
     }
     
 
-    public void attack() {
-        // Implement attack logic
-        // need to select attacker territory and defender territory. Need to call attack validator method.
-        Territory attackerTerritory = TerritoryController.getInstance().getAllTerritories()[1];
-        Territory defenderTerritory = TerritoryController.getInstance().getAllTerritories()[1];
+    public void attack(Territory attackerTerritory, Territory defenderTerritory) {
         WarController.getInstance().resolveBattle( attackerTerritory, defenderTerritory  );
     }
 
