@@ -7,31 +7,41 @@ import domain.Army.armyTypes;
 
 public class Player extends User {
     private List<Army> armies = new ArrayList<Army>();
-    private int unassignedArmies;
-    private String ID;
+    private int unassignedArmies= 40 - ((GameState.getNumPlayers()-1)*5);
     private List<Territory> territories = new ArrayList<Territory>();
     private List<Card> cards = new ArrayList<Card>();
     private int totalArmy;
-
+    private String name;
     
 
-    public Player(String iD) {
-        ID = iD;
+    public Player(String name) {
+      this.name= name;
     }
 
 
     public void placeArmies(Territory territory) {
-    	territory.addArmy(1);
-    	unassignedArmies--;
-    	
+        if (unassignedArmies > 0) {
+            if(territory.getOwner() == this) {
+            territory.addArmy(1);
+            unassignedArmies--;
+            } else if(territory.getOwner() == null) {
+            territory.addArmy(1);
+            unassignedArmies--;
+            territory.setOwner(this);
+            }else {
+            System.out.println("cannot place armies");
+            }
+        } else {
+            System.out.println("no army to recruit");
+        }
+    }
+    
+    public void getTurnArmy (List<Territory> territories) {
+        unassignedArmies += (3+(Math.floor((territories.size()-9)/3)));
     }
     
 
-    public void attack() {
-        // Implement attack logic
-        // need to select attacker territory and defender territory. Need to call attack validator method.
-        Territory attackerTerritory = TerritoryController.getInstance().getAllTerritories()[1];
-        Territory defenderTerritory = TerritoryController.getInstance().getAllTerritories()[1];
+    public void attack(Territory attackerTerritory, Territory defenderTerritory) {
         WarController.getInstance().resolveBattle( attackerTerritory, defenderTerritory  );
     }
 
@@ -74,8 +84,18 @@ public class Player extends User {
         return cards;
     }
 
+    
+    public String getName() {
+		return name;
+	}
 
-    public void addTerritoryToPlayer(Territory territory) {
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public void addTerritoryToPlayer(Territory territory) {
         territories.add(territory);
     }
 
