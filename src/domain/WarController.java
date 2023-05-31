@@ -1,4 +1,4 @@
-package domain;
+			package domain;
 
 public class WarController {
     private static WarController instance;
@@ -64,27 +64,35 @@ public class WarController {
 
         int attackerDice = attackerResults[0];
         int defenderDice = defenderResults[0];
+        
+        System.out.println("Attacker rolled " + attackerDice + " and the defender rolled " + defenderDice);
 
         if (attackerDice > defenderDice ) {
             attackerTerritory.removeArmy(2);
         } else {
             defenderTerritory.removeArmy(1);
         }
+        
+        if(defenderTerritory.getArmyNum() == 0) {
+        	defenderTerritory.setOwner(attackerTerritory.getOwner());
+        	attackerTerritory.removeArmy(1);
+        	defenderTerritory.addArmy(1);
+        }
     }
     
 
-    public void resolveBattle(Territory attackerTerritory, Territory defenderTerritory) {
-        int attackingArmies = Math.min(attackerTerritory.getArmyNum() - 1, 3);
-        int defendingArmies = Math.min(defenderTerritory.getArmyNum(), 2);
-
-        if (attackingArmies > 0 && defendingArmies > 0) {
-            attackerRollDice();
-            defenderRollDice();
-            rollSimpleDice(attackerTerritory, defenderTerritory);
-        }
-        // IF THE WAR IS ENDED BY ATTACKER WIN, OCCUPY TERRITORY
-        if (defenderTerritory.getArmyNum() == 0) {
-            defenderTerritory.setOwner(attackerTerritory.getOwner());
-        }
-    }
+//    public void resolveBattle(Territory attackerTerritory, Territory defenderTerritory) {
+//        int attackingArmies = Math.min(attackerTerritory.getArmyNum() - 1, 3);
+//        int defendingArmies = Math.min(defenderTerritory.getArmyNum(), 2);
+//
+//        if (attackingArmies > 0 && defendingArmies > 0) {
+//            attackerRollDice();
+//            defenderRollDice();
+//            rollSimpleDice(attackerTerritory, defenderTerritory);
+//        }
+//        // IF THE WAR IS ENDED BY ATTACKER WIN, OCCUPY TERRITORY
+//        if (defenderTerritory.getArmyNum() == 0) {
+//            defenderTerritory.setOwner(attackerTerritory.getOwner());
+//        }
+//    }
 }
