@@ -102,5 +102,13 @@ public class Player extends User {
     public void addCardToPlayer(Card card) {
         // implement
     }
+
+
+	public void setCards(ArrayList<Card> cards) {
+		this.cards = cards;
+		
+	}
+    
+    
     
 }
