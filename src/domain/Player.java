@@ -10,7 +10,7 @@ public class Player extends User {
     private int unassignedArmies= 40 - ((GameState.getNumPlayers()-1)*5);
     private List<Territory> territories = new ArrayList<Territory>();
     private List<Card> cards = new ArrayList<Card>();
-    private int totalArmy;
+    private int totalArmy = 0;
     private String name;
     
 
@@ -119,5 +119,11 @@ public class Player extends User {
     public void addCardToPlayer(Card card) {
         // implement
     }
+
+
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
+    
     
 }
