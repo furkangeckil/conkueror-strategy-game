@@ -1,18 +1,29 @@
 package ui;
 import javax.swing.*;
 
+import domain.Controller;
 import domain.GameSetup;
 import domain.GameState;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class GameSetupUI {
-    public static void showGameOptions(GameSetup gameSetup) {
-            JFrame optionsFrame = new JFrame("Game Options & Map Settings");
-            optionsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	protected static UserNameUI userNameUI = new UserNameUI();
+	private static ArrayList<Integer> gameOptions = new ArrayList();
+	private static ArrayList<String> nickNames = new ArrayList();
+	private static JButton nextButton = new JButton("Next");
+	private static JButton backButton = new JButton("Back");
+	private static JFrame optionsFrame;
+	
+	
+    public static void showGameOptions() {
+    	
+        optionsFrame = new JFrame("Game Options & Map Settings");
+        optionsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         optionsFrame.setSize(800, 600);
         optionsFrame.setLayout(new BorderLayout());
 
@@ -32,58 +43,52 @@ public class GameSetupUI {
 
         optionsFrame.add(optionsPanel, BorderLayout.CENTER);
 
-        JButton nextButton = new JButton("Next");
+        nextButton = new JButton("Next");
+      	
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int numPlayers = (int) numPlayersComboBox.getSelectedItem();
                 int numComputerPlayers = (int) numComputerPlayersComboBox.getSelectedItem();
                 int numContinents = (int) numContinentsComboBox.getSelectedItem();
-                GameState gameState = gameSetup.setupNewGame(numPlayers, numComputerPlayers, numContinents, new ArrayList<>());
-                // Do something with the selected options, like creating a new game
-                UserNameUI.showLogin(gameState, gameSetup);
+                
+                gameOptions.add(numPlayers);
+                gameOptions.add(numComputerPlayers);
+                gameOptions.add(numContinents);
+                           
                 optionsFrame.dispose();
+                userNameUI.showLogin(gameOptions);
             }
         });
+      	
         optionsFrame.add(nextButton, BorderLayout.SOUTH);
 
         optionsFrame.setVisible(true);
-    }
-
-    public static void showHelpScreen(GameSetup gameSetup) {
-        JFrame helpFrame = new JFrame("Help Screen");
-        helpFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        helpFrame.setSize(800, 600);
-        helpFrame.setLayout(new BorderLayout());
-
-        JTextArea instructionsArea = new JTextArea();
-        instructionsArea.setText("Welcome to the game!\n\n" +
-                "Instructions:\n" +
-                "    Initial Sharing of Territories and Army Placement\n" +
-                "      - Each player receives X amount of infantry (X depends on # of players)\n" +
-                "      - All players roll a die, highest result places one infantry piece onto a territory to claim it\n" +
-                        "      - All players roll a die, highest result places one infantry piece onto a territory to claim it\n" +
-                "Press 'Start' to begin the game.");
-        instructionsArea.setEditable(false);
-
-        JPanel helpPanel = new JPanel(new GridLayout(4, 2));
-        helpPanel.add(instructionsArea);
-
-        helpFrame.add(helpPanel, BorderLayout.CENTER);
-
-        JButton backButton = new JButton("Back");
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                ui.MainMenu.showMainMenu(gameSetup);
-                helpFrame.dispose();
-            }
-        });
-        helpFrame.add(backButton, BorderLayout.SOUTH);
-
-        helpFrame.setVisible(true);
+        
     }
 
 
+
+	public static ArrayList<Integer> getGameOptions() {
+		return gameOptions;
+	}
+
+	public static JButton getNextButton() {
+		return nextButton;
+	}
+	
+	public static JButton getBackButton() {
+		return backButton;
+	}
+
+	public static JFrame getOptionsFrame() {
+		return optionsFrame;
+	}
+
+	public static void addActionListener(ActionListener actionListener ) {
+    	nextButton.addActionListener(actionListener);
+    	backButton.addActionListener(actionListener);
+    }
+    
+	
 }

@@ -3,161 +3,160 @@ package domain;
 
 import ui.BoardUI;
 import ui.GameSetupUI;
+import ui.LoginUI;
+import ui.MainMenu;
+import ui.UserNameUI;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import ui.BoardUI.Mode;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Controller {
-	private BoardUI boardUI;
+	private LoginUI loginUI = new LoginUI();
+	private MainMenu mainMenuUI = new MainMenu();
+	private BoardUI boardUI= new BoardUI();
 	private GameState gameState;
-	private GameSetupUI gameSetupUI;
-	private PlayerController playerController;
+	private GameSetupUI gameSetupUI = new GameSetupUI();
+	private UserNameUI userNameUI = new UserNameUI();
+	private GameSetup gameSetup;
+	private TerritoryController territoryController= TerritoryController.getInstance();
 	private Validator validator;
 	private Territory fromTerritory;
 	private Territory toTerritory;
-	
-	public Controller(BoardUI boardUI, GameState gameState, GameSetupUI gameSetupUI, PlayerController playerController, Validator validator) {
-		this.boardUI = boardUI;
-		this.gameState = gameState;
-		this.gameSetupUI = gameSetupUI;
-		this.playerController = playerController;
-		this.validator = validator;
+	private static Controller instance;
+	private ArrayList<String> nickNameList = new ArrayList<String>();
 		
-		this.boardUI.addListeners(new BoardActionListener(), new BoardMouseListener());
+	private Controller() {
+		loginUI.showLoginScreen();
 	}
 
-
-
-	class BoardMouseListener implements MouseListener{
-
+	public static Controller getInstance(){
+		if(instance == null) {
+			instance = new Controller();
+			return instance;
+			
+		}
+		else {
+			return instance;
+		}
+		
+	}
+	
+	/*class LoginActionListener implements ActionListener{
+		
+		public LoginActionListener() {
+			loginUI.addActionListener(this);
+		}
+		
 		@Override
-		public void mouseClicked(MouseEvent e) {
-			Mode currentMode = boardUI.getCurrentMode();
-			Player currentPlayer = playerController.getCurrentPlayer();
-			JPanel territoryPanel = (JPanel) e.getSource();
-			String territoryName = boardUI.getTerritoryName(territoryPanel);
-			Territory territory = gameState.findTerritory(territoryName);
+		public void actionPerformed(ActionEvent e) {
 			
 			try{
-				switch (currentMode) {
-					case RECRUITMENT_MODE:	
-						if(validator.canPlaceArmies(territory, currentPlayer)) {
-							currentPlayer.placeArmies(territory);//should be modified
-						}
-						
-					case ATTACK_MODE:
-						if(fromTerritory == null) {
-							if(validator.isBelongPlayer(territory, currentPlayer)) {
-								fromTerritory = territory;
-							}	
-						}
-						else if(toTerritory == null) {
-							if(!validator.isBelongPlayer(territory, currentPlayer)) {
-								toTerritory = territory;
-							}
-						}
-						
-					case FORTIFY_MODE:
-						if(fromTerritory == null) {
-							if(validator.isBelongPlayer(territory, currentPlayer)) {
-								fromTerritory = territory;
-							}	
-						}
-						else if(toTerritory == null) {
-							if(!validator.isBelongPlayer(territory, currentPlayer)) {
-								toTerritory = territory;
-							}
-						}
+				
+				if(e.getSource() == loginUI.getLoginButton()) {
+					System.out.println("LoginUI is working");
+					String username = loginUI.getUsernameField().getText();
+	                String password = new String(loginUI.getPasswordField().getPassword());
+
+	                if (UserManager.authenticateUser(username, password)) {
+	                    JOptionPane.showMessageDialog(loginUI.getLoginFrame(), "Login successful");
+	                    mainMenuUI.startNewGame();
+	                    MainMenuActionListener mainMenuActionListener = new MainMenuActionListener();
+	                    loginUI.getLoginFrame().dispose();
+	                } else {
+	                    JOptionPane.showMessageDialog(loginUI.getLoginFrame(), "Login failed");
+	                }
+				}
+				
+				else if(e.getSource() == loginUI.getRegisterButton()){
+					System.out.println("LoginUI is working");
+					String username = loginUI.getUsernameField().getText();
+	                String password = new String(loginUI.getPasswordField().getPassword());
+
+	                UserManager.registerUser(username, password);
+	                JOptionPane.showMessageDialog(loginUI.getLoginFrame(), "Registration successful");
+	                mainMenuUI.startNewGame();
+	                MainMenuActionListener mainMenuActionListener = new MainMenuActionListener();
+	                loginUI.getLoginFrame().dispose();
 				}
 			}
 
 			catch(NumberFormatException ex){
 				
+				System.out.println(ex);
 				
-			}
-			
+				
+			}				
 		}
-
-
-//		@Override
-//		public void mouseClicked(MouseEvent e) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+	}*/
+	
+	/*class MainMenuActionListener implements ActionListener{
+		
+		public MainMenuActionListener() {
+			mainMenuUI.addActionListener(this);
 		}
 		
-	}
-	
-	class BoardActionListener implements ActionListener{
-
+		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			Mode currentMode = boardUI.getCurrentMode();
-			Player currentPlayer = playerController.getCurrentPlayer();
 			
 			try{
 				
-				if(boardUI.getNextButton().getModel().isPressed()) {
-					boardUI.nextMode();
-					refreshSelectedTerritories();
+				if(e.getSource() == mainMenuUI.getStartGameButton()) {
+					System.out.println("mainMenuUI is working");
+					
+					mainMenuUI.getMainMenuFrame().dispose();
+					gameSetupUI.showGameOptions();
+					GameSetupActionListener gameSetupActionListener = new GameSetupActionListener();
 				}
 				
-				else if(boardUI.getEndTernButton().getModel().isPressed()){
-					playerController.assignTurn();
-					refreshSelectedTerritories();
+				else if(e.getSource() == mainMenuUI.getHelpScreenButton()){
+					System.out.println("Helpbutton is working");
+					GameSetupUI.showHelpScreen();
+	                
 				}
-				else {
+			}
+
+			catch(NumberFormatException ex){
 				
-					switch (currentMode) {
-					case RECRUITMENT_MODE:	
+				System.out.println(ex);
+				
+				
+			}				
+		}
+	}*/
+	
+	/*class GameSetupActionListener implements ActionListener{
+		
+		public GameSetupActionListener() {
+			gameSetupUI.addActionListener(this);
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			
+			try{
+				
+				if(e.getSource() == GameSetupUI.getNextButton()) {
+					ArrayList<Integer> gameOptions = GameSetupUI.getGameOptions();
+					gameState = new GameState(gameOptions.get(0), gameOptions.get(1), gameOptions.get(2), new ArrayList<String>());
+					userNameUI.showLogin(gameOptions);
+					UserNameActionListener userNameActionListener = new UserNameActionListener();
 					
-					case ATTACK_MODE:
-						if (boardUI.getAttackButton().getModel().isPressed()) {
-							if(fromTerritory != null && toTerritory != null) {
-								if(validator.validateAttack(gameState, fromTerritory, toTerritory)) {
-									currentPlayer.attack();
-								}
-							}
-						}								
-									
-					
-					case FORTIFY_MODE:
-						if (boardUI.getFortifyButton().getModel().isPressed()) {
-							if(fromTerritory != null && toTerritory != null) {
-								if(validator.validateFortify(gameState, fromTerritory, toTerritory, 1)) { //1 should be changed
-									currentPlayer.fortify();
-								}
-							}
-						}
-					}
+					System.out.println("oldu");
+					gameSetupUI.getOptionsFrame().dispose();
+				} else if(e.getSource() == GameSetupUI.getBackButton()) {
+					gameSetupUI.getHelpFrame().dispose();
+					mainMenuUI.showMainMenu();
 				}
+				
 			
 			}
 
@@ -170,13 +169,128 @@ public class Controller {
 			
 		}
 		
+	}*/
+	
+	/*class UserNameActionListener implements ActionListener{
+		
+		public UserNameActionListener() {
+			userNameUI.addActionListener(this);
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			
+			try{
+				
+				if(e.getSource() == userNameUI.getContinueButton()) {
+					System.out.println("continue Butoon");
+					for (JTextField nicknameField : userNameUI.getNicknameFields()) {
+						String nickname = nicknameField.getText();
+						nickNameList.add(nickname);					
+                    }
+					
+					
+					
+					boardUI.showBoard(GameState.getNumContinents(), GameState.getNicknameList(), TerritoryController.getInstance().createTerritoryMatrix());
+					boardUI.addListeners(new BoardActionListener(), new BoardMouseListener());
+					ArrayList<String> nickNames = userNameUI.getNicknameList();
+					System.out.println("Nicknames: "+ nickNameList);
+					PlayerController.getInstance().createPlayers(nickNameList);
+					userNameUI.getLoginFrame().dispose();
+				} 
+				
+			
+			}
+
+			catch(NumberFormatException ex){
+				
+				System.out.println(ex);
+				
+				
+			}
+			
+		}
+		
+	}*/
+
+	
+
+	
+	
+	public void updateTerritoryOnMap(Territory territory) {
+		BoardUI.updateTerritory (PlayerController.getInstance().getCurrentPlayerIndex(), territory.getName(), territory.getArmyNum());
+	}
+
+	public boolean loginUser(String username, String password) {
+		if (UserManager.authenticateUser(username, password)) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(loginUI.getLoginFrame(), "Login failed");
+            return false;
+        }
 	}
 	
-	public void refreshSelectedTerritories() {
-		this.fromTerritory=null;
-		this.toTerritory=null;
+	public void registerUser(String username, String password) {
+		UserManager.registerUser(username, password);
 	}
 	
+	public void setLoginUI(LoginUI ui) {
+		this.loginUI = ui;
+	}
+	
+	public void createPlayers(ArrayList<String> nicknameList) {
+		PlayerController.getInstance().createPlayers(nicknameList);
+	}
+	
+	public int getNumContinents() {
+		return GameState.getNumContinents();
+	}
+	
+	public List<String> getNicknameList(){
+		return GameState.getNicknameList();
+	}
+	
+	public String[][] getTerritoryMatrix(){
+		return TerritoryController.getInstance().createTerritoryMatrix();
+	}
+	
+	public void endTurn() {
+		PlayerController.getInstance().assignTurn();
+		System.out.println("end turn button, currentplayer: " + PlayerController.getInstance().getCurrentPlayer() + "\n");
+	}
+
+	public void attack(Territory fromTerritory, Territory toTerritory) {
+		//if(Validator.validateAttack(fromTerritory, toTerritory)) {
+			//PlayerController.getInstance().getCurrentPlayer().attack();
+			//System.out.println(fromTerritory.getName() + "   " + toTerritory.getName());
+	//	}
+		PlayerController.getInstance().getCurrentPlayer().attack(fromTerritory, toTerritory);
+		System.out.println(fromTerritory.getName() + "   " + toTerritory.getName());
+	}
+	
+	public void fortify(Territory fromTerritory, Territory toTerritory) {
+		if(true) {
+			PlayerController.getInstance().getCurrentPlayer().fortify(fromTerritory, toTerritory);
+			System.out.println(fromTerritory.getName() + "   " + toTerritory.getName());
+		}
+	}
+		
+	public void recruit(Territory toTerritory, Player currentPlayer) {
+		if(Validator.canPlaceArmies(toTerritory, currentPlayer)) {
+			currentPlayer.placeArmies(toTerritory);//should be modified
+			System.out.println("Territory Name: "+ toTerritory.getName());
+		}
+	}
+	
+	public GameState getGameState() {
+		return gameState;
+	}
+
+	public Player getCurrentPlayer() {
+		return PlayerController.getInstance().getCurrentPlayer();
+	}
+	
+	public Territory findTerritory(String name) {
+		return TerritoryController.getInstance().findTerritory(name);
+	}
 	
 }
-

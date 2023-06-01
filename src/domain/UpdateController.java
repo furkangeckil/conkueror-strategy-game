@@ -22,7 +22,7 @@ public class UpdateController extends Observer {
 	public void update(Observable subject) {
 		if(subject instanceof Territory) {
 			Territory territory = (Territory) subject;
-			
+			Controller.getInstance().updateTerritoryOnMap(territory);
 		}
 	
 	}
