@@ -19,20 +19,24 @@ public class Player extends User {
     }
 
 
-    public void placeArmies(Territory territory) {
+    public int placeArmies(Territory territory) {
         if (unassignedArmies > 0) {
             if(territory.getOwner() == this) {
             territory.addArmy(1);
             unassignedArmies--;
+            return 0;
             } else if(territory.getOwner() == null) {
             territory.addArmy(1);
             unassignedArmies--;
             territory.setOwner(this);
+            return 0;
             }else {
             System.out.println("cannot place armies");
+            return -1;
             }
         } else {
             System.out.println("no army to recruit");
+            return -1;
         }
     }
     
@@ -69,9 +73,21 @@ public class Player extends User {
 	public List<Territory> getTerritories() {
 		return territories;
 	}
+	
+	
+
+    public void setUnassignedArmies(int unassignedArmies) {
+		this.unassignedArmies = unassignedArmies;
+	}
 
 
-    public void decreaseUnassignedArmies(int i) {
+	public int getUnassignedArmies() {
+		return unassignedArmies;
+	}
+
+
+	public void decreaseUnassignedArmies(int i) {
+    	this.unassignedArmies -= i;
     }
 
 
