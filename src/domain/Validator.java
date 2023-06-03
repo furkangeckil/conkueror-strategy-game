@@ -3,60 +3,80 @@ package domain;
 
 public class Validator {
 
+    public static boolean belongsToPlayer(Territory territory, Player player) {
+    	return territory.getOwner().equals(player);
+    }
+	
     public static boolean validateAttack(Territory attacker, Territory defender) {
-        if (attacker.getOwner() == defender.getOwner()) {
-            System.out.println("You cannot attack your own territory.");
-            return false;
-        }
-        
-        int attackUnits = attacker.getArmyNum();
-        
-        if (attackUnits < 1 || attackUnits >= attacker.getArmyNum()) {
-            System.out.println("Invalid number of attack units.");
-            return false;
-        }
+    	try {
+    		if (attacker.getOwner() == defender.getOwner()) {
+    			System.out.println("You cannot attack your own territory.");
+    			return false;
+    		}
 
-        // Add more validation rules as needed
+    		if (attacker.getArmyNum() < 3 || attacker.getArmyNum() < defender.getArmyNum()) {
+    			System.out.println("Invalid number of attack units.");
+    			return false;
+    		}
+    		
+    		if(attacker.isConnected(defender) == false) {
+    			System.out.println("Territories are not neighbors");
+    			return false;
+    		}
+    	}catch(NullPointerException e){
+    		System.out.println("This territory doesn't have an owner yet");
+    	}
 
-        return true;
+        return repOk(attacker,attacker.getOwner()) && repOk(defender,defender.getOwner());
     }
 
-    public static boolean validateRecruit(Territory territory, int recruitUnits) {
-        if (recruitUnits < 1) {
-            System.out.println("Invalid number of recruit units.");
-            return false;
-        }
+    public static boolean validateRecruit(Territory territory, Player player) {
+    	try {
+    		if (territory.getOwner().equals(player)){
+    			return repOk(territory, player);
+    		}
+    	}catch(NullPointerException e){
+    		System.out.println("This territory doesn't have an owner yet");
+    	}
 
-        // Add more validation rules as needed
-
-        return true;
+        return false;
     }
 
     public static boolean validateFortify( Territory source, Territory destination, int fortifyUnits) {
-        if (source.getOwner() != destination.getOwner()) {
-            System.out.println("You can only fortify your own territories.");
-            return false;
-        }
+    	try{   	
+    		if (source.getOwner() != destination.getOwner()) {
+    			System.out.println("You can only fortify your own territories.");
+    			return false;
+    		}
 
-        if (fortifyUnits < 1 || fortifyUnits >= source.getArmyNum()) {
-            System.out.println("Invalid number of fortify units.");
-            return false;
-        }
+    		if (fortifyUnits < 1 || fortifyUnits >= source.getArmyNum()) {
+    			System.out.println("Invalid number of fortify units.");
+    			return false;
+    		}
 
-        // Add more validation rules as needed
-
-        return true;
+    		if(source.isConnected(destination) == false) {
+    			System.out.println("Territories are not neighbors");
+    			return false;
+    		}
+    		
+    		if(repOk(source, source.getOwner()) && repOk(destination, destination.getOwner())) {
+    			return true;
+    		}
+    	}catch(NullPointerException e) {
+    		System.out.println("This territory doesn't have an owner yet.");
+    	}
+    	return false;
     }
-
-
-
-    public static boolean canPlaceArmies(Territory territory, Player player) {
-        // Check if the territory is unoccupied or belongs to the player
-        //return territory.getOwner() == null || territory.getOwner().equals(player);
+        
+    private static boolean repOk(Territory territory, Player player) {
+    	if (territory.getArmyNum() < 0) {
+            System.out.println("Invalid representation: Territory's army number cannot be negative.");
+            return false;
+        }
+    	
+    	if(player.getTotalArmy() < 0) {
+    		System.out.println("Invalid representation: A players total army can't be negative");
+    	}
     	return true;
-    }
-    
-    public static boolean isBelongPlayer(Territory territory, Player player) {
-    	return territory.getOwner().equals(player);
     }
 }

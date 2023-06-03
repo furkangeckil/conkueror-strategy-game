@@ -275,7 +275,7 @@ public class Controller {
 	}
 		
 	public void recruit(Territory toTerritory, Player currentPlayer) {
-		if(Validator.canPlaceArmies(toTerritory, currentPlayer)) {
+		if(Validator.validateRecruit(toTerritory, currentPlayer)) {
 			currentPlayer.placeArmies(toTerritory);//should be modified
 			System.out.println("Territory Name: "+ toTerritory.getName());
 		}

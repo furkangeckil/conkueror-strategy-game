@@ -12,12 +12,12 @@ public class Territory extends Observable {
     private String name;
     
     
-    public Territory(String name, Player owner, Continent continent, int armyNum) {
+    public Territory(String name, Player owner, Continent continent) {
         this.owner = owner;
         this.continent = continent;
         this.name = name;
-        this.armyNum = armyNum;
-        this.attach(UpdateController.getInstance());
+        this.armyNum = 0;
+        //this.attach(UpdateController.getInstance());
     }
 
     public Player getOwner() {
@@ -26,7 +26,7 @@ public class Territory extends Observable {
     
     public void setOwner(Player owner) {
         this.owner = owner;
-        notifyObservers();
+        //notifyObservers();
     }
 
     public Continent getContinent() {
@@ -47,17 +47,17 @@ public class Territory extends Observable {
 
     public void setArmyNum(int armyNum) {
         this.armyNum = armyNum;
-        notifyObservers();
+        //notifyObservers();
     }
 
     public void addArmy(int i) {
         armyNum += i;
-        notifyObservers();
+        //notifyObservers();
     }
 
     public void removeArmy(int i) {
         armyNum -= i;
-        notifyObservers();
+        //notifyObservers();
     }
 
     public List<Territory> getNeighbors() {

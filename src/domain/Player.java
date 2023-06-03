@@ -120,4 +120,8 @@ public class Player extends User {
         // implement
     }
     
+    public int getUnassignedArmies() {
+    	return this.unassignedArmies;
+    }
+    
 }
