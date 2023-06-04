@@ -57,7 +57,21 @@ public class WarController {
             }
         }
     }
-
+/* This method is for DiceRolling mechanics for attacking part of the game. 
+ * Requires:
+ * 1- The inputs, Territories valid
+ * 2- The inputs does not belong to the same player
+ * 3- the inputs contain sufficient number of armies
+ * Modifies: 
+ * 1- The army numbers of the territories at war
+ * 2- The owner of the defender territory if it is occupied
+ * Effects: 
+ *  ** if the requirements are satisfied; 
+ * 1-  if attacker dice is bigger than defender dice defender territory loses one army
+ * 2- if 1 and defender territory does not contain any army after war, it gets occupied
+ * 3- if defender dice equals attacker dice attacker territory loses two armies
+ * 4- if defender dice is bigger attacker dice attacker territory loses two armies
+ */
     public void rollSimpleDice(Territory attackerTerritory, Territory defenderTerritory) {
         int[] attackerResults = attackerDice.getDieResults();
         int[] defenderResults = defenderDice.getDieResults();
