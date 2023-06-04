@@ -94,4 +94,58 @@ public class TradeArmyCardsTest {
     	assertEquals(0,player.getTotalArmy());
     }
     
+    @Test 
+    public void invalidOption() {
+    	cards.add(new ArmyCard(Army.armyTypes.ARTILLERY.toString()));
+        cards.add(new ArmyCard(Army.armyTypes.CAVALRY.toString()));
+        cards.add(new ArmyCard(Army.armyTypes.CAVALRY.toString()));
+        
+        ArmyCard.tradeArmyCards(player, 8);
+    	assertEquals(0,player.getTotalArmy());
+    }
+    
+    @Test 
+    public void correctCardsRemoved() {
+    	cards.add(new ArmyCard(Army.armyTypes.INFANTRY.toString()));
+        cards.add(new ArmyCard(Army.armyTypes.CAVALRY.toString()));
+        cards.add(new ArmyCard(Army.armyTypes.CAVALRY.toString()));
+        cards.add(new ArmyCard(Army.armyTypes.CAVALRY.toString()));
+        player.setCards(cards);
+        
+        ArmyCard.tradeArmyCards(player, 4);
+        assertEquals(1, player.getCards().size());
+    }
+    
+    @Test 
+    public void tradeWithInitialArmy() {
+    	cards.add(new ArmyCard(Army.armyTypes.ARTILLERY.toString()));
+        cards.add(new ArmyCard(Army.armyTypes.CAVALRY.toString()));
+        cards.add(new ArmyCard(Army.armyTypes.CAVALRY.toString()));
+        player.setCards(cards);
+        player.setTotalArmy(10);
+
+        ArmyCard.tradeArmyCards(player, 5);
+        assertEquals(40, player.getTotalArmy());
+    }
+    
+    @Test 
+    public void tradeWithExtraCard() {
+        cards.add(new ArmyCard(Army.armyTypes.ARTILLERY.toString()));
+        cards.add(new ArmyCard(Army.armyTypes.CAVALRY.toString()));
+        cards.add(new ArmyCard(Army.armyTypes.CAVALRY.toString()));
+        cards.add(new ArmyCard(Army.armyTypes.CAVALRY.toString()));
+        player.setCards(cards);
+
+        ArmyCard.tradeArmyCards(player, 5);
+        assertEquals(30, player.getTotalArmy());
+    }
+    
+
+    
+
+    
+    
+    
+    
+    
 }

@@ -61,7 +61,10 @@ public class ArmyCard extends Card{
 	  			player.removeCardFromPlayer(armyTypes.ARTILLERY, 1);
 	  			player.removeCardFromPlayer(armyTypes.CAVALRY, 2);
 	  			player.setTotalArmy(30);
-	  		}	
+	  		}
+    	}
+    	else {
+    		System.out.println("Option should be between 1 and 5");
     	}
     	
     	
