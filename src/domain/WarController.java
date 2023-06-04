@@ -1,4 +1,4 @@
-package domain;
+			package domain;
 
 public class WarController {
     private static WarController instance;
@@ -57,34 +57,56 @@ public class WarController {
             }
         }
     }
-
+/* This method is for DiceRolling mechanics for attacking part of the game. 
+ * Requires:
+ * 1- The inputs, Territories valid
+ * 2- The inputs does not belong to the same player
+ * 3- the inputs contain sufficient number of armies
+ * Modifies: 
+ * 1- The army numbers of the territories at war
+ * 2- The owner of the defender territory if it is occupied
+ * Effects: 
+ *  ** if the requirements are satisfied; 
+ * 1-  if attacker dice is bigger than defender dice defender territory loses one army
+ * 2- if 1 and defender territory does not contain any army after war, it gets occupied
+ * 3- if defender dice equals attacker dice attacker territory loses two armies
+ * 4- if defender dice is bigger attacker dice attacker territory loses two armies
+ */
     public void rollSimpleDice(Territory attackerTerritory, Territory defenderTerritory) {
         int[] attackerResults = attackerDice.getDieResults();
         int[] defenderResults = defenderDice.getDieResults();
 
         int attackerDice = attackerResults[0];
         int defenderDice = defenderResults[0];
+        
+        System.out.println("Attacker rolled " + attackerDice + " and the defender rolled " + defenderDice);
 
         if (attackerDice > defenderDice ) {
             attackerTerritory.removeArmy(2);
         } else {
             defenderTerritory.removeArmy(1);
         }
+        
+        if(defenderTerritory.getArmyNum() == 0) {
+        	defenderTerritory.setOwner(attackerTerritory.getOwner());
+        	attackerTerritory.removeArmy(1);
+        	defenderTerritory.addArmy(1);
+        }
     }
     
 
-    public void resolveBattle(Territory attackerTerritory, Territory defenderTerritory) {
-        int attackingArmies = Math.min(attackerTerritory.getArmyNum() - 1, 3);
-        int defendingArmies = Math.min(defenderTerritory.getArmyNum(), 2);
-
-        if (attackingArmies > 0 && defendingArmies > 0) {
-            attackerRollDice();
-            defenderRollDice();
-            rollSimpleDice(attackerTerritory, defenderTerritory);
-        }
-        // IF THE WAR IS ENDED BY ATTACKER WIN, OCCUPY TERRITORY
-        if (defenderTerritory.getArmyNum() == 0) {
-            defenderTerritory.setOwner(attackerTerritory.getOwner());
-        }
-    }
+//    public void resolveBattle(Territory attackerTerritory, Territory defenderTerritory) {
+//        int attackingArmies = Math.min(attackerTerritory.getArmyNum() - 1, 3);
+//        int defendingArmies = Math.min(defenderTerritory.getArmyNum(), 2);
+//
+//        if (attackingArmies > 0 && defendingArmies > 0) {
+//            attackerRollDice();
+//            defenderRollDice();
+//            rollSimpleDice(attackerTerritory, defenderTerritory);
+//        }
+//        // IF THE WAR IS ENDED BY ATTACKER WIN, OCCUPY TERRITORY
+//        if (defenderTerritory.getArmyNum() == 0) {
+//            defenderTerritory.setOwner(attackerTerritory.getOwner());
+//        }
+//    }
 }

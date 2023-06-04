@@ -4,18 +4,19 @@ package domain;
 public class Validator {
 
     public static boolean validateAttack(Territory attacker, Territory defender) {
-        if (attacker.getOwner() == defender.getOwner()) {
-            System.out.println("You cannot attack your own territory.");
-            return false;
-        }
-        
-        int attackUnits = attacker.getArmyNum();
-        
-        if (attackUnits < 1 || attackUnits >= attacker.getArmyNum()) {
-            System.out.println("Invalid number of attack units.");
-            return false;
-        }
+    	try {
+    		if (attacker.getOwner() == defender.getOwner()) {
+    			System.out.println("You cannot attack your own territory.");
+    			return false;
+    		}
 
+    		if (attacker.getArmyNum() < 3 || attacker.getArmyNum() < defender.getArmyNum()) {
+    			System.out.println("Invalid number of attack units.");
+    			return false;
+    		}
+    	}catch(NullPointerException e){
+    		System.out.println("This territory doesn't have an owner yet");
+    	}
         // Add more validation rules as needed
 
         return true;
@@ -49,14 +50,40 @@ public class Validator {
     }
 
 
-
     public static boolean canPlaceArmies(Territory territory, Player player) {
-        // Check if the territory is unoccupied or belongs to the player
-        //return territory.getOwner() == null || territory.getOwner().equals(player);
-    	return true;
+        
+    	boolean canPlaceArmy = false;
+    	
+    	//Checks if the game is out of the initial sharing phase and if the player can place on the said territory.
+    	
+    	if(player.getUnassignedArmies() > 0) {
+    		if(areTerritoriesOccupied(TerritoryController.getInstance().getAllTerritories()) == false & territory.getOwner() == null){
+    			canPlaceArmy = true;
+    		}
+    		else if(areTerritoriesOccupied(TerritoryController.getInstance().getAllTerritories()) & belongsToPlayer(territory,player)) {
+    			canPlaceArmy = true;
+    		}
+    	}
+        return canPlaceArmy;
     }
     
-    public static boolean isBelongPlayer(Territory territory, Player player) {
+    public static boolean belongsToPlayer(Territory territory, Player player) {
     	return territory.getOwner().equals(player);
     }
+    
+    public static boolean areTerritoriesOccupied(Territory[] territories) {
+    	
+    	boolean occupied = true;
+    	
+    	//Checks if all territories are occupied for the start of the game.
+    	
+    	for(Territory territory:territories) {
+    		if(territory.getOwner() == null) {
+    			occupied = false;
+    		}
+    	}
+    	
+    	return occupied;
+    }
+    
 }

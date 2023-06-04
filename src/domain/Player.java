@@ -60,17 +60,16 @@ public class Player extends User {
     }
     
     public void getTurnArmy (List<Territory> territories) {
-        unassignedArmies += (3+(Math.floor((territories.size()-9)/3)));
+        unassignedArmies += Math.floor((territories.size()/3));
     }
     
-
     public void attack(Territory attackerTerritory, Territory defenderTerritory) {
-        WarController.getInstance().resolveBattle( attackerTerritory, defenderTerritory  );
+        WarController.getInstance().rollSimpleDice( attackerTerritory, defenderTerritory  );
     }
 
-    public void fortify(Territory from, Territory to) {
-        from.removeArmy(1);
-        to.addArmy(1);
+    public void fortify(Territory from, Territory to, int numArmy) {
+        from.removeArmy(numArmy);
+        to.addArmy(numArmy);
     }
 
     public void drawCard() {
@@ -93,41 +92,34 @@ public class Player extends User {
 		return territories;
 	}
 
-
     public void decreaseUnassignedArmies(int i) {
+    		unassignedArmies--;
     }
-
 
     public void removeTerritoryFromPlayer(Territory territory) {
         territories.remove(territory);
     }
 
-
     public List<Card> getCards() {
         return cards;
     }
-
     
     public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public void addTerritoryToPlayer(Territory territory) {
         territories.add(territory);
     }
 
-    
     public void addArmyToPlayer(Army army) {
         // implement
     }
-	
-    
+	    
     public void removeCardFromPlayer(armyTypes type, int num) {
     	for (int i=0; i<this.cards.size() & num>0; i++) {
     		if(((ArmyCard)this.cards.get(i)).getType() == type) {
@@ -138,9 +130,11 @@ public class Player extends User {
     	}   
     }
 
-
     public void addCardToPlayer(Card card) {
         // implement
     }
     
+    public int getUnassignedArmies() {
+    	return this.unassignedArmies;
+    }
 }

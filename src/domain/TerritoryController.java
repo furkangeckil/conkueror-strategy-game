@@ -255,7 +255,7 @@ public class TerritoryController {
         Territory[] territories = getAllTerritories();
         int numberOfPlayers = players.size();
         int initialArmiesPerPlayer;
-
+        
         switch (numberOfPlayers) {
             case 3:
                 initialArmiesPerPlayer = 35;

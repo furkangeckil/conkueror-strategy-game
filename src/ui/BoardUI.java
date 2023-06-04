@@ -10,7 +10,7 @@ import domain.PlayerController;
 import domain.Territory;
 import domain.TerritoryController;
 import ui.UserNameUI;
-import ui.BoardUI.Mode;
+
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -29,16 +29,19 @@ public class BoardUI {
 	private static HashMap<String, JPanel> territoryMap = new HashMap<>(); //added 
 	private static HashMap<JPanel, String> reverseTerritoryMap = new HashMap<>();
 	private String mode = "recruit";
+	private JButton recruitButton = new JButton("Recruit");
 	private JButton attackButton = new JButton("Attack");
 	private JButton fortifyButton = new JButton("Fortify");
 	private JButton endTurnButton = new JButton("End Turn");
-	private JButton placeArmiesButton = new JButton("Recruit");
 	private JButton nextModeButton = new JButton("Next Mode");
 	private JButton exitButton = new JButton("Exit");
+	private JPanel container = new JPanel(new FlowLayout(FlowLayout.RIGHT)); 
+	private JTextField armySelect = new JTextField();
 	private static List<String> nicknameList;
 	private Territory fromTerritory = null;
 	private Territory toTerritory = null;
 
+	private int armyNum;
 	
     private static final Color[] PLAYER_COLORS = {
             Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN
@@ -46,18 +49,6 @@ public class BoardUI {
             // and make territories their colors.
     };
     
-//    private static MouseAdapter territoryClickListener() {
-//        return new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//            //    if (gameSetup.getGame().getGameEnum() == GameEnum.RUNNING) {
-//                    JPanel territoryPanel = (JPanel) e.getSource();
-//                    //territoryPanel.setBackground(PLAYER_COLORS[2]);
-//             //   }
-//            }
-//        };
-//    }
-
     public void showBoard(int numContinents, List<String> nicknameList, String[][] territoryMatrix) {
         JFrame boardFrame = new JFrame("World Map");
         boardFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -83,7 +74,6 @@ public class BoardUI {
                     int territoryY = 50 + row * territoryHeight;
 
                     territoryPanel.setBounds(territoryX, territoryY, territoryWidth, territoryHeight);
-                    //territoryPanel.addMouseListener(territoryClickListener);
                     int armyCount = 1;
                     JLabel armyCountLabel = new JLabel(Integer.toString(armyCount));
                     territoryPanel.add(armyCountLabel, new GridBagConstraints());
@@ -123,42 +113,41 @@ public class BoardUI {
         
     });
         JPanel actionPanel =  new JPanel();
+        JLabel label = new JLabel("Select number of armies to fortify");
+        
+        container.add(armySelect);
         
         actionPanel.setLayout(new BoxLayout(actionPanel, BoxLayout.Y_AXIS));
 
+        actionPanel.add(recruitButton);
+        
         actionPanel.add(attackButton);
 
         actionPanel.add(fortifyButton);
-
-        actionPanel.add(placeArmiesButton);
         
         actionPanel.add(nextModeButton);
         
         actionPanel.add(endTurnButton);
+        
+        actionPanel.add(label);
+        
+        actionPanel.add(container);
 
         // Set alignment for all buttons
+        
+        
+        recruitButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
         attackButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
         fortifyButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        placeArmiesButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
         nextModeButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
         endTurnButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
-
+        label.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        armySelect.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        armySelect.setPreferredSize(new Dimension(100,20));
+        
         // Add the actionPanel to the boardFrame
         boardFrame.add(actionPanel, BorderLayout.EAST);
-
-//        this.attackButton = new JButton("Attack");
-//        actionPanel.add(attackButton, BorderLayout.NORTH);
-//
-//        this.fortifyButton = new JButton("Fortify");
-//        actionPanel.add(fortifyButton, BorderLayout.CENTER);
-//
-//        this.endTurnButton = new JButton("End Turn");
-//        actionPanel.add(endTurnButton, BorderLayout.SOUTH);
-//        
-//        boardFrame.add(actionPanel, BorderLayout.EAST);
-
         
-
 //        JButton exitButton = new JButton("Exit");
 //        if (exitButton.getModel().isPressed()){
 //            gameSetup.getGame().endGame();
@@ -188,9 +177,11 @@ public class BoardUI {
 			
 			try{
 				if(mode == "recruit") {
-					Controller.getInstance().recruit(territory,currentPlayer);
+					toTerritory = territory;
+					getRecruitButton().setBackground(Color.GREEN);
 				}
 				else if(mode == "attack") {
+					getNextModeButton().setBackground(null);
 					if(fromTerritory == null) {
 						fromTerritory = territory;
 						System.out.println(fromTerritory.getName());
@@ -199,38 +190,18 @@ public class BoardUI {
 						toTerritory = territory;
 						System.out.println(toTerritory.getName());
 					}
+					getAttackButton().setBackground(Color.GREEN);
 				}
 				else if(mode == "fortify") {
+					getAttackButton().setBackground(null);
 					if(fromTerritory == null) {
 						fromTerritory = territory;
 					}
 					else if(toTerritory == null) {
 						toTerritory = territory;
 					}
+					getFortifyButton().setBackground(Color.GREEN);
 				}
-				
-//				switch (mode) {
-//					case "recruit":
-//						Controller.getInstance().recruit(territory,currentPlayer);
-//						
-//					case "attack":
-//						if(fromTerritory == null) {
-//							fromTerritory = territory;
-//							System.out.println(fromTerritory.getName());
-//						}
-//						else if(toTerritory == null) {
-//							toTerritory = territory;
-//							System.out.println(toTerritory.getName());
-//						}
-//						
-//					case "fortify":
-//						if(fromTerritory == null) {
-//							fromTerritory = territory;
-//						}
-//						else if(toTerritory == null) {
-//							toTerritory = territory;
-//						}
-//				}
 			}
 			catch(NumberFormatException ex){
 				
@@ -265,49 +236,57 @@ public class BoardUI {
 
 		public void actionPerformed(ActionEvent e) {
 			
-			Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
+			Player currentPlayer = Controller.getInstance().getCurrentPlayer();
 			
 			try{
 				
 				if(getNextModeButton() == e.getSource()) {
-					nextMode();
-					System.out.println(mode);
-					refreshSelectedTerritories();
+						nextMode();
+						System.out.println(mode);
+						refreshSelectedTerritories();
 				}
 				
 				else if(getEndTurnButton()==e.getSource()){
-					Controller.getInstance().endTurn();
-					refreshSelectedTerritories();
-					System.out.println("end turn button, currentplayer: "+Controller.getInstance().getCurrentPlayer());
+					
+					getEndTurnButton().setBackground(null);
+					
+					if(!Controller.getInstance().areTerritoriesOccupied()){
+						Controller.getInstance().endTurn();
+						refreshSelectedTerritories();
+					}
+					else if(mode == "fortify") {
+						Controller.getInstance().endTurn();
+						refreshSelectedTerritories();
+						System.out.println("end turn button, currentplayer: "+ currentPlayer.getName());
+						mode = "recruit";
+						
+					}
 				}
 				else {
-				
-					if(mode == "attack") {
-						if (getAttackButton()==e.getSource()) {
-							Controller.getInstance().attack(fromTerritory, toTerritory);
-						}								
-					}
-					else if(mode == "fortify"){
-						if (getFortifyButton()==e.getSource()) {
-							Controller.getInstance().fortify(fromTerritory, toTerritory);
+					
+					if(mode == "recruit" && getRecruitButton() == e.getSource()) {
+						if(Controller.getInstance().areTerritoriesOccupied()) {
+							Controller.getInstance().recruit(toTerritory,currentPlayer);
+							getRecruitButton().setBackground(null);
+							getNextModeButton().setBackground(Color.GREEN);
+							refreshSelectedTerritories();
+						}
+						else {
+							Controller.getInstance().recruit(toTerritory,currentPlayer);
+							Controller.getInstance().endTurn();
 						}
 					}
-					
-					
-//					switch (mode) {
-//					case "recruit":	
-//						
-//					case "attack":
-//						if (getAttackButton()==e.getSource()) {
-//							Controller.getInstance().attack(beep, boop);
-//						}								
-//									
-//					
-//					case "fortify":
-//						if (getFortifyButton()==e.getSource()) {
-//							Controller.getInstance().fortify(fromTerritory, toTerritory);
-//						}
-//					}
+					else if(mode == "attack" && getAttackButton()==e.getSource()) {
+						Controller.getInstance().attack(fromTerritory, toTerritory);
+						getAttackButton().setBackground(null);
+						getNextModeButton().setBackground(Color.GREEN);													
+					}
+					else if(mode == "fortify" && getFortifyButton()==e.getSource()){
+						getFortifyButton().setBackground(null);
+						armyNum = Integer.parseInt(armySelect.getText());
+						Controller.getInstance().fortify(fromTerritory, toTerritory,armyNum);
+						getEndTurnButton().setBackground(Color.GREEN);
+					}
 				}
 			
 			}
@@ -328,6 +307,42 @@ public class BoardUI {
     	return reverseTerritoryMap.get(panel);
     }
     
+    public void nextMode() {
+    	if(mode == "recruit") {
+    		mode = "attack";	
+    	}
+    	else if(mode == "attack") {
+    		mode = "fortify";
+    	}
+    	else if(mode == "fortify") {
+    		mode = "recruit";
+    	}
+    }
+    
+    public void addListeners(ActionListener actionListener, MouseListener mouseListener ) {
+    	this.attackButton.addActionListener(actionListener);
+    	this.fortifyButton.addActionListener(actionListener);	
+    	this.nextModeButton.addActionListener(actionListener);
+    	this.endTurnButton.addActionListener(actionListener);
+    	this.recruitButton.addActionListener(actionListener);
+    	
+    	for (JPanel territoryPanel : territoryMap.values()) {
+    		territoryPanel.addMouseListener(mouseListener);
+    	}
+    }
+    
+	public void refreshSelectedTerritories() {
+		this.fromTerritory=null;
+		this.toTerritory=null;
+	}
+    
+    public static void updateTerritory (int playerIndex, String territoryName, int armyNum) {
+    	JPanel territoryPanel = territoryMap.get(territoryName);
+    	territoryPanel.setBackground(PLAYER_COLORS[playerIndex]);
+    	((JLabel) territoryPanel.getComponents()[0]).setText(Integer.toString(armyNum));
+    	
+    }
+
     public String getCurrentMode() {
     	return mode;
     }
@@ -347,52 +362,8 @@ public class BoardUI {
     public JButton getEndTurnButton() {
     	return this.endTurnButton;
     }
-    
-    public static enum Mode {
-		RECRUITMENT_MODE, ATTACK_MODE, FORTIFY_MODE
-	}
-    
-    public void nextMode() {
-//    	switch (currentMode) {
-//		case RECRUITMENT_MODE:
-//			currentMode=Mode.ATTACK_MODE;		
-//		case ATTACK_MODE:
-//			currentMode=Mode.FORTIFY_MODE;
-//		case FORTIFY_MODE:
-//			currentMode=Mode.RECRUITMENT_MODE;
-//    	}
-    	if(mode == "recruit") {
-    		mode = "attack";	
-    	}
-    	else if(mode == "attack") {
-    		mode = "fortify";
-    	}
-    	else if(mode == "fortify") {
-    		mode = "recruit";
-    	}
-    }
-    
-    public void addListeners(ActionListener actionListener, MouseListener mouseListener ) {
-    	this.attackButton.addActionListener(actionListener);
-    	this.fortifyButton.addActionListener(actionListener);
-    	this.placeArmiesButton.addActionListener(actionListener);
-    	this.nextModeButton.addActionListener(actionListener);
-    	this.endTurnButton.addActionListener(actionListener);
-    	
-    	for (JPanel territoryPanel : territoryMap.values()) {
-    		territoryPanel.addMouseListener(mouseListener);
-    	}
-    }
-    
-	public void refreshSelectedTerritories() {
-		this.fromTerritory=null;
-		this.toTerritory=null;
-	}
-    
-    public static void updateTerritory (int playerIndex, String territoryName, int armyNum) {
-    	JPanel territoryPanel = territoryMap.get(territoryName);
-    	territoryPanel.setBackground(PLAYER_COLORS[playerIndex]);
-    	((JLabel) territoryPanel.getComponents()[0]).setText(Integer.toString(armyNum));
-    	
+      
+    public JButton getRecruitButton() {
+    	return this.recruitButton;
     }
 }
