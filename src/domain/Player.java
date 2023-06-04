@@ -29,7 +29,7 @@ public class Player extends User {
             territory.addArmy(1);
             unassignedArmies--;
             territory.setOwner(this);
-            return 0;
+            return 1;
             }else {
             System.out.println("cannot place armies");
             return -1;
