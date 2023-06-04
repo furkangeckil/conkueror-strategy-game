@@ -18,21 +18,44 @@ public class Player extends User {
       this.name= name;
     }
 
-
-    public void placeArmies(Territory territory) {
+    /**
+     * This method is used to place a player's unassigned armies onto a specified territory.
+     *
+     * Requires:
+     * 1. The input, territory, is a valid Territory object.
+     * 2. The Player object, on which the method is called, is properly initialized.
+     * 
+     * Modifies:
+     * 1. The Territory object passed as an argument, specifically the army count and possibly the ownership of the territory.
+     * 2. The unassignedArmies field of the Player object, decreasing its value if armies are successfully placed.
+     * 
+     * Effects:
+     * 1. If the player has unassigned armies and owns the territory, one army is added to the territory and the player's unassigned armies decrease by one. Returns 0.
+     * 2. If the player has unassigned armies and the territory has no owner, one army is added, the player's unassigned armies decrease by one, and the player takes ownership of the territory. Returns 1.
+     * 3. If the player has unassigned armies but the territory is owned by another player, no changes occur and a message is printed. Returns -1.
+     * 4. If the player has no unassigned armies, no changes occur and a message is printed. Returns -1.
+     *
+     * @param territory the territory on which to place armies
+     * @return int indicating success (0, 1) or failure (-1) of placing armies
+     */
+    public int placeArmies(Territory territory) {
         if (unassignedArmies > 0) {
             if(territory.getOwner() == this) {
             territory.addArmy(1);
             unassignedArmies--;
+            return 0;
             } else if(territory.getOwner() == null) {
             territory.addArmy(1);
             unassignedArmies--;
             territory.setOwner(this);
+            return 1;
             }else {
             System.out.println("cannot place armies");
+            return -1;
             }
         } else {
             System.out.println("no army to recruit");
+            return -1;
         }
     }
     
