@@ -24,6 +24,23 @@ public class ArmyCard extends Card{
 	Option-5: 1 Artillery + 2 Cavalry cards => 3 Artillery
     */
     public static void tradeArmyCards (Player player, int option) {
+    	
+    	/*This method is used to trade Player's army cards and updating the Player's total army number.
+    	 * 
+    	 * Requires:
+    	 * 1. A Player object which is properly initialized.
+    	 * 2. And a chosen option from the player which dictates which trade is going to happen.
+    	 * 
+    	 * Modifies:
+    	 * 1. Player's cards are appropriately removed if the Player has enough cards for the selected trade.
+    	 * 2. Player's total army number is updated according to the trade that occurs.
+    	 * 
+    	 * Effects:
+    	 * 1. As it is a method with void return it returns nothing.
+    	 * 2. It changes Player's cards and their total army number if the circumstances are valid.
+    	 * 
+    	 */
+    	
     	switch (option) {
   	  	case 1:
   	  		if (checkNumOfArmyCard(player.getCards(), armyTypes.INFANTRY) >=3) {
