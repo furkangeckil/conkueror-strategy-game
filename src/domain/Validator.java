@@ -76,6 +76,7 @@ public class Validator {
     	
     	if(player.getTotalArmy() < 0) {
     		System.out.println("Invalid representation: A players total army can't be negative");
+		return false;
     	}
     	return true;
     }
