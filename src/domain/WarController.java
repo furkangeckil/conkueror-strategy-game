@@ -58,17 +58,32 @@ public class WarController {
         }
     }
 
-    public void rollSimpleDice(Territory attackerTerritory, Territory defenderTerritory) {
+    public int[] rollSimpleDice(Territory attackerTerritory, Territory defenderTerritory) {
         int[] attackerResults = attackerDice.getDieResults();
         int[] defenderResults = defenderDice.getDieResults();
 
         int attackerDice = attackerResults[0];
         int defenderDice = defenderResults[0];
 
-        if (attackerDice > defenderDice ) {
-            attackerTerritory.removeArmy(2);
-        } else {
-            defenderTerritory.removeArmy(1);
+        if(Validator.validateAttack(attackerTerritory, defenderTerritory)) {
+        	if (attackerDice > defenderDice ) {
+        		defenderTerritory.removeArmy(1);
+        		if(defenderTerritory.getArmyNum() == 0) {
+        			defenderTerritory.setOwner(attackerTerritory.getOwner());
+        		}
+        	} else {
+        		attackerTerritory.removeArmy(2);
+        	}
+
+
+        	int[] result = new int[2];
+        	result[0] = attackerDice;
+        	result[1] = defenderDice;
+        
+        return result;
+        }
+        else {
+        	return null;
         }
     }
     

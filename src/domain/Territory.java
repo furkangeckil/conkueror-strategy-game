@@ -26,7 +26,7 @@ public class Territory extends Observable {
     
     public void setOwner(Player owner) {
         this.owner = owner;
-        notifyObservers();
+        //notifyObservers();
     }
 
     public Continent getContinent() {
@@ -47,17 +47,17 @@ public class Territory extends Observable {
 
     public void setArmyNum(int armyNum) {
         this.armyNum = armyNum;
-        notifyObservers();
+        //notifyObservers();
     }
 
     public void addArmy(int i) {
         armyNum += i;
-        notifyObservers();
+        //notifyObservers();
     }
 
     public void removeArmy(int i) {
         armyNum -= i;
-        notifyObservers();
+        //notifyObservers();
     }
 
     public List<Territory> getNeighbors() {

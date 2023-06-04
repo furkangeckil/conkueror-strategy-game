@@ -4,19 +4,24 @@ package domain;
 public class Validator {
 
     public static boolean validateAttack(Territory attacker, Territory defender) {
-        if (attacker.getOwner() == defender.getOwner()) {
-            System.out.println("You cannot attack your own territory.");
-            return false;
-        }
-        
-        int attackUnits = attacker.getArmyNum();
-        
-        if (attackUnits < 1 || attackUnits >= attacker.getArmyNum()) {
-            System.out.println("Invalid number of attack units.");
-            return false;
-        }
+        	try {
+        		if (attacker.getOwner() == defender.getOwner()) {
+        			System.out.println("You cannot attack your own territory.");
+        			return false;
+        		}
 
-        // Add more validation rules as needed
+        		if (attacker.getArmyNum() < 3 || attacker.getArmyNum() < defender.getArmyNum()) {
+        			System.out.println("Invalid number of attack units.");
+        			return false;
+        		}
+        		
+        		if(attacker.isConnected(defender) == false) {
+        			System.out.println("Territories are not neighbors");
+        			return false;
+        		}
+        	}catch(NullPointerException e){
+        		System.out.println("This territory doesn't have an owner yet");
+        	}
 
         return true;
     }
