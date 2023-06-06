@@ -6,6 +6,7 @@ import ui.GameSetupUI;
 import ui.LoginUI;
 import ui.MainMenu;
 import ui.UserNameUI;
+import ui.WorldMapArea;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,7 +53,7 @@ public class Controller {
 	}
 	
 	public void updateTerritoryOnMap(Territory territory) {
-		BoardUI.updateTerritory (PlayerController.getInstance().getCurrentPlayerIndex(), territory.getName(), territory.getArmyNum());
+		WorldMapArea.updateTerritory (PlayerController.getInstance().getCurrentPlayerIndex(), territory.getName(), territory.getArmyNum());
 	}
 
 	public boolean loginUser(String username, String password) {
@@ -138,5 +139,34 @@ public class Controller {
 	
 	public Territory[] getAllTerritories() {
 		return TerritoryController.getInstance().getAllTerritories();
+	}
+	
+	public int getTerritoryArmyNum(Territory territory) {
+		return territory.getArmyNum();
+	}
+	
+	public String getTerritoryName(Territory territory) {
+		return territory.getName();
+	}
+	
+	public int getCurrentPlayerIndex() {
+		return PlayerController.getInstance().getCurrentPlayerIndex();
+	}
+	
+	public Player getOwner(Territory territory) {
+		return territory.getOwner();
+	}
+	
+	public int getIndex(Player player) {
+		int index = 0;
+		ArrayList<Player> players = PlayerController.getInstance().getPlayers();
+		for(int i = 0; i<players.size();i++) {			
+			if(player == PlayerController.getInstance().getPlayers().get(i)) {
+				index  = i;
+				break;
+			}
+		}
+		
+		return index;
 	}
 }

@@ -76,11 +76,16 @@ public class Validator {
     	boolean occupied = true;
     	
     	//Checks if all territories are occupied for the start of the game.
-    	
+    	try {
     	for(Territory territory:territories) {
-    		if(territory.getOwner() == null) {
-    			occupied = false;
+    		if(territory!=null) {
+    			if(territory.getOwner() == null) {
+    				occupied = false;
+    			}
     		}
+    	}}catch(NullPointerException ne){
+    		occupied = false;
+    		return occupied;
     	}
     	
     	return occupied;

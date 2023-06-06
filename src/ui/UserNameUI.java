@@ -60,8 +60,9 @@ public class UserNameUI {
             		
             	}
                 loginFrame.dispose();
-                boardUI.showBoard(Controller.getInstance().getNumContinents(), Controller.getInstance().getNicknameList(), Controller.getInstance().getTerritoryMatrix());
+                WorldMapArea worldMapArea = new WorldMapArea();
                 Controller.getInstance().createPlayers(nicknameList);
+                continueButton.removeActionListener(this);
             }});
 
         loginFrame.add(continueButton, BorderLayout.SOUTH);

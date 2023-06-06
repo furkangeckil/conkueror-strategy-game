@@ -57,32 +57,50 @@ public class TerritoryController {
     static	Territory easternAustralia = new Territory("easternAustralia",null, null,0);
     static	Territory westernAustralia = new Territory("westernAustralia",null, null,0);
     
+    static Territory t1 = new Territory("t1",null,null,0);
+    static Territory t2 = new Territory("t2",null,null,0);
+    static Territory t3 = new Territory("t3",null,null,0);
+    static Territory t4 = new Territory("t4",null,null,0);
+    static Territory t5 = new Territory("t5",null,null,0);
+    static Territory t6 = new Territory("t6",null,null,0);
+    static Territory t7 = new Territory("t7",null,null,0);
+    static Territory t8 = new Territory("t8",null,null,0);
+    static Territory t9 = new Territory("t9",null,null,0);
+    static Territory t10 = new Territory("t10",null,null,0);
+    static Territory t11 = new Territory("t11",null,null,0);
+    static Territory t12 = new Territory("t12",null,null,0);
+    static Territory t13 = new Territory("t13",null,null,0);
+    static Territory t14 = new Territory("t14",null,null,0);
+    static Territory t15 = new Territory("t15",null,null,0);
+    
     public Territory[] getAllTerritories() {
         Territory[] territories = new Territory[]{
-        	null,null,null,iceland,
-        	northWestTerritory,greenland,null,alaska,
-        	null,scandinavia,null,yakutsk,britain,irkutsk,
-        	null,ural,ontario,alberta,
-        	northernEurope,siberia,quebec,kamchatka,
-        	ukraine,null,null,afghanistan,
-        	southernEurope,westernEurope,westernUnitedStates,mongolia,
-        	japan,null,easternUnitedStates,egypt,
-        	china,middleEast,india,centralAmerica,
-        	northAfrica,slam,venezuela,null,
-        	eastAfrica,congo,indonesia,newGuiena,
-        	null,peru,brazil,madagascar,
-        	southAfrica,null,westernAustralia,null,
-        	easternAustralia,argentina         
+        		null,null,null,northWestTerritory,
+        		iceland,greenland,null,alaska,
+        		null,scandinavia,null,yakutsk,britain,
+        		null,ural,ontario,alberta,
+        		northernEurope,irkutsk,null,siberia,
+        		quebec,kamchatka,ukraine,null,null,afghanistan,
+        		southernEurope,westernEurope,westernUnitedStates,mongolia,
+        		japan,null,easternUnitedStates,egypt,
+        		china,middleEast,india,centralAmerica,
+        		northAfrica,slam,venezuela,null,
+        		eastAfrica,congo,indonesia,newGuiena,
+        		null,peru,brazil,madagascar,
+        		southAfrica,null,westernAustralia,null,
+        		easternAustralia,argentina,     
         };
         
         return territories;
     }
     
     public Territory findTerritory(String name) {
-		
+	
 		for(Territory territory :  getAllTerritories()) {
-			if(territory.getName() == name) {
-				return territory;
+			if(territory != null) {
+				if(territory.getName() == name) {
+					return territory;
+				}
 			}
 		}
 		return null;
