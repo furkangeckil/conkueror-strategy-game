@@ -1,5 +1,7 @@
 package domain;
 
+import java.awt.Shape;
+import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,6 +83,4 @@ public class Territory extends Observable {
     	return connected;
     }
     
-    
-
 }

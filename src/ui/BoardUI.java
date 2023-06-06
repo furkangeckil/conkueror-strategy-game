@@ -17,6 +17,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.*;
+import java.io.*;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+import java.net.URL;
+import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.imageio.ImageIO;
 
 import java.awt.event.MouseListener;
 import java.util.HashMap;
@@ -266,14 +276,17 @@ public class BoardUI {
 					
 					if(mode == "recruit" && getRecruitButton() == e.getSource()) {
 						if(Controller.getInstance().areTerritoriesOccupied()) {
-							Controller.getInstance().recruit(toTerritory,currentPlayer);
-							getRecruitButton().setBackground(null);
-							getNextModeButton().setBackground(Color.GREEN);
-							refreshSelectedTerritories();
+							if(Controller.getInstance().recruit(toTerritory,currentPlayer)) {
+								getRecruitButton().setBackground(null);
+								getNextModeButton().setBackground(Color.GREEN);
+								refreshSelectedTerritories();
+							};
 						}
 						else {
-							Controller.getInstance().recruit(toTerritory,currentPlayer);
-							Controller.getInstance().endTurn();
+							if(Controller.getInstance().recruit(toTerritory,currentPlayer)) {
+								getRecruitButton().setBackground(null);
+								Controller.getInstance().endTurn();
+							}
 						}
 					}
 					else if(mode == "attack" && getAttackButton()==e.getSource()) {

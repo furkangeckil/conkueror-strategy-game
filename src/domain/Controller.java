@@ -136,4 +136,7 @@ public class Controller {
 		return Validator.areTerritoriesOccupied(TerritoryController.getInstance().getAllTerritories());
 	}
 	
+	public Territory[] getAllTerritories() {
+		return TerritoryController.getInstance().getAllTerritories();
+	}
 }

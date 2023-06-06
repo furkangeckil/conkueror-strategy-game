@@ -9,60 +9,70 @@ public class TerritoryController {
 
     private static TerritoryController instance;
 
-    static  Territory westEurope = new Territory("WE", null, null,0);
-    static  Territory eastEurope = new Territory("EE",null, null,0);
-    static  Territory midEurope = new Territory("ME",null, null,0);
-    static	Territory turkey = new Territory("T",null, null,0);
-    static	Territory scandinavia = new Territory("S",null, null,0);
-    static	Territory russia = new Territory("R",null, null,0);
-    static	Territory britain = new Territory("B",null, null,0);
-
-    static	Territory india = new Territory("I",null, null,0);
-    static	Territory china = new Territory("C",null, null,0);
-    static	Territory japan = new Territory("J",null, null,0);
-    static	Territory mongolia = new Territory("M",null, null,0);
-    static	Territory singapore  = new Territory("Si",null, null,0);
-    static	Territory iran = new Territory("Ir",null, null,0);
-    static	Territory afghanistan = new Territory("A",null, null,0);
-
-
-
-    static	Territory egypt = new Territory("E",null, null,0);
-    static	Territory morocco = new Territory("M",null, null,0);
-    static	Territory southAfrica = new Territory("SA",null, null,0);
-    static	Territory madagascar = new Territory("Ma",null, null,0);
-
-
-
-    static	Territory brasil = new Territory("Br",null, null,0);
-    static	Territory peru = new Territory("P",null, null,0);
-    static	Territory argentina = new Territory("Ar",null, null,0);
-    static  Territory venesuela = new Territory("V",null, null,0);
-
-
-
-    static	Territory eastCanada = new Territory("EC",null, null,0);
-    static	Territory westCanada = new Territory("WC",null, null,0);
-    static	Territory eastUSA = new Territory("EU",null, null,0);
-    static	Territory westUSA = new Territory("WU",null, null,0);
-    static	Territory mexico = new Territory("Me",null, null,0);
-
-
-
-    static	Territory eastAustralia = new Territory("EA",null, null,0);
-    static	Territory westAustralia = new Territory("WA",null, null,0);
-    static	Territory newZealand = new Territory("NZ",null, null,0);
-
+    static Territory alaska = new Territory("alaska",null,null,0);   
+    static  Territory northWestTerritory = new Territory("northWestTerritory", null, null,0);
+    static  Territory alberta= new Territory("alberta",null, null,0);
+    static  Territory ontario = new Territory("ontario",null, null,0);
+    static	Territory quebec = new Territory("quebec",null, null,0);
+    static	Territory westernUnitedStates = new Territory("westernUnitedStates",null, null,0);
+    static	Territory easternUnitedStates = new Territory("easternUnitedStates",null, null,0);
+    static	Territory centralAmerica = new Territory("centralAmerica",null, null,0);
+    static	Territory greenland  = new Territory("greenland",null, null,0);
     
+    static	Territory venezuela = new Territory("venezuela",null, null,0);
+    static	Territory brazil = new Territory("brazil",null, null,0);
+    static	Territory peru = new Territory("peru",null, null,0);
+    static	Territory argentina = new Territory("argentina",null, null,0);
+  
+    static	Territory iceland = new Territory("iceland",null, null,0);
+    static	Territory britain = new Territory("britain",null, null,0);
+    static	Territory scandinavia = new Territory("scandinavia",null, null,0);
+    static	Territory ukraine = new Territory("ukraine",null, null,0);
+    static	Territory northernEurope = new Territory("northernEurope",null, null,0);
+    static	Territory southernEurope = new Territory("southernEurope",null, null,0);
+    static	Territory westernEurope = new Territory("westernEurope",null, null,0);
+    
+    static	Territory egypt = new Territory("egypt",null, null,0);
+    static	Territory northAfrica = new Territory("northAfrica",null, null,0);
+    static  Territory eastAfrica = new Territory("eastAfrica",null, null,0);
+    static	Territory congo = new Territory("congo",null, null,0);
+    static	Territory southAfrica = new Territory("southAfrica",null, null,0);
+    static	Territory madagascar = new Territory("madagascar",null, null,0);
+    
+    static	Territory middleEast = new Territory("middleEast",null, null,0);
+    static	Territory afghanistan = new Territory("afghanistan",null, null,0);
+    static	Territory ural = new Territory("ural",null, null,0);
+    static	Territory siberia = new Territory("siberia",null, null,0);
+    static	Territory yakutsk = new Territory("yakutsk",null, null,0);
+    static	Territory irkutsk = new Territory("irkutsk",null, null,0);
+    static	Territory mongolia = new Territory("mongolia",null, null,0);
+    static	Territory china = new Territory("china",null, null,0);
+    static	Territory india = new Territory("india",null, null,0);
+    static	Territory slam = new Territory("slam",null, null,0);
+    static	Territory kamchatka = new Territory("kamchatka",null, null,0);
+    static	Territory japan = new Territory("japan",null, null,0);
+    
+    static	Territory indonesia = new Territory("indonesia",null, null,0);
+    static	Territory newGuiena = new Territory("newGuiena",null, null,0);
+    static	Territory easternAustralia = new Territory("easternAustralia",null, null,0);
+    static	Territory westernAustralia = new Territory("westernAustralia",null, null,0);
     
     public Territory[] getAllTerritories() {
         Territory[] territories = new Territory[]{
-            westEurope, eastEurope, midEurope, turkey, scandinavia, russia, britain,
-            india, china, japan, mongolia, singapore, iran, afghanistan,
-            egypt, morocco, southAfrica, madagascar,
-            brasil, peru, argentina, venesuela,
-            eastCanada, westCanada, eastUSA, westUSA, mexico,
-            eastAustralia, westAustralia, newZealand
+        	null,null,null,iceland,
+        	northWestTerritory,greenland,null,alaska,
+        	null,scandinavia,null,yakutsk,britain,irkutsk,
+        	null,ural,ontario,alberta,
+        	northernEurope,siberia,quebec,kamchatka,
+        	ukraine,null,null,afghanistan,
+        	southernEurope,westernEurope,westernUnitedStates,mongolia,
+        	japan,null,easternUnitedStates,egypt,
+        	china,middleEast,india,centralAmerica,
+        	northAfrica,slam,venezuela,null,
+        	eastAfrica,congo,indonesia,newGuiena,
+        	null,peru,brazil,madagascar,
+        	southAfrica,null,westernAustralia,null,
+        	easternAustralia,argentina         
         };
         
         return territories;
@@ -118,133 +128,230 @@ public class TerritoryController {
         if (instance == null) {
             instance = new TerritoryController();
             
-            westEurope.addNeighbor(eastEurope);
             
-            eastEurope.addNeighbor(westEurope);
-            eastEurope.addNeighbor(midEurope);
-            eastEurope.addNeighbor(russia);
+            //North America
+            alaska.addNeighbor(northWestTerritory);
+            alaska.addNeighbor(alberta);
+            alaska.addNeighbor(kamchatka);
             
-            midEurope.addNeighbor(eastEurope);
-            midEurope.addNeighbor(turkey);
-            midEurope.addNeighbor(britain);
+            northWestTerritory.addNeighbor(alaska);
+            northWestTerritory.addNeighbor(alberta);
+            northWestTerritory.addNeighbor(ontario);
+            northWestTerritory.addNeighbor(greenland);
+  
+            alberta.addNeighbor(alaska);
+            alberta.addNeighbor(northWestTerritory);
+            alberta.addNeighbor(ontario);
+            alberta.addNeighbor(westernUnitedStates);
+ 
+            ontario.addNeighbor(northWestTerritory);
+            ontario.addNeighbor(alberta);
+            ontario.addNeighbor(westernUnitedStates);
+            ontario.addNeighbor(easternUnitedStates);
+            ontario.addNeighbor(quebec);
+            ontario.addNeighbor(greenland);
             
-            turkey.addNeighbor(midEurope);
-            turkey.addNeighbor(scandinavia);
-            turkey.addNeighbor(india);
+            quebec.addNeighbor(ontario);
+            quebec.addNeighbor(easternUnitedStates);
+            quebec.addNeighbor(greenland);
             
-            scandinavia.addNeighbor(turkey);
-            scandinavia.addNeighbor(china);
+            westernUnitedStates.addNeighbor(alberta);
+            westernUnitedStates.addNeighbor(ontario);
+            westernUnitedStates.addNeighbor(easternUnitedStates);
+            westernUnitedStates.addNeighbor(centralAmerica);
             
+            easternUnitedStates.addNeighbor(ontario);
+            easternUnitedStates.addNeighbor(quebec);
+            easternUnitedStates.addNeighbor(westernUnitedStates);
+            easternUnitedStates.addNeighbor(centralAmerica);
             
-            russia.addNeighbor(eastEurope);
-            russia.addNeighbor(britain);
-            
-            britain.addNeighbor(midEurope);
-            britain.addNeighbor(russia);
-            britain.addNeighbor(india);
-            britain.addNeighbor(mongolia);
-            
-            india.addNeighbor(turkey);
-            india.addNeighbor(britain);
-            india.addNeighbor(china);
-            india.addNeighbor(singapore);
-            
-            china.addNeighbor(scandinavia);
-            china.addNeighbor(india);
-            china.addNeighbor(japan);
-            china.addNeighbor(iran);
-            
-            japan.addNeighbor(china);
-            japan.addNeighbor(afghanistan);
-            
-            
-            
-            mongolia.addNeighbor(britain);
-            mongolia.addNeighbor(singapore);
-            
-            singapore.addNeighbor(india);
-            singapore.addNeighbor(mongolia);
-            singapore.addNeighbor(iran);
-            singapore.addNeighbor(morocco);
-            
-            iran.addNeighbor(china);
-            iran.addNeighbor(singapore);
-            iran.addNeighbor(afghanistan);
-            iran.addNeighbor(southAfrica);
-            
-            afghanistan.addNeighbor(japan);
-            afghanistan.addNeighbor(iran);
-            afghanistan.addNeighbor(egypt);
-            afghanistan.addNeighbor(madagascar);
-            
-            egypt.addNeighbor(afghanistan);
-            egypt.addNeighbor(brasil);
+            centralAmerica.addNeighbor(westernUnitedStates);
+            centralAmerica.addNeighbor(easternUnitedStates);
+            centralAmerica.addNeighbor(venezuela);
+                     
+            greenland.addNeighbor(northWestTerritory);
+            greenland.addNeighbor(ontario);
+            greenland.addNeighbor(quebec);
+            greenland.addNeighbor(iceland);
             
             
             
-            morocco.addNeighbor(singapore);
-            morocco.addNeighbor(southAfrica);
+            //South America
+            venezuela.addNeighbor(centralAmerica);
+            venezuela.addNeighbor(brazil);
+            venezuela.addNeighbor(peru);
             
-            southAfrica.addNeighbor(iran);
-            southAfrica.addNeighbor(morocco);
+            peru.addNeighbor(venezuela);
+            peru.addNeighbor(brazil);
+            peru.addNeighbor(argentina);
+            
+            brazil.addNeighbor(venezuela);
+            brazil.addNeighbor(peru);
+            brazil.addNeighbor(argentina);
+            brazil.addNeighbor(northAfrica);
+            
+            argentina.addNeighbor(peru);
+            argentina.addNeighbor(brazil);
+            
+            
+            
+            //Europe
+            iceland.addNeighbor(greenland);
+            iceland.addNeighbor(britain);
+            iceland.addNeighbor(scandinavia);
+
+            britain.addNeighbor(iceland);
+            britain.addNeighbor(scandinavia);
+            britain.addNeighbor(northernEurope);
+            britain.addNeighbor(westernEurope);
+            
+            scandinavia.addNeighbor(ukraine);
+            scandinavia.addNeighbor(northernEurope);
+            scandinavia.addNeighbor(britain);
+            scandinavia.addNeighbor(iceland);
+            
+            ukraine.addNeighbor(ural);
+            ukraine.addNeighbor(afghanistan);
+            ukraine.addNeighbor(middleEast);
+            ukraine.addNeighbor(southernEurope);
+            ukraine.addNeighbor(northernEurope);
+            ukraine.addNeighbor(scandinavia);
+           
+            northernEurope.addNeighbor(scandinavia);
+            northernEurope.addNeighbor(ukraine);
+            northernEurope.addNeighbor(southernEurope);
+            northernEurope.addNeighbor(westernEurope);
+            northernEurope.addNeighbor(britain);
+            
+            southernEurope.addNeighbor(northernEurope);
+            southernEurope.addNeighbor(ukraine);
+            southernEurope.addNeighbor(middleEast);
+            southernEurope.addNeighbor(egypt);
+            southernEurope.addNeighbor(northAfrica);
+            southernEurope.addNeighbor(westernEurope);
+            
+            westernEurope.addNeighbor(britain);
+            westernEurope.addNeighbor(northernEurope);
+            westernEurope.addNeighbor(southernEurope);
+            westernEurope.addNeighbor(northAfrica);
+            
+            
+            
+            //Africa
+            northAfrica.addNeighbor(westernEurope);
+            northAfrica.addNeighbor(southernEurope);
+            northAfrica.addNeighbor(egypt);
+            northAfrica.addNeighbor(eastAfrica);
+            northAfrica.addNeighbor(congo);
+            northAfrica.addNeighbor(brazil);
+            
+            egypt.addNeighbor(southernEurope);
+            egypt.addNeighbor(middleEast);
+            egypt.addNeighbor(eastAfrica);
+            egypt.addNeighbor(northAfrica);
+            
+            eastAfrica.addNeighbor(egypt);
+            eastAfrica.addNeighbor(middleEast);
+            eastAfrica.addNeighbor(madagascar);
+            eastAfrica.addNeighbor(southAfrica);
+            eastAfrica.addNeighbor(congo);
+            eastAfrica.addNeighbor(northAfrica);
+            
+            congo.addNeighbor(northAfrica);
+            congo.addNeighbor(eastAfrica);
+            congo.addNeighbor(southAfrica);
+
+            southAfrica.addNeighbor(congo);
+            southAfrica.addNeighbor(eastAfrica);
             southAfrica.addNeighbor(madagascar);
-            southAfrica.addNeighbor(argentina);
-            
-            madagascar.addNeighbor(afghanistan);
+
+            madagascar.addNeighbor(eastAfrica);
             madagascar.addNeighbor(southAfrica);
-            madagascar.addNeighbor(brasil);
-            madagascar.addNeighbor(venesuela);
-            
-            brasil.addNeighbor(egypt);
-            brasil.addNeighbor(madagascar);
-            brasil.addNeighbor(peru);
-            brasil.addNeighbor(eastCanada);
-            
-            peru.addNeighbor(brasil);
-            peru.addNeighbor(westCanada);
+
             
             
+            //Asia
+            middleEast.addNeighbor(ukraine);
+            middleEast.addNeighbor(afghanistan);
+            middleEast.addNeighbor(india);
+            middleEast.addNeighbor(eastAfrica);
+            middleEast.addNeighbor(egypt);
+            middleEast.addNeighbor(southernEurope);
             
-            argentina.addNeighbor(southAfrica);
-            argentina.addNeighbor(venesuela);
+            afghanistan.addNeighbor(ural);
+            afghanistan.addNeighbor(china);
+            afghanistan.addNeighbor(india);
+            afghanistan.addNeighbor(middleEast);
+            afghanistan.addNeighbor(ukraine);
+       
+            ural.addNeighbor(siberia);
+            ural.addNeighbor(china);
+            ural.addNeighbor(afghanistan);
+            ural.addNeighbor(ukraine);
             
-            venesuela.addNeighbor(madagascar);
-            venesuela.addNeighbor(argentina);
-            venesuela.addNeighbor(eastCanada);
-            venesuela.addNeighbor(westUSA);
+            india.addNeighbor(china);
+            india.addNeighbor(slam);
+            india.addNeighbor(middleEast);
+            india.addNeighbor(afghanistan);
             
-            eastCanada.addNeighbor(brasil);
-            eastCanada.addNeighbor(venesuela);
-            eastCanada.addNeighbor(westCanada);
-            eastCanada.addNeighbor(mexico);
+            china.addNeighbor(siberia);
+            china.addNeighbor(mongolia);
+            china.addNeighbor(slam);
+            china.addNeighbor(india);
+            china.addNeighbor(afghanistan);
+            china.addNeighbor(ural);
+          
+            siberia.addNeighbor(yakutsk);
+            siberia.addNeighbor(irkutsk);
+            siberia.addNeighbor(mongolia);
+            siberia.addNeighbor(china);
+            siberia.addNeighbor(ural);
             
-            westCanada.addNeighbor(peru);
-            westCanada.addNeighbor(eastCanada);
-            westCanada.addNeighbor(eastUSA);
-            westCanada.addNeighbor(eastAustralia);
+            slam.addNeighbor(china);
+            slam.addNeighbor(indonesia);
+            slam.addNeighbor(india);
+
+            mongolia.addNeighbor(irkutsk);
+            mongolia.addNeighbor(kamchatka);
+            mongolia.addNeighbor(japan);
+            mongolia.addNeighbor(china);
+            mongolia.addNeighbor(siberia);
+
+            irkutsk.addNeighbor(yakutsk);
+            irkutsk.addNeighbor(kamchatka);
+            irkutsk.addNeighbor(mongolia);
+            irkutsk.addNeighbor(siberia);
+
+            yakutsk.addNeighbor(kamchatka);
+            yakutsk.addNeighbor(irkutsk);
+            yakutsk.addNeighbor(siberia);
+
+            kamchatka.addNeighbor(alaska);
+            kamchatka.addNeighbor(japan);
+            kamchatka.addNeighbor(irkutsk);
+            kamchatka.addNeighbor(yakutsk);
+            kamchatka.addNeighbor(mongolia);
             
-            eastUSA.addNeighbor(westCanada);
-            eastUSA.addNeighbor(westAustralia);
+            japan.addNeighbor(kamchatka);
+            japan.addNeighbor(mongolia);
+                       
             
             
+            //Indian Ocean
+            indonesia.addNeighbor(slam);
+            indonesia.addNeighbor(newGuiena);
+            indonesia.addNeighbor(westernAustralia);
             
-            westUSA.addNeighbor(venesuela);
-            westUSA.addNeighbor(mexico);
-            
-            mexico.addNeighbor(eastCanada);
-            mexico.addNeighbor(westUSA);
-            mexico.addNeighbor(eastAustralia);
-            
-            eastAustralia.addNeighbor(westCanada);
-            eastAustralia.addNeighbor(mexico);
-            eastAustralia.addNeighbor(westAustralia);
-            
-            westAustralia.addNeighbor(eastUSA);
-            westAustralia.addNeighbor(eastAustralia);
-            westAustralia.addNeighbor(newZealand);
-            
-            newZealand.addNeighbor(westAustralia);
-                  
+            newGuiena.addNeighbor(indonesia);
+            newGuiena.addNeighbor(easternAustralia);
+            newGuiena.addNeighbor(westernAustralia);
+                      
+            westernAustralia.addNeighbor(indonesia);
+            westernAustralia.addNeighbor(newGuiena);
+            westernAustralia.addNeighbor(easternAustralia);
+                    
+            easternAustralia.addNeighbor(newGuiena);
+            easternAustralia.addNeighbor(westernAustralia);
             
         }
         return instance;
