@@ -1,6 +1,6 @@
 package ui;
 
-import domain.Controller;
+import domain.controllers.Controller;
 
 public class Main {
 

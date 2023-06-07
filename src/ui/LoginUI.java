@@ -1,9 +1,8 @@
 package ui;
 import javax.swing.*;
-import domain.Controller;
 
-import domain.UserManager;
-import domain.Controller;
+import domain.controllers.Controller;
+import domain.controllers.UserManager;
 import ui.MainMenu;
 
 import java.awt.*;

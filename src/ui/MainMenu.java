@@ -1,10 +1,11 @@
 package ui;
 import javax.swing.*;
+
+import domain.game.GameSetup;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import domain.GameSetup;
 
 public class MainMenu {
 //    public static void startNewGame() {

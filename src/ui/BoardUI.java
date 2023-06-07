@@ -2,13 +2,13 @@ package ui;
 
 import javax.swing.*;
 
-import domain.Controller;
-import domain.GameEnum;
-import domain.GameSetup;
-import domain.Player;
-import domain.PlayerController;
-import domain.Territory;
-import domain.TerritoryController;
+import domain.controllers.Controller;
+import domain.controllers.PlayerController;
+import domain.controllers.TerritoryController;
+import domain.game.GameEnum;
+import domain.game.GameSetup;
+import domain.player.Player;
+import domain.territory.Territory;
 import ui.UserNameUI;
 
 

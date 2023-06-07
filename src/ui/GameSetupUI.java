@@ -1,9 +1,9 @@
 package ui;
 import javax.swing.*;
 
-import domain.Controller;
-import domain.GameSetup;
-import domain.GameState;
+import domain.controllers.Controller;
+import domain.game.GameSetup;
+import domain.game.GameState;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

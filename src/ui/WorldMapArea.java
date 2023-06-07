@@ -1,8 +1,8 @@
 package ui;
 
-import domain.Territory;
-import domain.Controller;
-import domain.Player;
+import domain.controllers.Controller;
+import domain.player.Player;
+import domain.territory.Territory;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -171,7 +171,6 @@ public class WorldMapArea {
         System.out.println(shapeList.size());
         ui = new JPanel(new BorderLayout(4, 4));
         ui.setBorder(new EmptyBorder(4, 4, 4, 4));
-        
         output.addMouseMotionListener(new MousePositionListener());
         output.addMouseListener(new MouseClickListener());
         addListeners(new BoardActionListener());
@@ -413,8 +412,6 @@ public class WorldMapArea {
 		}
 		
 	}	
-
-
     
     public static boolean isIncluded(Color target, Color pixel, int tolerance) {
         int rT = target.getRed();

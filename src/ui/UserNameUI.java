@@ -1,11 +1,11 @@
 package ui;
 import javax.swing.*;
 
-import domain.Controller;
-import domain.GameSetup;
-import domain.GameState;
-import domain.Territory;
-import domain.TerritoryController;
+import domain.controllers.Controller;
+import domain.controllers.TerritoryController;
+import domain.game.GameSetup;
+import domain.game.GameState;
+import domain.territory.Territory;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
