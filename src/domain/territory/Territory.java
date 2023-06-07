@@ -22,6 +22,7 @@ public class Territory extends Observable {
     public Territory(String name, Player owner, Continent continent, int armyNum) {
         this.owner = owner;
         this.continent = continent;
+        continent.addTerritory(this);
         this.name = name;
         this.armyNum = armyNum;
         this.attach(UpdateController.getInstance());

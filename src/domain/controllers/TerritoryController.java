@@ -6,75 +6,68 @@ import java.util.List;
 import java.util.Random;
 
 import domain.player.Player;
-import domain.territory.Territory;
+import domain.territory.*;
 
 public class TerritoryController {
 
     private static TerritoryController instance;
 
-    static Territory alaska = new Territory("alaska",null,null,0);   
-    static  Territory northWestTerritory = new Territory("northWestTerritory", null, null,0);
-    static  Territory alberta= new Territory("alberta",null, null,0);
-    static  Territory ontario = new Territory("ontario",null, null,0);
-    static	Territory quebec = new Territory("quebec",null, null,0);
-    static	Territory westernUnitedStates = new Territory("westernUnitedStates",null, null,0);
-    static	Territory easternUnitedStates = new Territory("easternUnitedStates",null, null,0);
-    static	Territory centralAmerica = new Territory("centralAmerica",null, null,0);
-    static	Territory greenland  = new Territory("greenland",null, null,0);
+    static Continent northAmerica = new Continent();
+    static Continent southAmerica = new Continent();
+    static Continent africa = new Continent();
+    static Continent europe = new Continent();
+    static Continent oceania = new Continent();
+    static Continent asia = new Continent();
+
     
-    static	Territory venezuela = new Territory("venezuela",null, null,0);
-    static	Territory brazil = new Territory("brazil",null, null,0);
-    static	Territory peru = new Territory("peru",null, null,0);
-    static	Territory argentina = new Territory("argentina",null, null,0);
+    
+    static Territory alaska = new Territory("alaska",null,northAmerica,0);   
+    static  Territory northWestTerritory = new Territory("northWestTerritory", null, northAmerica,0);
+    static  Territory alberta= new Territory("alberta",null, northAmerica,0);
+    static  Territory ontario = new Territory("ontario",null, northAmerica,0);
+    static	Territory quebec = new Territory("quebec",null, northAmerica,0);
+    static	Territory westernUnitedStates = new Territory("westernUnitedStates",null, northAmerica,0);
+    static	Territory easternUnitedStates = new Territory("easternUnitedStates",null, northAmerica,0);
+    static	Territory centralAmerica = new Territory("centralAmerica",null, northAmerica,0);
+    static	Territory greenland  = new Territory("greenland",null, northAmerica,0);
+    
+    static	Territory venezuela = new Territory("venezuela",null, southAmerica,0);
+    static	Territory brazil = new Territory("brazil",null, southAmerica,0);
+    static	Territory peru = new Territory("peru",null, southAmerica,0);
+    static	Territory argentina = new Territory("argentina",null, southAmerica,0);
   
-    static	Territory iceland = new Territory("iceland",null, null,0);
-    static	Territory britain = new Territory("britain",null, null,0);
-    static	Territory scandinavia = new Territory("scandinavia",null, null,0);
-    static	Territory ukraine = new Territory("ukraine",null, null,0);
-    static	Territory northernEurope = new Territory("northernEurope",null, null,0);
-    static	Territory southernEurope = new Territory("southernEurope",null, null,0);
-    static	Territory westernEurope = new Territory("westernEurope",null, null,0);
+    static	Territory iceland = new Territory("iceland",null, africa,0);
+    static	Territory britain = new Territory("britain",null, africa,0);
+    static	Territory scandinavia = new Territory("scandinavia",null, africa,0);
+    static	Territory ukraine = new Territory("ukraine",null, africa,0);
+    static	Territory northernEurope = new Territory("northernEurope",null, africa,0);
+    static	Territory southernEurope = new Territory("southernEurope",null, africa,0);
+    static	Territory westernEurope = new Territory("westernEurope",null, africa,0);
     
-    static	Territory egypt = new Territory("egypt",null, null,0);
-    static	Territory northAfrica = new Territory("northAfrica",null, null,0);
-    static  Territory eastAfrica = new Territory("eastAfrica",null, null,0);
-    static	Territory congo = new Territory("congo",null, null,0);
-    static	Territory southAfrica = new Territory("southAfrica",null, null,0);
-    static	Territory madagascar = new Territory("madagascar",null, null,0);
+    static	Territory egypt = new Territory("egypt",null, europe,0);
+    static	Territory northAfrica = new Territory("northAfrica",null, europe,0);
+    static  Territory eastAfrica = new Territory("eastAfrica",null, europe,0);
+    static	Territory congo = new Territory("congo",null, europe,0);
+    static	Territory southAfrica = new Territory("southAfrica",null, europe,0);
+    static	Territory madagascar = new Territory("madagascar",null, europe,0);
     
-    static	Territory middleEast = new Territory("middleEast",null, null,0);
-    static	Territory afghanistan = new Territory("afghanistan",null, null,0);
-    static	Territory ural = new Territory("ural",null, null,0);
-    static	Territory siberia = new Territory("siberia",null, null,0);
-    static	Territory yakutsk = new Territory("yakutsk",null, null,0);
-    static	Territory irkutsk = new Territory("irkutsk",null, null,0);
-    static	Territory mongolia = new Territory("mongolia",null, null,0);
-    static	Territory china = new Territory("china",null, null,0);
-    static	Territory india = new Territory("india",null, null,0);
-    static	Territory slam = new Territory("slam",null, null,0);
-    static	Territory kamchatka = new Territory("kamchatka",null, null,0);
-    static	Territory japan = new Territory("japan",null, null,0);
+    static	Territory middleEast = new Territory("middleEast",null, asia,0);
+    static	Territory afghanistan = new Territory("afghanistan",null, asia,0);
+    static	Territory ural = new Territory("ural",null, asia,0);
+    static	Territory siberia = new Territory("siberia",null, asia,0);
+    static	Territory yakutsk = new Territory("yakutsk",null, asia,0);
+    static	Territory irkutsk = new Territory("irkutsk",null, asia,0);
+    static	Territory mongolia = new Territory("mongolia",null, asia,0);
+    static	Territory china = new Territory("china",null, asia,0);
+    static	Territory india = new Territory("india",null, asia,0);
+    static	Territory slam = new Territory("slam",null, asia,0);
+    static	Territory kamchatka = new Territory("kamchatka",null, asia,0);
+    static	Territory japan = new Territory("japan",null, asia,0);
     
-    static	Territory indonesia = new Territory("indonesia",null, null,0);
-    static	Territory newGuiena = new Territory("newGuiena",null, null,0);
-    static	Territory easternAustralia = new Territory("easternAustralia",null, null,0);
-    static	Territory westernAustralia = new Territory("westernAustralia",null, null,0);
-    
-    static Territory t1 = new Territory("t1",null,null,0);
-    static Territory t2 = new Territory("t2",null,null,0);
-    static Territory t3 = new Territory("t3",null,null,0);
-    static Territory t4 = new Territory("t4",null,null,0);
-    static Territory t5 = new Territory("t5",null,null,0);
-    static Territory t6 = new Territory("t6",null,null,0);
-    static Territory t7 = new Territory("t7",null,null,0);
-    static Territory t8 = new Territory("t8",null,null,0);
-    static Territory t9 = new Territory("t9",null,null,0);
-    static Territory t10 = new Territory("t10",null,null,0);
-    static Territory t11 = new Territory("t11",null,null,0);
-    static Territory t12 = new Territory("t12",null,null,0);
-    static Territory t13 = new Territory("t13",null,null,0);
-    static Territory t14 = new Territory("t14",null,null,0);
-    static Territory t15 = new Territory("t15",null,null,0);
+    static	Territory indonesia = new Territory("indonesia",null, oceania,0);
+    static	Territory newGuiena = new Territory("newGuiena",null, oceania,0);
+    static	Territory easternAustralia = new Territory("easternAustralia",null, oceania,0);
+    static	Territory westernAustralia = new Territory("westernAustralia",null, oceania,0);
     
     public Territory[] getAllTerritories() {
         Territory[] territories = new Territory[]{
