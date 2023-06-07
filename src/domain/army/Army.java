@@ -40,19 +40,19 @@ public class Army {
     
     //gives armyTypes for the given army type string 
     public static armyTypes transformType(String type) {
-    	switch (type){
-			case "Artillery":
-			case "ARTILLERY":
-            	return armyTypes.ARTILLERY;
-			case "Cavalry":
-			case "CAVALRY":
-            	return armyTypes.CAVALRY;
-			case "Infantry":
-			case "INFANTRY":
-            	return armyTypes.INFANTRY;
-        }
-		return null;
     	
+    	if(type.equalsIgnoreCase("Artillery")) {
+    		return armyTypes.ARTILLERY;
+    	}
+    	else if(type.equalsIgnoreCase("Cavalry")) {
+    		return armyTypes.CAVALRY;
+    	}
+    	else if(type.equalsIgnoreCase("Infantry")) {
+    		return armyTypes.INFANTRY;
+    	}
+    	else {
+    		return null;
+    	}    	
     }
 	 
     

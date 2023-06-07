@@ -9,14 +9,11 @@ import domain.player.Player;
 public class ArmyCard extends Card{
     
 	private armyTypes type;
+	private Player owner;
 
-	public ArmyCard(String type) {
-		super();
+	public ArmyCard(String type,Player player) {
 		this.type = Army.transformType(type);
-	}
-	
-	@Override
-	public void applyEffect(Player player) {
+		this.owner = player;
 	}
 	
 	/*changes army cards to obtain additional army
@@ -110,6 +107,11 @@ public class ArmyCard extends Card{
 	@Override
 	public String toString() {
 		return "ArmyCard [type=" + type + "]";
+	}
+
+	
+	public Player getOwner() {
+		return owner;
 	}
     
     

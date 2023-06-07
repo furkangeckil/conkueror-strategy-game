@@ -12,6 +12,4 @@ public abstract class Card {
 		this.owner=player;
 		player.addCardToPlayer(this);
 	}
-	
-	public abstract void applyEffect(Player player);
 }

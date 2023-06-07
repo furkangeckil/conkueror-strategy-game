@@ -1,6 +1,14 @@
 package domain.card;
 
-public class ChanceCard {
-	//Implement Chance Cards
+import domain.player.Player;
+
+public class ChanceCard extends Card{
 	
+	private String effect;
+	private Player owner;
+	
+	public ChanceCard(String effect, Player player) {
+		this.effect = effect;
+		this.owner = player;		
+	}
 }

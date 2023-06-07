@@ -2,21 +2,22 @@ package domain.card;
 
 import java.util.List;
 
+import domain.controllers.Controller;
 import domain.player.Player;
 import domain.territory.Territory;
 
 public class TerritoryCard extends Card{
 	
 	private Territory territory;
+	private Player owner;
 	private static int neededCard = 3;
 	
-	public TerritoryCard(Territory territory) {
-		super();
-		this.territory = territory;
+	public TerritoryCard(String territoryName, Player player) {
+		this.territory = Controller.getInstance().findTerritory(territoryName);
+		this.owner = player;
 	}
 	
 	//changes owner of the territory if the player have all territory cards for that territory
-	@Override
 	public void applyEffect(Player player) {
 		if(checkNumOfTerritoryCard(player.getCards())>neededCard) {
 			this.territory.getOwner().removeTerritoryFromPlayer(territory);
@@ -40,6 +41,10 @@ public class TerritoryCard extends Card{
 
 	public Territory getTerritory() {
 		return territory;
+	}
+
+	public Player getOwner() {
+		return owner;
 	}
 
 }
