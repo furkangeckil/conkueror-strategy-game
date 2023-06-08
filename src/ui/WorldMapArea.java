@@ -86,8 +86,8 @@ public class WorldMapArea {
 			{756,231}, //middleEast
 			{894,255}, //india
 			{140,258}, //centralAmerica
-			{573,285}, //northAfrica
 			{1007,302}, //slam
+			{573,285}, //northAfrica
 			{271,351}, //venezuela
 			{712,330}, //eastAfrica
 			{653,370}, //congo
