@@ -119,7 +119,7 @@ public class WorldMapArea {
     public final void initUI() throws Exception {
 
     	generateMap();
-        String filePath = "C:\\Users\\liqui\\Desktop\\map_with_black_outline_resized2.png";
+        String filePath = "map_with_black_outline_resized2.png";
         File imageFile = new File(filePath);
         
         image = ImageIO.read(imageFile);
