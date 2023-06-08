@@ -69,22 +69,51 @@ public class TerritoryController {
     static	Territory easternAustralia = new Territory("easternAustralia",null, oceania,0);
     static	Territory westernAustralia = new Territory("westernAustralia",null, oceania,0);
     
+    static	Territory t1 = new Territory("t1",null, oceania,0);
+    static	Territory t2 = new Territory("t2",null, oceania,0);
+    static	Territory t3 = new Territory("t3",null, oceania,0);
+    static	Territory t4 = new Territory("t4",null, oceania,0);
+    static	Territory t5 = new Territory("t5",null, oceania,0);
+    static	Territory t6 = new Territory("t6",null, oceania,0);
+    static	Territory t7 = new Territory("t7",null, oceania,0);
+    static	Territory t8 = new Territory("t8",null, oceania,0);
+    static	Territory t9 = new Territory("t9",null, oceania,0);
+    static	Territory t10 = new Territory("t10",null, oceania,0);
+    static	Territory t11 = new Territory("t11",null, oceania,0);
+    static	Territory t12= new Territory("t12",null, oceania,0);
+    static	Territory t13 = new Territory("t13",null, oceania,0);
+    static	Territory t14 = new Territory("t14",null, oceania,0);
+    static	Territory t15 = new Territory("t15",null, oceania,0);
+    static	Territory t16 = new Territory("t16",null, oceania,0);
+    static	Territory t17 = new Territory("t17",null, oceania,0);
+    static	Territory t18 = new Territory("t18",null, oceania,0);
+    static	Territory t19 = new Territory("t19",null, oceania,0);
+    static	Territory t20 = new Territory("t20",null, oceania,0);
+    static	Territory t21 = new Territory("t21",null, oceania,0);
+    static	Territory t22 = new Territory("t22",null, oceania,0);
+    static	Territory t23 = new Territory("t23",null, oceania,0);
+
+
+    
     public Territory[] getAllTerritories() {
         Territory[] territories = new Territory[]{
-        		null,null,null,northWestTerritory,
-        		iceland,greenland,null,alaska,
-        		null,scandinavia,null,yakutsk,britain,
-        		null,ural,ontario,alberta,
-        		northernEurope,irkutsk,null,siberia,
-        		quebec,kamchatka,ukraine,null,null,afghanistan,
-        		southernEurope,westernEurope,westernUnitedStates,mongolia,
-        		japan,null,easternUnitedStates,egypt,
-        		china,middleEast,india,centralAmerica,
-        		northAfrica,slam,venezuela,null,
-        		eastAfrica,congo,indonesia,newGuiena,
-        		null,peru,brazil,madagascar,
-        		southAfrica,null,westernAustralia,null,
-        		easternAustralia,argentina,     
+        		t1,t2,t3,t4,
+        		t5,t6,northWestTerritory,
+        		iceland,greenland,alaska,t7,
+        		scandinavia,yakutsk,ural,britain,
+        		alberta,ontario,northernEurope,irkutsk,
+        		t10,siberia,quebec,t9,
+        		kamchatka,ukraine,afghanistan,t13,southernEurope,
+        		t14,westernEurope,mongolia,westernUnitedStates,t12,
+        		japan,t11,easternUnitedStates,egypt,
+        		t8,china,middleEast,india,
+        		centralAmerica,slam,t16,northAfrica,
+        		t15,venezuela,t17,eastAfrica,
+        		t18,t23,congo,indonesia,t22,t21,newGuiena,
+        		t19,peru,t20,brazil,madagascar,
+        		southAfrica,westernAustralia,
+        		easternAustralia,argentina,
+        		
         };
         
         return territories;

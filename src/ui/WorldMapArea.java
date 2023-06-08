@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
 import javax.imageio.ImageIO;
 
@@ -34,65 +35,73 @@ public class WorldMapArea {
 	private int armyNum = 0;
 	private Area area;
     private ArrayList<Shape> shapeList;
-    private static final int SIZE = 750;
+    private static final int SIZE = 650;
     private BufferedImage image;
     private static boolean generated = false;
     
     private JLabel output = new JLabel();
     private JComponent ui = null;
+    private JTextArea infoBox = new JTextArea();
+    private JList<String> chanceCardList = new JList<>();
+    private JList<String> armyCardList = new JList<>();
+    private JList<String> territoryCardList = new JList<>();
+    private JTextField recruitArmyNumSelectField = new JTextField();
+    private JTextField fortifyArmyNumSelectField = new JTextField();
+    private JComboBox<String> tradeArmyOptionBox = new JComboBox<>();
+    private JButton useCardButton = new JButton("Use card");
     private JButton recruitButton = new JButton("Recruit");
 	private JButton attackButton = new JButton("Attack");
 	private JButton fortifyButton = new JButton("Fortify");
 	private JButton endTurnButton = new JButton("End Turn");
 	private JButton nextModeButton = new JButton("Next Mode");
 	private JButton exitButton = new JButton("Exit");
-    
+	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	private int[][] coordinateList = {
-    		{182,69}, //northWestTerritory
-    		{506,83}, //iceland
-    		{453,36}, //greenland
-    		{78,75}, //alaska
-    		{605,88}, //scandinavia
-    		{991,84}, //yakutsk
-    		{526,120}, //britain
-    		{788,92}, //ural
-    		{211,112}, //ontario
-    		{140,112}, //alberta
-    		{603,129}, //northernEurope
-    		{1005,131}, //irkutsk
-    		{873,84}, //siberia
-    		{304,125}, //quebec
-    		{1061,77}, //kamchatka
-    		{707,103}, //ukraine
-    		{783,148}, //afghanistan
-    		{631,160}, //southernEurope
-    		{535,183}, //westernEurope
-    		{119,179}, //westernUnitedStates
-    		{983,159}, //mongolia
-    		{1095,204}, //japan
-    		{207,186}, //easternUnitedStates
-    		{649,237}, //egypt
-    		{923,208}, //china
-    		{724,212}, //middleEast
-    		{857,246}, //india
-    		{131,250}, //centralAmerica
-    		{545,269}, //northAfrica
-    		{969,289}, //slam
-    		{258,334}, //venezuela
-    		{682,309}, //eastAfrica
-    		{627,361}, //congo
-    		{1023,368}, //indonesia
-    		{1141,390}, //newGuiena
-    		{245,406}, //peru
-    		{328,405}, //brazil
-    		{746,449}, //madagascar
-    		{648,450}, //southAfrica
-    		{1048,487}, //westernAustralia
-    		{1123,486}, //easternAustralia
-    		{296,514}, //argentina		   		 
+			{185,74}, //northWestTerritory
+			{524,83}, //iceland
+			{469,41}, //greenland
+			{81,80}, //alaska
+			{628,91}, //scandinavia
+			{1028,86}, //yakutsk
+			{545,123}, //britain
+			{814,97}, //ural
+			{223,119}, //ontario
+			{141,117}, //alberta
+			{629,136}, //northernEurope
+			{1043,135}, //irkutsk
+			{903,93}, //siberia
+			{306,138}, //quebec
+			{1101,79}, //kamchatka
+			{707,103}, //ukraine
+			{809,159}, //afghanistan
+			{659,166}, //southernEurope
+			{559,188}, //westernEurope
+			{134,187}, //westernUnitedStates
+			{1026,166}, //mongolia
+			{1134,207}, //japan
+			{221,192}, //easternUnitedStates
+			{675,243}, //egypt
+			{967,218}, //china
+			{756,231}, //middleEast
+			{894,255}, //india
+			{140,258}, //centralAmerica
+			{573,285}, //northAfrica
+			{1007,302}, //slam
+			{271,351}, //venezuela
+			{712,330}, //eastAfrica
+			{653,370}, //congo
+			{1064,375}, //indonesia
+			{1182,405}, //newGuiena
+			{258,423}, //peru
+			{345,426}, //brazil
+			{769,449}, //madagascar
+			{668,460}, //southAfrica
+			{1081,505}, //westernAustralia
+			{1169,498}, //easternAustralia
+			{306,538} //argentina		   		 
     };
-
-    
+  
     public WorldMapArea() {
         try {
         	initUI();
@@ -110,7 +119,7 @@ public class WorldMapArea {
     public final void initUI() throws Exception {
 
     	generateMap();
-        String filePath = "C:\\Users\\liqui\\Desktop\\map_with_black_outline.png";
+        String filePath = "C:\\Users\\liqui\\Desktop\\map_with_black_outline_resized2.png";
         File imageFile = new File(filePath);
         
         image = ImageIO.read(imageFile);
@@ -124,61 +133,142 @@ public class WorldMapArea {
         generateLabels();
         
         for(int i = 0; i<shapeList.size(); i++) { 
-        	territoryMap.put(territories[i], shapeList.get(i));	
-        	reverseTerritoryMap.put(shapeList.get(i), territories[i]);       	
-        	if(territories[i] != null) {
-        		if(territoryLabelMap.get(territories[i]) == null) {
-        			System.out.println("hereIam");
+        	if(i<territories.length) {
+        		territoryMap.put(territories[i], shapeList.get(i));	
+        		reverseTerritoryMap.put(shapeList.get(i), territories[i]);       	
+        		if(territories[i] != null) {
+        			labelShapeMap.put(territoryLabelMap.get(territories[i]), shapeList.get(i));
+        			reverseLabelShapeMap.put(shapeList.get(i), territoryLabelMap.get(territories[i]));          	
         		}
-        		labelShapeMap.put(territoryLabelMap.get(territories[i]), shapeList.get(i));
-            	reverseLabelShapeMap.put(shapeList.get(i), territoryLabelMap.get(territories[i]));          	
         	}
         	
         }
         
-        for (Map.Entry<Territory, JLabel> entry : territoryLabelMap.entrySet()) {
-            Territory territory = entry.getKey();
-            JLabel label = entry.getValue();
-            System.out.println("Territory: " + territory + ", Label: " + label);
+        JPanel actionPanel = new JPanel();
+        actionPanel.setLayout(new GridBagLayout());
+        
+        JPanel deckPanel = new JPanel();
+        deckPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
+        
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        
+        JPanel playerPanel = new JPanel();
+        playerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        
+        JPanel mapPanel = new JPanel();
+        mapPanel.setLayout(new BorderLayout());
+        
+        playerPanel.setBackground(Color.LIGHT_GRAY);
+        infoPanel.setBackground(Color.LIGHT_GRAY);
+        deckPanel.setBackground(Color.LIGHT_GRAY);
+        mapPanel.setBackground(Color.LIGHT_GRAY);
+        actionPanel.setBackground(Color.LIGHT_GRAY);
+        
+        
+        //Action panel which has the buttons.
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(5, 10, 20, 10);
+        
+        JLabel recruitArmyNumSelectLabel = new JLabel("Select army num:");
+        JLabel fortifyArmyNumSelectLabel = new JLabel("Select army num:");
+                
+        recruitArmyNumSelectLabel.setPreferredSize(new Dimension(100,20));
+        fortifyArmyNumSelectLabel.setPreferredSize(new Dimension(100,20));
+        recruitArmyNumSelectField.setPreferredSize(new Dimension(100,20));
+        fortifyArmyNumSelectField.setPreferredSize(new Dimension(100,20));
+        recruitButton.setPreferredSize(new Dimension(100,20));
+        attackButton.setPreferredSize(new Dimension(100,20));
+        fortifyButton.setPreferredSize(new Dimension(100,20));
+        nextModeButton.setPreferredSize(new Dimension(100,20));
+        endTurnButton.setPreferredSize(new Dimension(100,20));
+        
+        actionPanel.add(recruitArmyNumSelectLabel,gbc);
+        actionPanel.add(recruitArmyNumSelectField,gbc);
+        actionPanel.add(recruitButton,gbc);
+        actionPanel.add(attackButton,gbc);  
+        actionPanel.add(fortifyArmyNumSelectLabel,gbc);
+        actionPanel.add(fortifyArmyNumSelectField,gbc);
+        actionPanel.add(fortifyButton,gbc);
+        actionPanel.add(nextModeButton,gbc);
+        actionPanel.add(endTurnButton,gbc);
+
+        
+        
+        //Player panel that has the names. It doesn't work.
+        playerPanel.setPreferredSize(new Dimension(500,25));
+        for(int i = 0; i<Controller.getInstance().getNicknameList().size();i++) {
+        	JLabel label = new JLabel(Controller.getInstance().getNicknameList().get(i));
+        	label.setPreferredSize(new Dimension(30,20));
+        	playerPanel.add(label);
         }
         
-        for (Map.Entry<JLabel, Shape> entry : labelShapeMap.entrySet()) {
-            JLabel label = entry.getKey();
-            Shape region = entry.getValue();
-            System.out.println("Label: " + label + ", Shape: " + region);
-        }
         
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.add(recruitButton);
-        buttonPanel.add(attackButton);
-        buttonPanel.add(fortifyButton);
-        buttonPanel.add(endTurnButton);
-        buttonPanel.add(nextModeButton);
+        //Map panel that contains the map. I wouldn't bother changing it.
+        mapPanel.setPreferredSize(new Dimension(1465,750));
+        mapPanel.add(output,BorderLayout.NORTH);
         
+        //Info panel on the bottom. Need to implement to print game events here.
+        infoPanel.add(infoBox,Alignment.CENTER);  
+        infoPanel.setPreferredSize(new Dimension(500,100));
+        infoBox.setPreferredSize(new Dimension(1000,150));
+        
+        //Deck panel on the left.
+        tradeArmyOptionBox.addItem("1");
+        tradeArmyOptionBox.addItem("2");
+        tradeArmyOptionBox.addItem("3");
+        tradeArmyOptionBox.addItem("4");
+        tradeArmyOptionBox.addItem("5");
+        
+        tradeArmyOptionBox.setPreferredSize(new Dimension(100,50));
+        chanceCardList.setPreferredSize(new Dimension(150,140));
+        territoryCardList.setPreferredSize(new Dimension(150,140));
+        armyCardList.setPreferredSize(new Dimension(150,140));
+        useCardButton.setPreferredSize(new Dimension(150,30));
+        
+        JLabel tradeOptionLabel = new JLabel("Trade option");
+        JLabel armyCardLabel = new JLabel("Your army cards");
+        JLabel territoryCardLabel = new JLabel("Your territory cards");
+        JLabel chanceCardLabel = new JLabel("Your chance cards");
+        
+        tradeOptionLabel.setPreferredSize(new Dimension(150,15));
+        armyCardLabel.setPreferredSize(new Dimension(150,15));
+        territoryCardLabel.setPreferredSize(new Dimension(150,15));
+        chanceCardLabel.setPreferredSize(new Dimension(150,15));
+
+        deckPanel.add(tradeOptionLabel);
+        deckPanel.add(tradeArmyOptionBox);
+        deckPanel.add(armyCardLabel);
+        deckPanel.add(armyCardList);
+        deckPanel.add(territoryCardLabel);
+        deckPanel.add(territoryCardList);
+        deckPanel.add(chanceCardLabel);
+        deckPanel.add(chanceCardList);
+        deckPanel.add(useCardButton);
+        deckPanel.setPreferredSize(new Dimension(150,1080));
+
+        //Main panel holds all of them inside.   
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(output,BorderLayout.CENTER);
-        mainPanel.add(buttonPanel, BorderLayout.EAST);
+        mainPanel.add(infoPanel, BorderLayout.SOUTH);       
+        mainPanel.add(playerPanel, BorderLayout.NORTH);
+        mainPanel.add(actionPanel, BorderLayout.EAST);
+        mainPanel.add(deckPanel, BorderLayout.WEST);
+        mainPanel.add(mapPanel,BorderLayout.CENTER);
         
-//        JFrame frame = new JFrame("Example UI");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.getContentPane().add(mainPanel);
-//        
-//        // Display the frame
-//        frame.pack();
-//        frame.setVisible(true);
-        
-        System.out.println(shapeList.size());
-        ui = new JPanel(new BorderLayout(4, 4));
-        ui.setBorder(new EmptyBorder(4, 4, 4, 4));
+        ui = new JPanel(new BorderLayout());
+        ui.setPreferredSize(new Dimension(screenSize.width,screenSize.height));       
+        ui.add(mainPanel);
+       
         output.addMouseMotionListener(new MousePositionListener());
         output.addMouseListener(new MouseClickListener());
         addListeners(new BoardActionListener());
-        output.setLayout(null);
-        
-        ui.add(output);
-        ui.add(buttonPanel, BorderLayout.EAST);
         refresh();
+        
+        System.out.println(shapeList.size());
+        
+
     }
 
     public Area getOutline(Color target, BufferedImage bi, int tolerance) {
@@ -277,7 +367,9 @@ public class WorldMapArea {
 				}
 			}
 			if(territory != null) {
-				System.out.println("Selected territory: " + territory.getName());		
+				System.out.println("Selected territory: " + territory.getName());
+				System.out.println(clickPoint.getX() +","+clickPoint.getY());
+				
 
 				try{
 					if(mode == "recruit") {
@@ -508,8 +600,7 @@ public class WorldMapArea {
 
         return bi;
     }
-
-    
+   
     public static void updateTerritory (int playerIndex, String territoryName, int armyNum) {
     	BufferedImage bi = new BufferedImage(
                 2 * SIZE, SIZE, BufferedImage.TYPE_INT_RGB);
@@ -540,7 +631,8 @@ public class WorldMapArea {
             JFrame f = new JFrame(this.getClass().getSimpleName());
             f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             f.setLocationByPlatform(true);
-
+            f.setExtendedState(JFrame.MAXIMIZED_BOTH);          
+            f.setLocation(0,0);
             f.setContentPane(this.getUI());
             f.setResizable(false);
             f.pack();
@@ -627,7 +719,7 @@ public class WorldMapArea {
         if(generated == false) {
         	for (int i = 0; i < territories.length; i++) {
         		Territory territory = territories[i];
-        		if (territory != null && !territoryLabelMap.containsKey(territory)) {
+        		if (territory != null && !territoryLabelMap.containsKey(territory) && territory.getName().charAt(0) != 't') {
         			JLabel label = new JLabel(Integer.toString(Controller.getInstance().getTerritoryArmyNum(territory)));
         			Point labelPosition = new Point(coordinateList[j][0], coordinateList[j][1]);
         			label.setLocation(labelPosition);
