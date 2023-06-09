@@ -47,7 +47,7 @@ public class Player extends User {
     }
     
     public void attack(Territory attackerTerritory, Territory defenderTerritory) {
-        WarController.getInstance().rollSimpleDice( attackerTerritory, defenderTerritory  );
+        WarController.getInstance().compareDiceResults( attackerTerritory, defenderTerritory  );
     }
 
     public void fortify(Territory from, Territory to, int numArmy) {
