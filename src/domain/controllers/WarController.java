@@ -8,7 +8,19 @@ public class WarController {
     private static WarController instance;
     private AttackerDice attackerDice;
     private DefenderDice defenderDice;
+    private int[] attackDiceToBeShown = {1,1,1};
+    private int[] defendDiceToBeShown = {1,1};
+
     
+    
+
+    public int[] getAttackDiceToBeShown() {
+        return attackDiceToBeShown;
+    }
+
+    public int[] getDefendDiceToBeShown() {
+        return defendDiceToBeShown;
+    }
 
     public WarController() {
         attackerDice = new AttackerDice();
@@ -45,6 +57,8 @@ public class WarController {
     public void compareDiceResults(Territory attackerTerritory, Territory defenderTerritory) {
         int[] attackerResults = attackerDice.getDieResults();
         int[] defenderResults = defenderDice.getDieResults();
+        attackDiceToBeShown = attackerResults;
+        defendDiceToBeShown = defenderResults;
     
         sortDescending(attackerResults);
         sortDescending(defenderResults);
@@ -89,6 +103,8 @@ public class WarController {
         	defenderTerritory.addArmy(1);
         }
     }
+    
+    
     
 
 //    public void resolveBattle(Territory attackerTerritory, Territory defenderTerritory) {

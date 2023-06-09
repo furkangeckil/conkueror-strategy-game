@@ -50,6 +50,9 @@ public class BoardUI {
 	private static List<String> nicknameList;
 	private Territory fromTerritory = null;
 	private Territory toTerritory = null;
+	private ImageIcon[] diceImages = new ImageIcon[6];
+	private JLabel[] attackerDiceLabels = new JLabel[3];
+	private JLabel[] defenderDiceLabels = new JLabel[2];
 
 	private int armyNum;
 	
@@ -59,7 +62,30 @@ public class BoardUI {
             // and make territories their colors.
     };
     
+	public void updateDiceImages(int[] attackerDiceResults, int[] defenderDiceResults) {
+        for (int i = 0; i < 3; i++) {
+            attackerDiceLabels[i].setIcon(diceImages[attackerDiceResults[i] - 1]);  
+        }
+    
+        for (int i = 0; i < 2; i++) {
+            defenderDiceLabels[i].setIcon(diceImages[defenderDiceResults[i] - 1]);  
+        }
+    }
+
     public void showBoard(int numContinents, List<String> nicknameList, String[][] territoryMatrix) {
+
+		for (int i = 0; i < 6; i++) {
+			//try {
+			//	Image image = ImageIO.read(getClass().getResource("/diceAssets/dice1.png"));
+			//} catch (IOException e) {
+				// TODO Auto-generated catch block
+			//	e.printStackTrace();
+			//}
+			
+			diceImages[i] = new ImageIcon("/diceAssets/dice" + (i + 1) + ".png");
+
+		}
+		
         JFrame boardFrame = new JFrame("World Map");
         boardFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         boardFrame.setSize(1000, 600);
@@ -172,6 +198,27 @@ public class BoardUI {
 
         boardFrame.setVisible(true);
         addListeners(new BoardActionListener(), new BoardMouseListener());
+
+		
+    
+
+    for (int i = 0; i < 3; i++) {
+        attackerDiceLabels[i] = new JLabel();
+        attackerDiceLabels[i].setIcon(diceImages[0]); 
+        attackerDiceLabels[i].setBackground(Color.RED);
+        attackerDiceLabels[i].setOpaque(true);
+        actionPanel.add(attackerDiceLabels[i]);
+    }
+
+    for (int i = 0; i < 2; i++) {
+        defenderDiceLabels[i] = new JLabel();
+        defenderDiceLabels[i].setIcon(diceImages[0]); 
+        defenderDiceLabels[i].setBackground(Color.BLUE);
+        defenderDiceLabels[i].setOpaque(true);
+        actionPanel.add(defenderDiceLabels[i]);
+    }
+
+    
     }
     
     class BoardMouseListener implements MouseListener{

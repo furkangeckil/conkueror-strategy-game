@@ -57,6 +57,8 @@ public class Controller {
 		
 	}
 	
+	
+
 	public void updateTerritoryOnMap(Territory territory) {
 		WorldMapArea.updateTerritory (PlayerController.getInstance().getCurrentPlayerIndex(), territory.getName(), territory.getArmyNum());
 	}
@@ -103,6 +105,8 @@ public class Controller {
 		if(Validator.validateAttack(fromTerritory, toTerritory)) {
 			PlayerController.getInstance().getCurrentPlayer().attack(fromTerritory, toTerritory);
 			System.out.println(fromTerritory.getName() + "   " + toTerritory.getName());
+			
+			boardUI.updateDiceImages(WarController.getInstance().getAttackDiceToBeShown(), WarController.getInstance().getDefendDiceToBeShown());
 			return true;
 		}
 		return false;
