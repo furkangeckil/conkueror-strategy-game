@@ -88,7 +88,23 @@ public class ArmyCard extends Card{
     }
     
     //counts how many given army type cards are in the given card list
-    private static int checkNumOfArmyCard(List<Card> cards, armyTypes armyType) {
+    /**
+     * This method checks and counts the number of army cards of a specified type within a given list of cards.
+     *
+     * @param cards: The list of cards to check. These should be instances of Card, and can include ArmyCard or other types of cards.
+     *      Requires: A non-null list of Card instances.
+     * @param armyType: The type of the army for which cards will be counted. 
+     *      Requires: A non-null armyType of type Army.armyTypes.
+     *
+     * @return num: The number of ArmyCard instances in the input list that match the specified army type.
+     *
+     * Modifies: Nothing. This method does not change any fields or objects.
+     *
+     * Effects: This method traverses the input list and checks each Card instance to see if it is an ArmyCard 
+     *      and if its type matches the specified armyType. For each match, the method increments a counter. 
+     *      The method returns the final count.
+     */
+    public static int checkNumOfArmyCard(List<Card> cards, armyTypes armyType) {
 		int num = 0;
 		for (Card card : cards) {
 			if (card instanceof ArmyCard) {

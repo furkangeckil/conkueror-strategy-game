@@ -5,22 +5,24 @@ import java.util.ArrayList;
 public class PlayerController {
 	private GameState gameState;
 	private GameBoard gameBoard;
-	private ArrayList<Player> players;
-    private int currentPlayerIndex;
-
+	private ArrayList<Player> players = new ArrayList<Player>();
+    private int currentPlayerIndex = 0;
+    private static PlayerController instance;
 	
-	public PlayerController(GameState gameState, GameBoard gameBoard, ArrayList<Player> players) {
-		this.gameState = gameState;
-		this.gameBoard = gameBoard;
-		this.players = players;
-		this.currentPlayerIndex = 0;
+	private PlayerController() {
+		
 	}
 	
+	public static PlayerController getInstance() {
+		if (instance == null) {
+			instance = new PlayerController();
+			return instance;
+		}
+		else {
+			return instance;
+		}
+	}
     
-    public PlayerController(ArrayList<Player> players) {
-        this.players = players;
-        currentPlayerIndex = 0;
-    }
 
     public void assignTurn() {
         Player currentPlayer = players.get(currentPlayerIndex);
@@ -29,5 +31,20 @@ public class PlayerController {
     
     public Player getCurrentPlayer() {
         return players.get(currentPlayerIndex);
+    }
+    
+    
+    
+    public int getCurrentPlayerIndex() {
+		return currentPlayerIndex;
+	}
+
+
+	public void createPlayers(ArrayList<String> nickNames) {
+    	for (String nickName :  nickNames) {
+    		Player player = new Player(nickName);
+    		GameState.addPlayerToList(player);
+    		players.add(player);
+    	}
     }
 }

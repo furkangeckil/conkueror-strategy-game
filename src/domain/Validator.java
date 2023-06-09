@@ -52,7 +52,8 @@ public class Validator {
 
     public static boolean canPlaceArmies(Territory territory, Player player) {
         // Check if the territory is unoccupied or belongs to the player
-        return territory.getOwner() == null || territory.getOwner().equals(player);
+        //return territory.getOwner() == null || territory.getOwner().equals(player);
+    	return true;
     }
     
     public static boolean isBelongPlayer(Territory territory, Player player) {
