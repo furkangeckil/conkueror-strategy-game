@@ -2,8 +2,8 @@ package ui;
 
 import javax.swing.*;
 
-import domain.GameEnum;
-import domain.GameSetup;
+import domain.game.GameEnum;
+import domain.game.GameSetup;
 
 import java.awt.*;
 import java.util.ArrayList;

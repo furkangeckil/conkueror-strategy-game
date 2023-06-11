@@ -1,10 +1,11 @@
 package ui;
 import javax.swing.*;
+
+import domain.game.GameSetup;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import domain.GameSetup;
 
 public class MainMenu {
 //    public static void startNewGame() {
@@ -64,6 +65,7 @@ public class MainMenu {
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenuFrame.setSize(800, 600);
         mainMenuFrame.setLayout(new BorderLayout());
+        mainMenuFrame.setLocationRelativeTo(null);
 
         JLabel titleLabel = new JLabel("CONKUEROR", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
@@ -77,6 +79,7 @@ public class MainMenu {
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 mainMenuFrame.dispose();
                 GameSetupUI.showGameOptions();
             }

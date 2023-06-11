@@ -1,11 +1,11 @@
 package ui;
 import javax.swing.*;
 
-import domain.Controller;
-import domain.GameSetup;
-import domain.GameState;
-import domain.Territory;
-import domain.TerritoryController;
+import domain.controllers.Controller;
+import domain.controllers.TerritoryController;
+import domain.game.GameSetup;
+import domain.game.GameState;
+import domain.territory.Territory;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,6 +32,7 @@ public class UserNameUI {
         loginFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         loginFrame.setSize(400, 300);
         loginFrame.setLayout(new BorderLayout());
+        loginFrame.setLocationRelativeTo(null);
         //List<String> nicknameList = new ArrayList<>();
 
         JPanel loginPanel = new JPanel(new GridLayout(numPlayers, 2));
@@ -60,8 +61,11 @@ public class UserNameUI {
             		
             	}
                 loginFrame.dispose();
-                boardUI.showBoard(Controller.getInstance().getNumContinents(), Controller.getInstance().getNicknameList(), Controller.getInstance().getTerritoryMatrix());
+                LoadingAnimation loadingScreen = new LoadingAnimation();
+                loadingScreen.startAnimation();
+                WorldMapArea worldMapArea = new WorldMapArea();
                 Controller.getInstance().createPlayers(nicknameList);
+                continueButton.removeActionListener(this);
             }});
 
         loginFrame.add(continueButton, BorderLayout.SOUTH);
