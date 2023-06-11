@@ -1,9 +1,8 @@
 package ui;
 import javax.swing.*;
-import domain.Controller;
 
-import domain.UserManager;
-import domain.Controller;
+import domain.controllers.Controller;
+import domain.controllers.UserManager;
 import ui.MainMenu;
 
 import java.awt.*;
@@ -23,6 +22,7 @@ public class LoginUI {
         loginFrame = new JFrame("Login");
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setSize(300, 200);
+        loginFrame.setLocationRelativeTo(null);
 
         JPanel loginPanel = new JPanel(new GridLayout(3, 2));
 
@@ -56,10 +56,13 @@ public class LoginUI {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
 
-                Controller.getInstance().registerUser(username, password);
-                JOptionPane.showMessageDialog(loginFrame, "Registration successful");
-                mainMenu.startNewGame();
-                loginFrame.dispose();
+                if(Controller.getInstance().registerUser(username, password)) {
+                    JOptionPane.showMessageDialog(loginFrame, "Registration successful");
+                    mainMenu.startNewGame();
+                    loginFrame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(loginFrame, "Registration failed");
+                }
             }
         });
         
