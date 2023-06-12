@@ -472,7 +472,7 @@ public class WorldMapArea {
 					
 					getEndTurnButton().setBackground(null);
 
-					if(gameOverScreen.checkGameOver(territories)){
+					if(Controller.getInstance().checkGameOver()){
 
 						gameOverScreen.showScreen();
 					}

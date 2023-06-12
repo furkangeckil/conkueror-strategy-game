@@ -18,6 +18,12 @@ public class Validator {
     			System.out.println("Invalid number of attack units.");
     			return false;
     		}
+
+			if (attacker.isConnected(defender) == false) {
+        		System.out.println("Territories are not neighbors");
+        		return false;
+   			}
+
     	}catch(NullPointerException e){
     		System.out.println("This territory doesn't have an owner yet");
     	}
@@ -61,6 +67,11 @@ public class Validator {
             System.out.println("Invalid number of fortify units.");
             return false;
         }
+
+		if (source.isConnected(destination) == false) {
+        		System.out.println("Territories are not neighbors");
+        		return false;
+   			}
 
         // Add more validation rules as needed
 
