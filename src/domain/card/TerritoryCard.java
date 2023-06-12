@@ -46,5 +46,9 @@ public class TerritoryCard extends Card{
 	public Player getOwner() {
 		return owner;
 	}
-
+	
+	@Override
+	public String toString() {
+		return territory.getName() + "";
+	}
 }
