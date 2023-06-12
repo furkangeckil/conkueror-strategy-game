@@ -20,7 +20,7 @@ public class UserNameUI {
 	private BoardUI boardUI = new BoardUI();
 	private JButton continueButton = new JButton("Continue");
 	private JFrame loginFrame;
-	private ArrayList<String> nicknameList = new ArrayList<>();
+	private static ArrayList<String> nicknameList = new ArrayList<>();
 	private ArrayList<JTextField> nicknameFields = new ArrayList<>();
 	
     public void showLogin(ArrayList<Integer> gameOptions) {
@@ -84,7 +84,7 @@ public class UserNameUI {
 		return loginFrame;
 	}
 
-	public ArrayList<String> getNicknameList() {
+	public static ArrayList<String> getNicknameList() {
 		return nicknameList;
 	}
 

@@ -25,21 +25,12 @@ public class Player extends User {
     }
 
 
-    public void placeArmies(Territory territory) {
-        if (unassignedArmies > 0) {
-            if(territory.getOwner() == this) {
-            territory.addArmy(1);
-            unassignedArmies--;
-            } else if(territory.getOwner() == null) {
-            territory.addArmy(1);
-            unassignedArmies--;
-            territory.setOwner(this);
-            }else {
-            System.out.println("cannot place armies");
-            }
-        } else {
-            System.out.println("no army to recruit");
-        }
+    public void placeArmies(Territory territory,int number) {
+    	territory.addArmy(number);
+    	if(territory.getOwner() == null) {
+    		territory.setOwner(this);
+    	}
+    	this.unassignedArmies = this.unassignedArmies - number; 	
     }
     
     public void getTurnArmy (List<Territory> territories) {

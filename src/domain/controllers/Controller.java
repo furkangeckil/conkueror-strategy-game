@@ -42,7 +42,6 @@ public class Controller {
 	private ArrayList<String> nickNameList = new ArrayList<String>();
 		
 	private Controller() {
-		loginUI.showLoginScreen();
 	}
 
 	public static Controller getInstance(){
@@ -120,9 +119,9 @@ public class Controller {
 		return false;
 	}
 		
-	public boolean recruit(Territory toTerritory, Player currentPlayer) {
-		if(Validator.canPlaceArmies(toTerritory, currentPlayer)) {
-			currentPlayer.placeArmies(toTerritory);//should be modified
+	public boolean recruit(Territory toTerritory, Player currentPlayer, int number) {
+		if(Validator.validateRecruit(toTerritory,currentPlayer,number)) {
+			currentPlayer.placeArmies(toTerritory,number);
 			System.out.println("Territory Name: "+ toTerritory.getName());
 			return true;
 		}
@@ -135,6 +134,10 @@ public class Controller {
 
 	public Player getCurrentPlayer() {
 		return PlayerController.getInstance().getCurrentPlayer();
+	}
+	
+	public int getCurrentPlayerArmyNum() {
+		return PlayerController.getInstance().getCurrentPlayer().getUnassignedArmies();
 	}
 	
 	public Territory findTerritory(String name) {
@@ -163,6 +166,10 @@ public class Controller {
 	
 	public Player getOwner(Territory territory) {
 		return territory.getOwner();
+	}
+	
+	public boolean areInitialArmiesPlaced() {
+		return Validator.areInitialArmiesPlaced();
 	}
 	
 	public int getIndex(Player player) {

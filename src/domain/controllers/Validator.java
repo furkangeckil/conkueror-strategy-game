@@ -5,6 +5,8 @@ import domain.territory.Territory;
 
 public class Validator {
 
+	static private boolean areInitialArmiesPlaced = false;
+	
     public static boolean validateAttack(Territory attacker, Territory defender) {
     	try {
     		if (attacker.getOwner() == defender.getOwner()) {
@@ -24,13 +26,27 @@ public class Validator {
         return true;
     }
 
-    public static boolean validateRecruit(Territory territory, int recruitUnits) {
+    public static boolean validateRecruit(Territory territory,Player player, int recruitUnits) {
         if (recruitUnits < 1) {
             System.out.println("Invalid number of recruit units.");
             return false;
         }
-
-        // Add more validation rules as needed
+        if(player.getUnassignedArmies() < recruitUnits) {
+        	System.out.println("Not enough units.");
+        	return false;
+        }
+        	
+        if(areTerritoriesOccupied(TerritoryController.getInstance().getAllTerritories()))
+        	if(territory.getOwner() != player) {
+        		System.out.println("You are not the owner of this territory.");
+        		return false;
+        	}
+        
+        if(areTerritoriesOccupied(TerritoryController.getInstance().getAllTerritories()) == false) {
+        	if(territory.getOwner() != null) {
+        		return false;
+        	}
+        }
 
         return true;
     }
@@ -51,7 +67,6 @@ public class Validator {
         return true;
     }
 
-
     public static boolean canPlaceArmies(Territory territory, Player player) {
         
     	boolean canPlaceArmy = false;
@@ -59,12 +74,12 @@ public class Validator {
     	//Checks if the game is out of the initial sharing phase and if the player can place on the said territory.
     	
     	if(player.getUnassignedArmies() > 0) {
-    		//if(areTerritoriesOccupied(TerritoryController.getInstance().getAllTerritories()) == false & territory.getOwner() == null){
-    			//canPlaceArmy = true;
-    		//}
-    		//else if(areTerritoriesOccupied(TerritoryController.getInstance().getAllTerritories()) & belongsToPlayer(territory,player)) {
+    		if(areTerritoriesOccupied(TerritoryController.getInstance().getAllTerritories()) == false & territory.getOwner() == null){
     			canPlaceArmy = true;
-    		//}
+    		}
+    		else if(areTerritoriesOccupied(TerritoryController.getInstance().getAllTerritories()) & belongsToPlayer(territory,player)) {
+    			canPlaceArmy = true;
+    		}
     	}
         return canPlaceArmy;
     }
@@ -93,4 +108,23 @@ public class Validator {
     	return occupied;
     }
     
+    public static boolean areInitialArmiesPlaced() {
+    	
+    	int i = 0;
+    	
+    	for(Player player : PlayerController.getInstance().getPlayers()) {
+    		if(player.getUnassignedArmies() == 0) {
+    			i++;
+    		}
+    	}
+    	
+    	if(i == PlayerController.getInstance().getPlayers().size()) {
+    		areInitialArmiesPlaced = true;
+    	}
+    	
+    	return areInitialArmiesPlaced;
+    }
+
+    
+
 }
