@@ -43,6 +43,9 @@ public class WorldMapArea {
     private static boolean generated = false;
     
     private JLabel output = new JLabel();
+    private JLabel playerNameLabel = new JLabel();
+    private JLabel playerArmyNumLabel = new JLabel();
+    private JLabel modeLabel = new JLabel();
     private JComponent ui = null;
     private JTextArea infoBox = new JTextArea();
     private JList<String> chanceCardList = new JList<>();
@@ -71,10 +74,10 @@ public class WorldMapArea {
 			{81,80}, //alaska
 			{628,91}, //scandinavia
 			{1028,86}, //yakutsk
-			{545,123}, //britain
 			{814,97}, //ural
-			{223,119}, //ontario
+			{545,123}, //britain			
 			{141,117}, //alberta
+			{223,119}, //ontario		
 			{629,136}, //northernEurope
 			{1043,135}, //irkutsk
 			{903,93}, //siberia
@@ -84,8 +87,8 @@ public class WorldMapArea {
 			{809,159}, //afghanistan
 			{659,166}, //southernEurope
 			{559,188}, //westernEurope
-			{134,187}, //westernUnitedStates
 			{1026,166}, //mongolia
+			{134,187}, //westernUnitedStates
 			{1134,207}, //japan
 			{221,192}, //easternUnitedStates
 			{675,243}, //egypt
@@ -130,11 +133,7 @@ public class WorldMapArea {
         File imageFile = new File(filePath);
         
         image = ImageIO.read(imageFile);
-        long then = System.currentTimeMillis();
-        System.out.println("" + then);
-        area = getOutline(Color.WHITE, image, 12);
-        long now = System.currentTimeMillis();
-        System.out.println("Time in mins: " + (now - then) / 60000d);
+        area = getOutline(Color.WHITE, image, 12);          
         shapeList = separateShapeIntoRegions(area);
         
         generateLabels();
@@ -152,7 +151,7 @@ public class WorldMapArea {
         }
         
         JPanel actionPanel = new JPanel();
-        actionPanel.setLayout(new GridBagLayout());
+        actionPanel.setLayout(new BoxLayout(actionPanel, BoxLayout.Y_AXIS));
         
         JPanel deckPanel = new JPanel();
         deckPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
@@ -178,10 +177,13 @@ public class WorldMapArea {
         gbc.gridx = 0;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(5, 10, 20, 10);
+        gbc.weightx = 1.0; // New element 1: horizontal weight
+        gbc.weighty = 0.0;
         
         JLabel recruitArmyNumSelectLabel = new JLabel("Select army num:");
         JLabel fortifyArmyNumSelectLabel = new JLabel("Select army num:");
-                
+        playerNameLabel.setPreferredSize(new Dimension(100,20));
+        playerArmyNumLabel.setPreferredSize(new Dimension(100,20));
         recruitArmyNumSelectLabel.setPreferredSize(new Dimension(100,20));
         fortifyArmyNumSelectLabel.setPreferredSize(new Dimension(100,20));
         recruitArmyNumSelectField.setPreferredSize(new Dimension(100,20));
@@ -194,6 +196,9 @@ public class WorldMapArea {
         exitButton.setPreferredSize(new Dimension(100,20));
         pauseButton.setPreferredSize(new Dimension(100,20));
         
+        actionPanel.add(playerNameLabel);
+        actionPanel.add(playerArmyNumLabel);
+        actionPanel.add(modeLabel);
         actionPanel.add(recruitArmyNumSelectLabel,gbc);
         actionPanel.add(recruitArmyNumSelectField,gbc);
         actionPanel.add(recruitButton,gbc);
@@ -388,32 +393,34 @@ public class WorldMapArea {
 					if(mode == "recruit") {
 						toTerritory = territory;
 						getRecruitButton().setBackground(Color.GREEN);
+						addMessage("Recruit to: " + fromTerritory.getName() + "\n");
 					}
-					else if(mode == "attack") {
-						getNextModeButton().setBackground(null);
+					else if(mode == "attack") {						
 						if(fromTerritory == null) {
 							fromTerritory = territory;
 							//System.out.println(fromTerritory.getName());
                             //infoBox.append(fromTerritory.getName() + "\n");
-                            addMessage(fromTerritory.getName() + "\n");
+                            addMessage("Attack from: " + fromTerritory.getName() + "\n");
 						}
 						else if(toTerritory == null) {
 							toTerritory = territory;
 							//System.out.println(toTerritory.getName());
                             //infoBox.append(toTerritory.getName() + "\n");
-                            addMessage(toTerritory.getName() + "\n");
-						}
-						getAttackButton().setBackground(Color.GREEN);
+                            addMessage("Attack to: " + toTerritory.getName() + "\n");
+                            getAttackButton().setBackground(Color.GREEN);
+						}						
 					}
-					else if(mode == "fortify") {
-						getAttackButton().setBackground(null);
+					else if(mode == "fortify") {						
 						if(fromTerritory == null) {
 							fromTerritory = territory;
+							addMessage("Fortify from: " + fromTerritory.getName() + "\n");
 						}
 						else if(toTerritory == null) {
 							toTerritory = territory;
+							addMessage("Fortify to: " + toTerritory.getName() + "\n");
+							getFortifyButton().setBackground(Color.GREEN);
 						}
-						getFortifyButton().setBackground(Color.GREEN);
+						
 					}
 				}
 				catch(NumberFormatException ex){
@@ -456,18 +463,19 @@ public class WorldMapArea {
 			try{
 				
 				if(getNextModeButton() == e.getSource()) {
+					if(Controller.getInstance().areInitialArmiesPlaced()) {
 						nextMode();
-						//System.out.println(mode);
-                        //infoBox.append(mode + "\n");
                         addMessage(mode + "\n");
 						refreshSelectedTerritories();
+						refreshPlayerLabels();
+					}											
 				}
 				
 				else if(getEndTurnButton()==e.getSource()){
 					
 					getEndTurnButton().setBackground(null);
 					
-					//if(!Controller.getInstance().areTerritoriesOccupied()){
+					/roller.getInstance().areTerritoriesOccupied()){/if(!Cont
                         if(gameOverScreen.checkGameOver(territories)){
                             
                             gameOverScreen.showScreen();
@@ -477,45 +485,60 @@ public class WorldMapArea {
 						    refreshSelectedTerritories();
                         }
 					//}
-					if(mode == "fortify") {
+					
+
 						Controller.getInstance().endTurn();
 						refreshSelectedTerritories();
 						//System.out.println("end turn button, currentplayer: "+ currentPlayer.getName());
                         //infoBox.append("end turn button, currentplayer: "+ currentPlayer.getName() + "\n");
-                        addMessage("end turn button, currentplayer: "+ currentPlayer.getName() + "\n");
+						addMessage("end turn button, currentplayer: "+ currentPlayer.getName() + "\n");
 						mode = "recruit";
-						
-					}
-				}
+						refreshPlayerLabels();
+						refreshSelectedTerritories();
+				
 				else {
 					
 					if(mode == "recruit" && getRecruitButton() == e.getSource()) {
 						
-						
-						//if(Controller.getInstance().areTerritoriesOccupied()) {
-							if(Controller.getInstance().recruit(toTerritory,currentPlayer)) {
-								getRecruitButton().setBackground(null);
-								getNextModeButton().setBackground(Color.GREEN);
+						if(Controller.getInstance().areTerritoriesOccupied()) {
+							
+							if(Controller.getInstance().areInitialArmiesPlaced() == false) {
+								if(Controller.getInstance().recruit(toTerritory,currentPlayer,Integer.parseInt(recruitArmyNumSelectField.getText()))) {									
+									Controller.getInstance().endTurn();
+									refreshPlayerLabels();
+									refreshSelectedTerritories();
+									getRecruitButton().setBackground(null);
+								};
+							}				
+							else if(Controller.getInstance().recruit(toTerritory,currentPlayer,Integer.parseInt(recruitArmyNumSelectField.getText()))) {																
 								refreshSelectedTerritories();
-							};
-						//}
-						//else {
-							if(Controller.getInstance().recruit(toTerritory,currentPlayer)) {
+								refreshPlayerLabels();
 								getRecruitButton().setBackground(null);
+							};
+						}
+						else {
+							if(Controller.getInstance().recruit(toTerritory,currentPlayer,1)) {								
 								Controller.getInstance().endTurn();
+								refreshPlayerLabels();	
+								getRecruitButton().setBackground(null);
 							}
-						
-						//}
+							refreshSelectedTerritories();
+						}
 					}
 					else if(mode == "attack" && getAttackButton()==e.getSource()) {
-						Controller.getInstance().attack(fromTerritory, toTerritory);
-						getAttackButton().setBackground(null);
-						getNextModeButton().setBackground(Color.GREEN);													
+						if(Controller.getInstance().attack(fromTerritory, toTerritory)) {
+							getAttackButton().setBackground(null);							
+							refreshPlayerLabels();
+						};			
+						refreshSelectedTerritories();
 					}
-					else if(mode == "fortify" && getFortifyButton()==e.getSource()){
+					else if(mode == "fortify" && getFortifyButton()==e.getSource()){						
+						if(Controller.getInstance().fortify(fromTerritory,toTerritory,Integer.parseInt(fortifyArmyNumSelectField.getText()))) {
+							getEndTurnButton().setBackground(Color.GREEN);
+							refreshPlayerLabels();							
+						}						
+						refreshSelectedTerritories();
 						getFortifyButton().setBackground(null);
-						Controller.getInstance().fortify(fromTerritory, toTerritory,armyNum);
-						getEndTurnButton().setBackground(Color.GREEN);
 					}
 				}
                 if(getPauseButton()==e.getSource()){
@@ -764,7 +787,7 @@ public class WorldMapArea {
         			JLabel label = new JLabel(Integer.toString(Controller.getInstance().getTerritoryArmyNum(territory)));
         			Point labelPosition = new Point(coordinateList[j][0], coordinateList[j][1]);
         			label.setLocation(labelPosition);
-        			label.setSize(new Dimension(10, 10));
+        			label.setSize(new Dimension(18, 10));
         			label.setVisible(true);
         			label.setFont(label.getFont().deriveFont(Font.BOLD, 10));
         			label.setOpaque(false);
@@ -781,6 +804,12 @@ public class WorldMapArea {
         }
     }
 
+    public void refreshPlayerLabels() {
+    	playerNameLabel.setText("Player :" + UserNameUI.getNicknameList().get(Controller.getInstance().getCurrentPlayerIndex()));
+		playerArmyNumLabel.setText("Army num: " + Integer.toString(Controller.getInstance().getCurrentPlayerArmyNum()));
+		modeLabel.setText(getCurrentMode());
+    }
+    
     public void addMessage(String message) {
         // Add the new message to the list and the JTextArea
         messages.add(message);
