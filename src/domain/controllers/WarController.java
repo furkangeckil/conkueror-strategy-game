@@ -3,6 +3,7 @@
 import domain.territory.Territory;
 import domain.util.AttackerDice;
 import domain.util.DefenderDice;
+import domain.util.Dice;
 
 public class WarController {
     private static WarController instance;
@@ -62,33 +63,27 @@ public class WarController {
         }
     }
 
-    public int[] rollSimpleDice(Territory attackerTerritory, Territory defenderTerritory) {
-        int[] attackerResults = attackerDice.getDieResults();
-        int[] defenderResults = defenderDice.getDieResults();
-
-        int attackerDice = attackerResults[0];
-        int defenderDice = defenderResults[0];
-
-        if(Validator.validateAttack(attackerTerritory, defenderTerritory)) {
-        	if (attackerDice > defenderDice ) {
-        		defenderTerritory.removeArmy(1);
-        		if(defenderTerritory.getArmyNum() == 0) {
-        			defenderTerritory.setOwner(attackerTerritory.getOwner());
-        		}
-        	} else {
-        		attackerTerritory.removeArmy(2);
-        	}
+    public void rollSimpleDice(Territory attackerTerritory, Territory defenderTerritory) {
+    	Dice dice = new Dice();
+    	int attackerResult = dice.roll(); 
+    	int defenderResult = dice.roll();
 
 
-        	int[] result = new int[2];
-        	result[0] = attackerDice;
-        	result[1] = defenderDice;
+    			if (attackerResult > defenderResult ) {
+    				defenderTerritory.removeArmy(1);
+    				if(defenderTerritory.getArmyNum() <= 0) {
+    					defenderTerritory.setOwner(attackerTerritory.getOwner());
+    					defenderTerritory.setArmyNum(1);
+    					attackerTerritory.removeArmy(1);
+    				}
+    			} else {
+    				attackerTerritory.removeArmy(2);
+    			}
+
+
+             
         
-        return result;
-        }
-        else {
-        	return null;
-        }
+        
     }
     
 
