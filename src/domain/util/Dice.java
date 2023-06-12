@@ -7,7 +7,7 @@ public class Dice {
     private Random rand;
 
     public Dice() {
-        rand = new Random();
+        rand = new Random(System.currentTimeMillis());
     }
 
     public int roll() {

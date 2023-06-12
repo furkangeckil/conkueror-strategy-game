@@ -3,6 +3,7 @@
 import domain.territory.Territory;
 import domain.util.AttackerDice;
 import domain.util.DefenderDice;
+import domain.util.Dice;
 
 public class WarController {
     private static WarController instance;
@@ -63,25 +64,26 @@ public class WarController {
     }
 
     public void rollSimpleDice(Territory attackerTerritory, Territory defenderTerritory) {
-        int[] attackerResults = attackerDice.getDieResults();
-        int[] defenderResults = defenderDice.getDieResults();
+    	Dice dice = new Dice();
+    	int attackerResult = dice.roll(); 
+    	int defenderResult = dice.roll();
 
-        int attackerDice = attackerResults[0];
-        int defenderDice = defenderResults[0];
-        
-        System.out.println("Attacker rolled " + attackerDice + " and the defender rolled " + defenderDice);
 
-        if (attackerDice > defenderDice ) {
-            attackerTerritory.removeArmy(2);
-        } else {
-            defenderTerritory.removeArmy(1);
-        }
+    			if (attackerResult > defenderResult ) {
+    				defenderTerritory.removeArmy(1);
+    				if(defenderTerritory.getArmyNum() <= 0) {
+    					defenderTerritory.setOwner(attackerTerritory.getOwner());
+    					defenderTerritory.setArmyNum(1);
+    					attackerTerritory.removeArmy(1);
+    				}
+    			} else {
+    				attackerTerritory.removeArmy(2);
+    			}
+
+
+             
         
-        if(defenderTerritory.getArmyNum() == 0) {
-        	defenderTerritory.setOwner(attackerTerritory.getOwner());
-        	attackerTerritory.removeArmy(1);
-        	defenderTerritory.addArmy(1);
-        }
+        
     }
     
 

@@ -96,6 +96,17 @@ public class Controller {
 	public void endTurn() {
 		PlayerController.getInstance().assignTurn();
 		System.out.println("end turn button, currentplayer: " + PlayerController.getInstance().getCurrentPlayer() + "\n");
+		
+		if(Validator.areInitialArmiesPlaced()) {
+			int count = 0;
+			Territory[] territories = TerritoryController.getInstance().getAllTerritories();
+			for(int i = 0; i < territories.length; i++) {
+				if(territories[i] != null && territories[i].getOwner() == PlayerController.getInstance().getCurrentPlayer()) {
+					count++;
+				}
+			}
+			PlayerController.getInstance().getCurrentPlayer().addUnassignedArmies((int)Math.floor(count/3));
+		}
 	}
 
 	public boolean attack(Territory fromTerritory, Territory toTerritory) {

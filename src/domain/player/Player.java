@@ -113,10 +113,15 @@ public class Player extends User {
     }
 
 
+
 	@Override
 	public String toString() {
 		return name + "";
 	}
     
+
     
+    public void addUnassignedArmies(int i) {
+        unassignedArmies += i;
+    }
 }
