@@ -106,7 +106,7 @@ public class ArmyCard extends Card{
 
 	@Override
 	public String toString() {
-		return "ArmyCard [type=" + type + "]";
+		return type + "";
 	}
 
 	

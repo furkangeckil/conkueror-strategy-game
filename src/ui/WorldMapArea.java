@@ -476,7 +476,7 @@ public class WorldMapArea {
 
 						gameOverScreen.showScreen();
 					}
-
+					Controller.getInstance().giveRandomCardToPlayer();
 					Controller.getInstance().endTurn();
 					refreshSelectedTerritories();
 					//System.out.println("end turn button, currentplayer: "+ currentPlayer.getName());

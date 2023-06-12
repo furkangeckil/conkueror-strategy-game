@@ -13,7 +13,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import domain.army.Army.armyTypes;
+import domain.card.Card;
+import domain.card.CardFactory;
+import domain.card.TerritoryCard;
 import domain.game.GameSetup;
 import domain.game.GameState;
 import domain.player.Player;
@@ -194,5 +199,34 @@ public class Controller {
         else {
             return false;
         }
+    }
+    
+    public void giveRandomCardToPlayer() {
+        Random random = new Random();
+        
+        // Randomly decide whether to create a territory card or an army card
+        if (random.nextBoolean()) {
+            // Create a territory card
+            Territory territory = getRandomTerritory();
+            Card card = CardFactory.createCard("Territory", territory.getName(), getCurrentPlayer()); 
+            System.out.println(territory.getName()+" territory card is given to player " + getCurrentPlayer().getName());
+        } else {
+            // Create an army card
+        	
+            armyTypes[] armyTypes = domain.army.Army.armyTypes.values();
+            armyTypes selectedArmy = armyTypes[random.nextInt(3)];
+            Card card = CardFactory.createCard("Army", selectedArmy.name(), getCurrentPlayer());
+            System.out.println(selectedArmy.name() +" army card is given to player " + getCurrentPlayer().getName());
+        }
+    }
+    
+    public Territory getRandomTerritory() {
+    	Territory[] territories = getAllTerritories(); 
+        Random random = new Random();
+        Territory territory = null;
+        while (territory == null) {
+            territory = territories[random.nextInt(territories.length)];
+        }
+        return territory;
     }
 }
