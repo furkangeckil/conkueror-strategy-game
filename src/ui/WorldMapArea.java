@@ -1,6 +1,7 @@
 package ui;
 
 import domain.controllers.Controller;
+import domain.game.Game;
 import domain.player.Player;
 import domain.territory.Territory;
 
@@ -59,6 +60,7 @@ public class WorldMapArea {
 	private JButton exitButton = new JButton("Exit");
     private JButton pauseButton = new JButton("Pause");
 	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private GameOverScreen gameOverScreen = new GameOverScreen();
 
     private List<String> messages = new LinkedList<>();
 	
@@ -466,8 +468,14 @@ public class WorldMapArea {
 					getEndTurnButton().setBackground(null);
 					
 					//if(!Controller.getInstance().areTerritoriesOccupied()){
-						Controller.getInstance().endTurn();
-						refreshSelectedTerritories();
+                        if(gameOverScreen.checkGameOver(territories)){
+                            
+                            gameOverScreen.showScreen();
+                        }
+                        else{
+						    Controller.getInstance().endTurn();
+						    refreshSelectedTerritories();
+                        }
 					//}
 					if(mode == "fortify") {
 						Controller.getInstance().endTurn();
