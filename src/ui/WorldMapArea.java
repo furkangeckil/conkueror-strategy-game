@@ -1,6 +1,7 @@
 package ui;
 
 import domain.controllers.Controller;
+import domain.game.Game;
 import domain.player.Player;
 import domain.territory.Territory;
 
@@ -62,6 +63,7 @@ public class WorldMapArea {
 	private JButton exitButton = new JButton("Exit");
     private JButton pauseButton = new JButton("Pause");
 	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private GameOverScreen gameOverScreen = new GameOverScreen();
 
     private List<String> messages = new LinkedList<>();
 	
@@ -473,6 +475,18 @@ public class WorldMapArea {
 					
 					getEndTurnButton().setBackground(null);
 					
+					/roller.getInstance().areTerritoriesOccupied()){/if(!Cont
+                        if(gameOverScreen.checkGameOver(territories)){
+                            
+                            gameOverScreen.showScreen();
+                        }
+                        else{
+						    Controller.getInstance().endTurn();
+						    refreshSelectedTerritories();
+                        }
+					//}
+					
+
 						Controller.getInstance().endTurn();
 						refreshSelectedTerritories();
 						//System.out.println("end turn button, currentplayer: "+ currentPlayer.getName());
@@ -481,7 +495,7 @@ public class WorldMapArea {
 						mode = "recruit";
 						refreshPlayerLabels();
 						refreshSelectedTerritories();
-				}
+				
 				else {
 					
 					if(mode == "recruit" && getRecruitButton() == e.getSource()) {
