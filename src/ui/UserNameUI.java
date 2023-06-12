@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserNameUI {
-	private BoardUI boardUI = new BoardUI();
 	private JButton continueButton = new JButton("Continue");
 	private JFrame loginFrame;
 	private static ArrayList<String> nicknameList = new ArrayList<>();

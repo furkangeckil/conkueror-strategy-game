@@ -281,9 +281,6 @@ public class WorldMapArea {
         output.addMouseListener(new MouseClickListener());
         addListeners(new BoardActionListener());
         refresh();
-        
-        System.out.println(shapeList.size());
-        
 
     }
 
@@ -474,27 +471,21 @@ public class WorldMapArea {
 				else if(getEndTurnButton()==e.getSource()){
 					
 					getEndTurnButton().setBackground(null);
-					
-					/roller.getInstance().areTerritoriesOccupied()){/if(!Cont
-                        if(gameOverScreen.checkGameOver(territories)){
-                            
-                            gameOverScreen.showScreen();
-                        }
-                        else{
-						    Controller.getInstance().endTurn();
-						    refreshSelectedTerritories();
-                        }
-					//}
-					
 
-						Controller.getInstance().endTurn();
-						refreshSelectedTerritories();
-						//System.out.println("end turn button, currentplayer: "+ currentPlayer.getName());
-                        //infoBox.append("end turn button, currentplayer: "+ currentPlayer.getName() + "\n");
-						addMessage("end turn button, currentplayer: "+ currentPlayer.getName() + "\n");
-						mode = "recruit";
-						refreshPlayerLabels();
-						refreshSelectedTerritories();
+					if(gameOverScreen.checkGameOver(territories)){
+
+						gameOverScreen.showScreen();
+					}
+
+					Controller.getInstance().endTurn();
+					refreshSelectedTerritories();
+					//System.out.println("end turn button, currentplayer: "+ currentPlayer.getName());
+					//infoBox.append("end turn button, currentplayer: "+ currentPlayer.getName() + "\n");
+					addMessage("end turn button, currentplayer: "+ currentPlayer.getName() + "\n");
+					mode = "recruit";
+					refreshPlayerLabels();
+					refreshSelectedTerritories();
+					}
 				
 				else {
 					
@@ -550,15 +541,13 @@ public class WorldMapArea {
                     System.exit(0);
                 }
 			
-			}
-
-			catch(NumberFormatException ex){
+			}catch(NumberFormatException ex){
 				
 				System.out.println(ex);
 				
 				
 			}
-			
+		
 		}
 		
 	}	

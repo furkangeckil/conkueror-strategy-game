@@ -16,28 +16,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameOverScreen {
-    public boolean checkGameOver(Territory[] territories) {
-        int numTerritories = territories.length;
-        int count = 0;
 
-        for(int i = 0; i < numTerritories; i++) {
-            if(territories[i].getOwner() == Controller.getInstance().getCurrentPlayer()) {
-                count++;
-            }
-        }
-
-        if(count == 42) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
     public void showScreen() {
         Territory[] territories = Controller.getInstance().getAllTerritories();
 
-        if(checkGameOver(territories)) {
+        if(Controller.getInstance().checkGameOver()) {
             JFrame frame = new JFrame("Game Over");
             JLabel label = new JLabel("Player " + Controller.getInstance().getCurrentPlayer().getName() + " has won the game!");
             label.setFont(new Font("Arial", Font.BOLD, 30));

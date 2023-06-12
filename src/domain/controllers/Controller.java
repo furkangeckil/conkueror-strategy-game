@@ -1,7 +1,6 @@
 package domain.controllers;
 
 
-import ui.BoardUI;
 import ui.GameSetupUI;
 import ui.LoginUI;
 import ui.MainMenu;
@@ -15,12 +14,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import domain.game.GameSetup;
 import domain.game.GameState;
 import domain.player.Player;
@@ -29,7 +22,6 @@ import domain.territory.Territory;
 public class Controller {
 	private LoginUI loginUI = new LoginUI();
 	private MainMenu mainMenuUI = new MainMenu();
-	private BoardUI boardUI= new BoardUI();
 	private GameState gameState;
 	private GameSetupUI gameSetupUI = new GameSetupUI();
 	private UserNameUI userNameUI = new UserNameUI();
@@ -184,4 +176,23 @@ public class Controller {
 		
 		return index;
 	}
+	
+    public boolean checkGameOver() {
+        Territory[] territories = getAllTerritories();
+    	int numTerritories = territories.length;
+        int count = 0;
+
+        for(int i = 0; i < numTerritories; i++) {
+            if(territories[i] != null && territories[i].getOwner() == Controller.getInstance().getCurrentPlayer()) {
+                count++;
+            }
+        }
+
+        if(count == 42) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
