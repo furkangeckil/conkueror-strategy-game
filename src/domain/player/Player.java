@@ -111,4 +111,8 @@ public class Player extends User {
     public int getUnassignedArmies() {
     	return this.unassignedArmies;
     }
+    
+    public void addUnassignedArmies(int i) {
+        unassignedArmies += i;
+    }
 }
