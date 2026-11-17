@@ -42,7 +42,7 @@ This was a course project and was left unfinished in some areas:
 - There is no save/load support for a game in progress.
 
 ## Team
-- [@mgeckil18](https://github.com/mgeckil18) (Mehmet Furkan Geçkil)
+- [@furkangeckil](https://github.com/furkangeckil) (Mehmet Furkan Geçkil)
 - [@Liquiduck](https://github.com/Liquiduck)
 - [@AlibayOsmanli](https://github.com/AlibayOsmanli)
 - Ronas Yüce
