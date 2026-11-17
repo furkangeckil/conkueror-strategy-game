@@ -1,0 +1,5 @@
+bin/
+*.class
+users.txt
+*.iml
+.DS_Store
